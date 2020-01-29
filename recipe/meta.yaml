@@ -30,7 +30,7 @@ build:
     - '*'
 
 outputs:
-  - name: sysroot-{{ target_platform }}
+  - name: sysroot_{{ target_platform }}
     script: build-sysroot.sh
     test:
       commands:
