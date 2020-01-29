@@ -26,50 +26,11 @@ Current build status
 ====================
 
 
-<table>
-    
-  <tr>
-    <td>Azure</td>
+<table><tr><td>All platforms:</td>
     <td>
-      <details>
-        <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8889&branchName=master">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/linux-sysroot-feedstock?branchName=master">
-          </a>
-        </summary>
-        <table>
-          <thead><tr><th>Variant</th><th>Status</th></tr></thead>
-          <tbody><tr>
-              <td>linux_target_platformlinux-64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8889&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/linux-sysroot-feedstock?branchName=master&jobName=linux&configuration=linux_target_platformlinux-64" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_target_platformosx-64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8889&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/linux-sysroot-feedstock?branchName=master&jobName=osx&configuration=osx_target_platformosx-64" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_target_platformwin-64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8889&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/linux-sysroot-feedstock?branchName=master&jobName=win&configuration=win_target_platformwin-64" alt="variant">
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </details>
-    </td>
-  </tr>
-  <tr>
-    <td>Linux_ppc64le</td>
-    <td>
-      <img src="https://img.shields.io/badge/ppc64le-disabled-lightgrey.svg" alt="ppc64le disabled">
+      <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8889&branchName=master">
+        <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/linux-sysroot-feedstock?branchName=master">
+      </a>
     </td>
   </tr>
 </table>
@@ -79,7 +40,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot--linux--64-green.svg)](https://anaconda.org/conda-forge/sysroot-linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot-linux-64.svg)](https://anaconda.org/conda-forge/sysroot-linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot-linux-64.svg)](https://anaconda.org/conda-forge/sysroot-linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot-linux-64.svg)](https://anaconda.org/conda-forge/sysroot-linux-64) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot_linux--64-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) |
 
 Installing linux-sysroot
 ========================
@@ -90,16 +51,16 @@ Installing `linux-sysroot` from the `conda-forge` channel can be achieved by add
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `sysroot-linux-64` can be installed with:
+Once the `conda-forge` channel has been enabled, `sysroot_linux-64` can be installed with:
 
 ```
-conda install sysroot-linux-64
+conda install sysroot_linux-64
 ```
 
-It is possible to list all of the versions of `sysroot-linux-64` available on your platform with:
+It is possible to list all of the versions of `sysroot_linux-64` available on your platform with:
 
 ```
-conda search sysroot-linux-64 --channel conda-forge
+conda search sysroot_linux-64 --channel conda-forge
 ```
 
 

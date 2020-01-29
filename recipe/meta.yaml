@@ -30,8 +30,10 @@ build:
     - '*'
 
 outputs:
-  - name: sysroot-{{ target_platform }}
+  - name: sysroot_{{ target_platform }}
     script: build-sysroot.sh
+    build:
+      noarch: generic
     test:
       commands:
         - test -f $PREFIX/x86_64-conda-linux-gnu/sysroot/lib/libc.so.6
