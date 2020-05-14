@@ -8,19 +8,19 @@ source:
     sha256: 247b58681972da7ddfa7ba2ae2e5b3a3fe4399acd12f756c157547a97eb323b9
     folder: binary
   - url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/glibc-common-2.17-307.el7.1.x86_64.rpm
-    sha256: 721dfba71f7402d94070fe155f468666f2b785d56a638eec3d6ba3dc97fbef75
+    sha256: fa6f445d704de3eb0ec01107f30bbdcbc3a7a480e72e428e34760c8c2d0de8a0
     folder: binary-glibc-common
   - url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/glibc-devel-2.17-307.el7.1.x86_64.rpm
-    sha256: 65b97f1f868afc090b1beec846490d1e6974751f188fd42b1ebc59d1c2866549
+    sha256: 17d0e74b6f6c7ba7708caeafef20e0e95de9072f9f46c187298700a83ead66c
     folder: binary-glibc-devel
   - url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/tzdata-2019c-1.el7.noarch.rpm
-    sha256: d66cde6ab07be8739b2222c0463cc7c0218a55f1f825944545cef692107ae685
+    sha256: a467bd14a5f0fec9e6227eae6aac92c155947a102e818c2bb62e2339e44a694a
     folder: binary-tzdata
   - url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/glibc-headers-2.17-307.el7.1.x86_64.rpm
-    sha256: 7f1f3a2cf562465f2c18031e4e76734987ea8489c1202301e019dfb722ff5031
+    sha256: 49b1d791d06fe488dd95112a4bc391df58b6d3a85b686867abfa3b6608e0314e
     folder: binary-glibc-headers
   - url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/kernel-headers-3.10.0-1127.el7.x86_64.rpm
-    sha256: 93b20d547637e3d25a9604b8034334afa910f61898da0f265a3969a68bf8cc6d
+    sha256: a78a986498e77a803d33823db7d77edcde1d0431f8d19e089649404ddcf62c9f
     folder: binary-kernel-headers
 
 build:
