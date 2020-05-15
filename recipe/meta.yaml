@@ -8,7 +8,7 @@ source:
     url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/glibc-2.17-307.el7.1.x86_64.rpm  # [linux64]
     sha256: 247b58681972da7ddfa7ba2ae2e5b3a3fe4399acd12f756c157547a97eb323b9                          # [linux64]
     url: http://mirror.centos.org/altarch/7/os/aarch64/Packages/glibc-2.17-307.el7.1.aarch64.rpm      # [aarch64]
-    sha266: 0d86de50873347411a40c7e7f27d39c58c64de8b7893ba9ee6be351754c484ec                          # [aarch64]
+    sha256: 0d86de50873347411a40c7e7f27d39c58c64de8b7893ba9ee6be351754c484ec                          # [aarch64]
 
   - url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/glibc-common-2.17-307.el7.1.x86_64.rpm
     sha256: fa6f445d704de3eb0ec01107f30bbdcbc3a7a480e72e428e34760c8c2d0de8a0
