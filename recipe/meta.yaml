@@ -5,10 +5,9 @@ package:
 
 source:
   - folder: binary
-    url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/glibc-2.17-307.el7.1.x86_64.rpm  # [linux64]
-    sha256: 247b58681972da7ddfa7ba2ae2e5b3a3fe4399acd12f756c157547a97eb323b9                          # [linux64]
-    url: http://mirror.centos.org/altarch/7/os/aarch64/Packages/glibc-2.17-307.el7.1.aarch64.rpm      # [aarch64]
-    sha256: 0d86de50873347411a40c7e7f27d39c58c64de8b7893ba9ee6be351754c484ec                          # [aarch64]
+    url: {{ rpm_url }}/glibc-2.17-307.el7.1.x86_64.rpm
+    sha256: 247b58681972da7ddfa7ba2ae2e5b3a3fe4399acd12f756c157547a97eb323b9                          # [cross_target_platform == "linux-64"]
+    sha256: 0d86de50873347411a40c7e7f27d39c58c64de8b7893ba9ee6be351754c484ec                          # [cross_target_platform == "linux-aarch64"]
 
   - url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/glibc-common-2.17-307.el7.1.x86_64.rpm
     sha256: fa6f445d704de3eb0ec01107f30bbdcbc3a7a480e72e428e34760c8c2d0de8a0
@@ -34,19 +33,19 @@ build:
     - '*'
 
 outputs:
-  - name: sysroot_{{ target_platform }}
+  - name: sysroot_{{ cross_target_platform }}
     script: build-sysroot.sh
     build:
       noarch: generic
     test:
       commands:
-        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/lib/libc.so.6
-        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/sbin/ldconfig
-        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
-        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/usr/include/limits.h
-        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h
-        - test -d $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/usr/share/locale
-        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/usr/bin/ldd
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/sbin/ldconfig
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/limits.h
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h
+        - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
 
 about:
   home: http://sources.redhat.com/glibc/
