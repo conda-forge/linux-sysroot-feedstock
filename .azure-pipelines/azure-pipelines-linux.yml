@@ -8,8 +8,12 @@ jobs:
     vmImage: ubuntu-16.04
   strategy:
     matrix:
-      linux_target_platformlinux-64:
-        CONFIG: linux_target_platformlinux-64
+      linux_cross_target_platformlinux-64rpm_urlhttp://mirror.centos.org/centos/7.8.2003/os/x86_64/Packagestarget_machinex86_64:
+        CONFIG: linux_cross_target_platformlinux-64rpm_urlhttp://mirror.centos.org/centos/7.8.2003/os/x86_64/Packagestarget_machinex86_64
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: condaforge/linux-anvil-comp7
+      linux_cross_target_platformlinux-aarch64rpm_urlhttp://mirror.centos.org/altarch/7/os/aarch64/Packagestarget_machineaarch64:
+        CONFIG: linux_cross_target_platformlinux-aarch64rpm_urlhttp://mirror.centos.org/altarch/7/os/aarch64/Packagestarget_machineaarch64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
     maxParallel: 8
