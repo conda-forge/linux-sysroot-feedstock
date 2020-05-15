@@ -1,10 +1,10 @@
-arch:
-- x86_64
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
 docker_image:
 - condaforge/linux-anvil-comp7
+myarch:
+- x86_64
 target_platform:
 - linux-64

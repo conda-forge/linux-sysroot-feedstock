@@ -40,7 +40,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot_linux--64-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot_osx--64-green.svg)](https://anaconda.org/conda-forge/sysroot_osx-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_osx-64.svg)](https://anaconda.org/conda-forge/sysroot_osx-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_osx-64.svg)](https://anaconda.org/conda-forge/sysroot_osx-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_osx-64.svg)](https://anaconda.org/conda-forge/sysroot_osx-64) |
 
 Installing linux-sysroot
 ========================
@@ -51,16 +51,16 @@ Installing `linux-sysroot` from the `conda-forge` channel can be achieved by add
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `sysroot_linux-64` can be installed with:
+Once the `conda-forge` channel has been enabled, `sysroot_osx-64` can be installed with:
 
 ```
-conda install sysroot_linux-64
+conda install sysroot_osx-64
 ```
 
-It is possible to list all of the versions of `sysroot_linux-64` available on your platform with:
+It is possible to list all of the versions of `sysroot_osx-64` available on your platform with:
 
 ```
-conda search sysroot_linux-64 --channel conda-forge
+conda search sysroot_osx-64 --channel conda-forge
 ```
 
 

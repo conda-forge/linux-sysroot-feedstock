@@ -27,6 +27,7 @@ source:
     folder: binary-kernel-headers
 
 build:
+  skip: true  # [not linux]
   number: {{ build_number }}
   noarch: generic
   missing_dso_whitelist:
@@ -39,13 +40,13 @@ outputs:
       noarch: generic
     test:
       commands:
-        - test -f $PREFIX/{{ arch }}-conda-linux-gnu/sysroot/lib/libc.so.6
-        - test -f $PREFIX/{{ arch }}-conda-linux-gnu/sysroot/sbin/ldconfig
-        - test -f $PREFIX/{{ arch }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
-        - test -f $PREFIX/{{ arch }}-conda-linux-gnu/sysroot/usr/include/limits.h
-        - test -f $PREFIX/{{ arch }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h
-        - test -d $PREFIX/{{ arch }}-conda-linux-gnu/sysroot/usr/share/locale
-        - test -f $PREFIX/{{ arch }}-conda-linux-gnu/sysroot/usr/bin/ldd
+        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/lib/libc.so.6
+        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/sbin/ldconfig
+        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
+        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/usr/include/limits.h
+        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h
+        - test -d $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/usr/share/locale
+        - test -f $PREFIX/{{ myarch }}-conda-linux-gnu/sysroot/usr/bin/ldd
 
 about:
   home: http://sources.redhat.com/glibc/
