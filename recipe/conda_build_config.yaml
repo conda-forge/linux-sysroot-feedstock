@@ -5,7 +5,7 @@ target_machine:
 centos_machine:
   - x86_64
   - aarch64
-  - ppc6464le
+  - ppc64le
 cross_target_platform:
   - linux-64
   - linux-aarch64
