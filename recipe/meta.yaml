@@ -36,7 +36,8 @@ source:
     sha256: 89ff7a55c845b8bf224956d40f80f8279a734d0499006de581dd267754def148  # [cross_target_platform == "linux-aarch64"]
 
   - folder: binary-kernel-headers
-    url: {{ rpm_url }}/kernel-headers-3.10.0-1127.el7.{{ target_machine }}.rpm
+    url: {{ rpm_url }}/kernel-headers-3.10.0-1127.el7.{{ target_machine }}.rpm     # [cross_target_platform == "linux-64"]
+    url: {{ rpm_url }}/kernel-headers-4.18.0-147.8.1.el7.{{ target_machine }}.rpm  # [cross_target_platform == "linux-aarch64"]
     sha256: a78a986498e77a803d33823db7d77edcde1d0431f8d19e089649404ddcf62c9f  # [cross_target_platform == "linux-64"]
     sha256: 9e9ea85efa4c1e20c1978fca84bb7f8ba17e7ad610717af2929c4d71ff384060  # [cross_target_platform == "linux-aarch64"]
 
