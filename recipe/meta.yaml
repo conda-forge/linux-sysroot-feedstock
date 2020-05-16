@@ -56,9 +56,11 @@ outputs:
     script: build-sysroot.sh
     build:
       noarch: generic
-    requirements:
-      run_constrained:
+    run_exports:
+      strong:
         - __glibc >={{ version }},<3.0.a0
+    track_features:
+      - sysroot_{{ cross_target_platform }}_{{ version }}
     test:
       commands:
         - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/*/*/*
