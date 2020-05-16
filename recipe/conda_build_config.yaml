@@ -4,10 +4,6 @@ target_machine:
 cross_target_platform:
   - linux-64
   - linux-aarch64
-rpm_url:
-  - http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages
-  - http://mirror.centos.org/altarch/7/os/aarch64/Packages
 zip_keys:
   - - target_machine
     - cross_target_platform
-    - rpm_url

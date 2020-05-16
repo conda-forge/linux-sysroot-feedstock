@@ -1,13 +1,20 @@
 {% set build_number = "0" %}
+
+{% if cross_target_platform == "linux-64" %}
+{% set rpm_url = "http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages" %}
+{% elif cross_target_platform == "linux-aarch64" %}
+{% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}
+{% endif %}
+
 package:
   name: linux-sysroot
   version: 2.17
 
 source:
   - folder: binary
-    url: {{ rpm_url }}/glibc-2.17-307.el7.1.x86_64.rpm
-    sha256: 247b58681972da7ddfa7ba2ae2e5b3a3fe4399acd12f756c157547a97eb323b9                          # [cross_target_platform == "linux-64"]
-    sha256: 0d86de50873347411a40c7e7f27d39c58c64de8b7893ba9ee6be351754c484ec                          # [cross_target_platform == "linux-aarch64"]
+    url: {{ rpm_url }}/glibc-2.17-307.el7.1.{{ target_machine }}.rpm
+    sha256: 247b58681972da7ddfa7ba2ae2e5b3a3fe4399acd12f756c157547a97eb323b9  # [cross_target_platform == "linux-64"]
+    sha256: 0d86de50873347411a40c7e7f27d39c58c64de8b7893ba9ee6be351754c484ec  # [cross_target_platform == "linux-aarch64"]
 
   - url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/glibc-common-2.17-307.el7.1.x86_64.rpm
     sha256: fa6f445d704de3eb0ec01107f30bbdcbc3a7a480e72e428e34760c8c2d0de8a0
@@ -26,7 +33,6 @@ source:
     folder: binary-kernel-headers
 
 build:
-  skip: true  # [not linux]
   number: {{ build_number }}
   noarch: generic
   missing_dso_whitelist:
@@ -49,8 +55,8 @@ outputs:
 
 about:
   home: http://sources.redhat.com/glibc/
-  license: LGPLv2+ and LGPLv2+ with exceptions and GPLv2+
-  license_family: GPL2
+  license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
+  license_family: GPL
   # license files are packaged with source
   summary: "(CDT) The GNU libc libraries and header files for the Linux kernel for use by glibc"
   description: |
@@ -70,3 +76,4 @@ extra:
   recipe-maintainers:
     - isuruf
     - scopatz
+    - beckermr

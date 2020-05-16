@@ -3,7 +3,7 @@ About linux-sysroot
 
 Home: http://sources.redhat.com/glibc/
 
-Package license: LGPLv2+ and LGPLv2+ with exceptions and GPLv2+
+Package license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
 
 Feedstock license: BSD 3-Clause
 
@@ -128,6 +128,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@beckermr](https://github.com/beckermr/)
 * [@isuruf](https://github.com/isuruf/)
 * [@scopatz](https://github.com/scopatz/)
 
