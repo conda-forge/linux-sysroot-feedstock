@@ -1,5 +1,5 @@
 centos_machine:
-- ppc6464le
+- ppc64le
 channel_sources:
 - conda-forge,defaults
 channel_targets:
