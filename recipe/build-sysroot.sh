@@ -10,9 +10,13 @@ cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/
 cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
 
-mv lib64 lib
+mkdir -p lib
+mv lib64/* lib
+rm -rf lib64
+
 mv usr/lib64/* usr/lib/
 rm -rf usr/lib64
+
 ln -s $PWD/lib $PWD/lib64
 ln -s $PWD/usr/lib $PWD/usr/lib64
 
