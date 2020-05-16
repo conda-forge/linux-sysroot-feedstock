@@ -55,6 +55,9 @@ outputs:
     script: build-sysroot.sh
     build:
       noarch: generic
+    equirements:
+      run_constrained:
+        - {{ pin_subpackage('__glibc', max_pin='x') }}
     test:
       commands:
         - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/*/*/*
