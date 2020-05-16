@@ -3,7 +3,7 @@ About linux-sysroot
 
 Home: http://sources.redhat.com/glibc/
 
-Package license: LGPLv2+ and LGPLv2+ with exceptions and GPLv2+
+Package license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
 
 Feedstock license: BSD 3-Clause
 
@@ -41,6 +41,8 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot_linux--64-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot_linux--aarch64-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-aarch64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-aarch64.svg)](https://anaconda.org/conda-forge/sysroot_linux-aarch64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-aarch64.svg)](https://anaconda.org/conda-forge/sysroot_linux-aarch64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-aarch64.svg)](https://anaconda.org/conda-forge/sysroot_linux-aarch64) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot_linux--ppc64le-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-ppc64le) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-ppc64le.svg)](https://anaconda.org/conda-forge/sysroot_linux-ppc64le) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-ppc64le.svg)](https://anaconda.org/conda-forge/sysroot_linux-ppc64le) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-ppc64le.svg)](https://anaconda.org/conda-forge/sysroot_linux-ppc64le) |
 
 Installing linux-sysroot
 ========================
@@ -51,10 +53,10 @@ Installing `linux-sysroot` from the `conda-forge` channel can be achieved by add
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `sysroot_linux-64` can be installed with:
+Once the `conda-forge` channel has been enabled, `sysroot_linux-64, sysroot_linux-aarch64, sysroot_linux-ppc64le` can be installed with:
 
 ```
-conda install sysroot_linux-64
+conda install sysroot_linux-64 sysroot_linux-aarch64 sysroot_linux-ppc64le
 ```
 
 It is possible to list all of the versions of `sysroot_linux-64` available on your platform with:
@@ -127,6 +129,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@beckermr](https://github.com/beckermr/)
 * [@isuruf](https://github.com/isuruf/)
 * [@scopatz](https://github.com/scopatz/)
 
