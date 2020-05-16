@@ -15,3 +15,5 @@ mv usr/lib64/* usr/lib/
 rm -rf usr/lib64
 ln -s $PWD/lib $PWD/lib64
 ln -s $PWD/usr/lib $PWD/usr/lib64
+
+popd
