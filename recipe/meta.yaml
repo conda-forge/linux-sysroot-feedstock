@@ -55,7 +55,7 @@ outputs:
     script: build-sysroot.sh
     build:
       noarch: generic
-    equirements:
+    requirements:
       run_constrained:
         - {{ pin_subpackage('__glibc', max_pin='x') }}
     test:
