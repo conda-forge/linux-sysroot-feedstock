@@ -33,7 +33,7 @@ outputs:
 
 about:
   home: https://github.com/conda-forge/ctng-compilers-feedstock
-  license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
+  license: GPL-3.0-with-GCC-exception
   license_family: GPL
   license_file: info/recipe/parent/LICENSE
   summary: "(CDT) The GNU libc libraries and header files for the Linux kernel for use by glibc"
