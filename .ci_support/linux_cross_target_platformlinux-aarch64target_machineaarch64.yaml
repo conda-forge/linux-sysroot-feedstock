@@ -1,0 +1,13 @@
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- conda-forge main
+cross_target_platform:
+- linux-aarch64
+docker_image:
+- condaforge/linux-anvil-comp7
+target_machine:
+- aarch64
+zip_keys:
+- - target_machine
+  - cross_target_platform
