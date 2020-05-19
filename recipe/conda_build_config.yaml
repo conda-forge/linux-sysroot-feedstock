@@ -1,16 +1,7 @@
 target_machine:
   - x86_64
-  - aarch64
-  - powerpc64le
-centos_machine:
-  - x86_64
-  - aarch64
-  - ppc64le
 cross_target_platform:
   - linux-64
-  - linux-aarch64
-  - linux-ppc64le
 zip_keys:
   - - target_machine
     - cross_target_platform
-    - centos_machine
