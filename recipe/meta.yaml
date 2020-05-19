@@ -19,6 +19,10 @@ source:
   - url: http://mirror.centos.org/centos/6.10/os/x86_64/Packages/glibc-headers-2.12-1.212.el6.x86_64.rpm
     sha256: 7f1f3a2cf562465f2c18031e4e76734987ea8489c1202301e019dfb722ff5031
     folder: binary-glibc-headers
+    patches:
+      # these patches are from the anaconda fork of crosstool-ng
+      - 0003-typedef-caddr.patch
+      - 0013-Implement-aligned_alloc-using-posix_memaligned.patch
   - url: http://mirror.centos.org/centos/6.10/os/x86_64/Packages/kernel-headers-2.6.32-754.el6.x86_64.rpm
     sha256: 93b20d547637e3d25a9604b8034334afa910f61898da0f265a3969a68bf8cc6d
     folder: binary-kernel-headers
@@ -67,3 +71,4 @@ extra:
   recipe-maintainers:
     - isuruf
     - scopatz
+    - beckermr
