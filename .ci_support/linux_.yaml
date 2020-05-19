@@ -3,11 +3,6 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cross_target_platform:
-- linux-ppc64le
+- linux-64
 docker_image:
 - condaforge/linux-anvil-comp7
-target_machine:
-- powerpc64le
-zip_keys:
-- - target_machine
-  - cross_target_platform
