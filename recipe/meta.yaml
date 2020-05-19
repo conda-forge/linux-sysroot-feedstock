@@ -58,7 +58,7 @@ outputs:
       noarch: generic
       run_exports:
         strong:
-          - __glibc >={{ version }},<3.0.a0
+          - __glibc >={{ version }},<3.0.a0   # [x86_64]
       track_features:
         - sysroot_{{ cross_target_platform }}_{{ version }}
     test:
