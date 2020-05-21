@@ -56,9 +56,9 @@ outputs:
     script: build-sysroot.sh
     build:
       noarch: generic
-      run_exports:                            # [x86_64]
-        strong:                               # [x86_64]
-          - __glibc >={{ version }},<3.0.a0   # [x86_64]
+      run_exports:                            # [cross_target_platform == "linux-64"]
+        strong:                               # [cross_target_platform == "linux-64"]
+          - __glibc >={{ version }},<3.0.a0   # [cross_target_platform == "linux-64"]
       track_features:
         - sysroot_{{ cross_target_platform }}_{{ version }}
     test:
