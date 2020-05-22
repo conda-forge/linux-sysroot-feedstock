@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://anaconda.org/conda-forge/gcc_impl_linux-64/7.5.0/download/linux-64/gcc_impl_linux-64-7.5.0-hd420e75_6.tar.bz2
-  md5: 13dc33b9ca3d4f975bc3b96a03f8c2fc
+  url: https://anaconda.org/conda-forge/gcc_impl_linux-64/7.5.0/download/linux-64/gcc_impl_linux-64-7.3.0-hd420e75_5.tar.bz2
+  md5: 2f5d803fc7b36f6972cabd3ddba34678
 
 build:
   number: {{ build_number }}
