@@ -3,7 +3,7 @@ About linux-sysroot
 
 Home: https://github.com/conda-forge/ctng-compilers-feedstock
 
-Package license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
+Package license: GPL-3.0-with-GCC-exception
 
 Feedstock license: BSD 3-Clause
 
