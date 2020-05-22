@@ -1,5 +1,5 @@
 {% set version = "2.12" %}
-{% set build_number = "2" %}
+{% set build_number = "3" %}
 
 package:
   name: linux-sysroot
@@ -40,6 +40,8 @@ outputs:
     script: build-sysroot.sh
     build:
       noarch: generic
+      binary_relocation: False
+      detect_binary_files_with_prefix: False
     test:
       commands:
         - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/*/*/*
