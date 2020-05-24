@@ -66,6 +66,19 @@ outputs:
       commands:
         - echo "works!"
 
+  - name: _sysroot_{{ cross_target_platform }}_mutex
+    version: "1.0"
+    build:
+      noarch: generic
+      string: centos_default_0
+      skip: true  # [cross_target_platform == "linux-64"]
+    requirements:
+      run:
+        - sysroot_{{ cross_target_platform }} {{ version }}
+    test:
+      commands:
+        - echo "works!"
+
   - name: sysroot_{{ cross_target_platform }}
     script: build-sysroot.sh
     build:
