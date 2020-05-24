@@ -52,13 +52,16 @@ build:
     - '*'
 
 outputs:
-  - name: _sysroot_mutex
+  - name: _sysroot_{{ cross_target_platform }}_mutex
     version: "1.0"
     build:
       noarch: generic
       string: centos_latest_0
       track_features:
         - sysroot_{{ cross_target_platform }}_{{ version }}
+    requirements:
+      run:
+        - sysroot_{{ cross_target_platform }}
     test:
       commands:
         - echo "works!"
@@ -72,9 +75,6 @@ outputs:
       run_exports:                            # [cross_target_platform == "linux-64"]
         strong:                               # [cross_target_platform == "linux-64"]
           - __glibc >={{ version }},<3.0.a0   # [cross_target_platform == "linux-64"]
-    requirements:
-      run:
-        - {{ pin_subpackage('_sysroot_mutex', exact=True) }}
     test:
       commands:
         - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/*/*/*
