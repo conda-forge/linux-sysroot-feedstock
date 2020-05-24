@@ -16,10 +16,6 @@ mv usr/lib/* usr/lib64/
 rm -rf usr/lib
 ln -s $PWD/usr/lib64 $PWD/usr/lib
 
-mkdir -p lib
-mkdir -p lib64
-mv lib/* lib64/
-rm -rf lib
 ln -s $PWD/lib64 $PWD/lib
 
 popd
