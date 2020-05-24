@@ -36,14 +36,10 @@ build:
     - '*'
 
 outputs:
-  - name: _sysroot_{{ cross_target_platform }}_mutex
-    version: "1.0"
+  - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
+    version: 2
     build:
       noarch: generic
-      string: centos_default_0
-    requirements:
-      run:
-        - sysroot_{{ cross_target_platform }} {{ version }}
     test:
       commands:
         - echo "works!"
