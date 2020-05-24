@@ -36,12 +36,27 @@ build:
     - '*'
 
 outputs:
+  - name: _sysroot_{{ cross_target_platform }}_mutex
+    version: "1.0"
+    build:
+      noarch: generic
+      string: centos_default_0
+    requirements:
+      run:
+        - {{ pin_subpackage('sysroot_' ~ cross_target_platform, exact=True) }}
+    test:
+      commands:
+        - echo "works!"
+
   - name: sysroot_{{ cross_target_platform }}
     script: build-sysroot.sh
     build:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
+    requirements:
+      run_constrained:
+        - _sysroot_{{ cross_target_platform }}_mutex * centos_default_*
     test:
       commands:
         - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/*/*/*
