@@ -86,9 +86,13 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
-      run_exports:                            # [cross_target_platform == "linux-64"]
-        strong:                               # [cross_target_platform == "linux-64"]
-          - __glibc >={{ version }},<3.0.a0   # [cross_target_platform == "linux-64"]
+{% if cross_target_platform == "linux-64" %}
+      track_features:
+        - sysroot_{{ cross_target_platform }}_{{ version }}
+      run_exports:
+        strong:
+          - __glibc >={{ version }},<3.0.a0
+{% endif %}
     test:
       commands:
         - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/*/*/*
