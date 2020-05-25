@@ -9,7 +9,7 @@ package:
   version: {{ version }}
 
 source:
-  pathg: .
+  path: .
   # - folder: binary
   #   url: {{ rpm_url }}/glibc-2.17-307.el7.1.{{ centos_machine }}.rpm
   #   sha256: 247b58681972da7ddfa7ba2ae2e5b3a3fe4399acd12f756c157547a97eb323b9  # [cross_target_platform == "linux-64"]
