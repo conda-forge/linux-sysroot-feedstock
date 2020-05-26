@@ -67,6 +67,7 @@ outputs:
 {% endif %}
     test:
       commands:
+        - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib*/*
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/sbin/ldconfig
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
