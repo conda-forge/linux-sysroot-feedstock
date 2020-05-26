@@ -54,6 +54,17 @@ build:
 
 outputs:
   {% if cross_target_platform == "linux-64" %}
+  - name: sysroot_test
+    version: 1
+    build:
+      noarch: generic
+    requirements:
+      run:
+        - sysroot_{{ cross_target_platform }}
+    test:
+      commands:
+        - echo "works!"
+
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
     version: 1
     build:
@@ -75,9 +86,9 @@ outputs:
       run_exports:
         strong:
           - __glibc >={{ version }},<3.0.a0
-    # requirements:
-    #   run:
-    #     - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 1.*
+    requirements:
+      run:
+        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 1.*
 {% endif %}
     # test:
     #   commands:
