@@ -37,7 +37,7 @@ build:
 
 outputs:
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
-    version: 2
+    version: 1
     build:
       noarch: generic
     requirements:
