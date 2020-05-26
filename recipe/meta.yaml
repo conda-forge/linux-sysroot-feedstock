@@ -1,5 +1,5 @@
 {% set version = "2.17" %}
-{% set build_number = "1" %}
+{% set build_number = "2" %}
 {% set rpm_url = "http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
@@ -9,42 +9,41 @@ package:
   version: {{ version }}
 
 source:
-  path: .
-  # - folder: binary
-  #   url: {{ rpm_url }}/glibc-2.17-307.el7.1.{{ centos_machine }}.rpm
-  #   sha256: 247b58681972da7ddfa7ba2ae2e5b3a3fe4399acd12f756c157547a97eb323b9  # [cross_target_platform == "linux-64"]
-  #   sha256: 0d86de50873347411a40c7e7f27d39c58c64de8b7893ba9ee6be351754c484ec  # [cross_target_platform == "linux-aarch64"]
-  #   sha256: 72b69c9b5167cec0fa0ada58e013466207c09474dc80e29fb787b59142d75fcd  # [cross_target_platform == "linux-ppc64le"]
-  #
-  # - folder: binary-glibc-common
-  #   url: {{ rpm_url }}/glibc-common-2.17-307.el7.1.{{ centos_machine }}.rpm
-  #   sha256: fa6f445d704de3eb0ec01107f30bbdcbc3a7a480e72e428e34760c8c2d0de8a0  # [cross_target_platform == "linux-64"]
-  #   sha256: d5223860fad4efc04dbc9a7b08bc87c183df8605f457e8fedb412783b4845a1b  # [cross_target_platform == "linux-aarch64"]
-  #   sha256: fbd6666b150575939ed12b682c5e29d2c8bc8fbcb87def073566d4378e6dd45c  # [cross_target_platform == "linux-ppc64le"]
-  #
-  # - folder: binary-glibc-devel
-  #   url: {{ rpm_url }}/glibc-devel-2.17-307.el7.1.{{ centos_machine }}.rpm
-  #   sha256: 17d0e74b6f6c7ba7708caeafef20e0e95de9072f9f46c187298700a83ead66ce  # [cross_target_platform == "linux-64"]
-  #   sha256: 2e763b0032bc347e136d301893b68a01e56538edce64328a3356141bbed4b186  # [cross_target_platform == "linux-aarch64"]
-  #   sha256: 06de9ca65035b1549bfee5fe344d92a94ea6a27bcb263cc10fdcc671255ec677  # [cross_target_platform == "linux-ppc64le"]
-  #
-  # - folder: binary-tzdata
-  #   url: {{ rpm_url }}/tzdata-2019c-1.el7.noarch.rpm
-  #   sha256: a467bd14a5f0fec9e6227eae6aac92c155947a102e818c2bb62e2339e44a694a
-  #
-  # - folder: binary-glibc-headers
-  #   url: {{ rpm_url }}/glibc-headers-2.17-307.el7.1.{{ centos_machine }}.rpm
-  #   sha256: 49b1d791d06fe488dd95112a4bc391df58b6d3a85b686867abfa3b6608e0314e  # [cross_target_platform == "linux-64"]
-  #   sha256: 89ff7a55c845b8bf224956d40f80f8279a734d0499006de581dd267754def148  # [cross_target_platform == "linux-aarch64"]
-  #   sha256: d4ab419d81fad20282882d13539495c4bcad26bc714ffeb3754c165525017b2f  # [cross_target_platform == "linux-ppc64le"]
-  #
-  # - folder: binary-kernel-headers
-  #   url: {{ rpm_url }}/kernel-headers-3.10.0-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-64"]
-  #   url: {{ rpm_url }}/kernel-headers-4.18.0-147.8.1.el7.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-aarch64"]
-  #   url: {{ rpm_url }}/kernel-headers-3.10.0-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-ppc64le"]
-  #   sha256: a78a986498e77a803d33823db7d77edcde1d0431f8d19e089649404ddcf62c9f  # [cross_target_platform == "linux-64"]
-  #   sha256: 9e9ea85efa4c1e20c1978fca84bb7f8ba17e7ad610717af2929c4d71ff384060  # [cross_target_platform == "linux-aarch64"]
-  #   sha256: df6867bcc614bf7f6561a983db25b2028fadb57d13ec781b5be9fab0de7354db  # [cross_target_platform == "linux-ppc64le"]
+  - folder: binary
+    url: {{ rpm_url }}/glibc-2.17-307.el7.1.{{ centos_machine }}.rpm
+    sha256: 247b58681972da7ddfa7ba2ae2e5b3a3fe4399acd12f756c157547a97eb323b9  # [cross_target_platform == "linux-64"]
+    sha256: 0d86de50873347411a40c7e7f27d39c58c64de8b7893ba9ee6be351754c484ec  # [cross_target_platform == "linux-aarch64"]
+    sha256: 72b69c9b5167cec0fa0ada58e013466207c09474dc80e29fb787b59142d75fcd  # [cross_target_platform == "linux-ppc64le"]
+
+  - folder: binary-glibc-common
+    url: {{ rpm_url }}/glibc-common-2.17-307.el7.1.{{ centos_machine }}.rpm
+    sha256: fa6f445d704de3eb0ec01107f30bbdcbc3a7a480e72e428e34760c8c2d0de8a0  # [cross_target_platform == "linux-64"]
+    sha256: d5223860fad4efc04dbc9a7b08bc87c183df8605f457e8fedb412783b4845a1b  # [cross_target_platform == "linux-aarch64"]
+    sha256: fbd6666b150575939ed12b682c5e29d2c8bc8fbcb87def073566d4378e6dd45c  # [cross_target_platform == "linux-ppc64le"]
+
+  - folder: binary-glibc-devel
+    url: {{ rpm_url }}/glibc-devel-2.17-307.el7.1.{{ centos_machine }}.rpm
+    sha256: 17d0e74b6f6c7ba7708caeafef20e0e95de9072f9f46c187298700a83ead66ce  # [cross_target_platform == "linux-64"]
+    sha256: 2e763b0032bc347e136d301893b68a01e56538edce64328a3356141bbed4b186  # [cross_target_platform == "linux-aarch64"]
+    sha256: 06de9ca65035b1549bfee5fe344d92a94ea6a27bcb263cc10fdcc671255ec677  # [cross_target_platform == "linux-ppc64le"]
+
+  - folder: binary-tzdata
+    url: {{ rpm_url }}/tzdata-2019c-1.el7.noarch.rpm
+    sha256: a467bd14a5f0fec9e6227eae6aac92c155947a102e818c2bb62e2339e44a694a
+
+  - folder: binary-glibc-headers
+    url: {{ rpm_url }}/glibc-headers-2.17-307.el7.1.{{ centos_machine }}.rpm
+    sha256: 49b1d791d06fe488dd95112a4bc391df58b6d3a85b686867abfa3b6608e0314e  # [cross_target_platform == "linux-64"]
+    sha256: 89ff7a55c845b8bf224956d40f80f8279a734d0499006de581dd267754def148  # [cross_target_platform == "linux-aarch64"]
+    sha256: d4ab419d81fad20282882d13539495c4bcad26bc714ffeb3754c165525017b2f  # [cross_target_platform == "linux-ppc64le"]
+
+  - folder: binary-kernel-headers
+    url: {{ rpm_url }}/kernel-headers-3.10.0-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-64"]
+    url: {{ rpm_url }}/kernel-headers-4.18.0-147.8.1.el7.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-aarch64"]
+    url: {{ rpm_url }}/kernel-headers-3.10.0-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-ppc64le"]
+    sha256: a78a986498e77a803d33823db7d77edcde1d0431f8d19e089649404ddcf62c9f  # [cross_target_platform == "linux-64"]
+    sha256: 9e9ea85efa4c1e20c1978fca84bb7f8ba17e7ad610717af2929c4d71ff384060  # [cross_target_platform == "linux-aarch64"]
+    sha256: df6867bcc614bf7f6561a983db25b2028fadb57d13ec781b5be9fab0de7354db  # [cross_target_platform == "linux-ppc64le"]
 
 build:
   number: {{ build_number }}
@@ -54,17 +53,6 @@ build:
 
 outputs:
   {% if cross_target_platform == "linux-64" %}
-  - name: sysroot_test
-    version: 1
-    build:
-      noarch: generic
-    requirements:
-      run:
-        - sysroot_{{ cross_target_platform }}
-    test:
-      commands:
-        - echo "works!"
-
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
     version: 1
     build:
@@ -90,17 +78,17 @@ outputs:
       run:
         - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 1.*
 {% endif %}
-    # test:
-    #   commands:
-    #     - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/*/*/*
-    #     - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
-    #     - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/sbin/ldconfig
-    #     - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
-    #     - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/limits.h
-    #     - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h  # [cross_target_platform == "linux-64"]
-    #     - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h  # [cross_target_platform != "linux-64"]
-    #     - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
-    #     - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
+    test:
+      commands:
+        - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/*/*/*
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/sbin/ldconfig
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/limits.h
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h  # [cross_target_platform == "linux-64"]
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h  # [cross_target_platform != "linux-64"]
+        - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
 
 about:
   home: http://sources.redhat.com/glibc/
