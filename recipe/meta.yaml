@@ -54,12 +54,12 @@ build:
 outputs:
 {% if cross_target_platform == "linux-64" %}
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
-      version: 3
-      build:
-        noarch: generic
-      test:
-        commands:
-          - echo "works!"
+    version: 3
+    build:
+      noarch: generic
+    test:
+      commands:
+        - echo "works!"
 {% endif %}
   - name: sysroot_{{ cross_target_platform }}
     script: build-sysroot.sh
