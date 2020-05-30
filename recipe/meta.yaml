@@ -1,5 +1,5 @@
 {% set version = "2.17" %}
-{% set build_number = "2" %}
+{% set build_number = "3" %}
 {% set rpm_url = "http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
@@ -52,6 +52,15 @@ build:
     - '*'
 
 outputs:
+{% if cross_target_platform == "linux-64" %}
+  - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
+      version: 3
+      build:
+        noarch: generic
+      test:
+        commands:
+          - echo "works!"
+{% endif %}
   - name: sysroot_{{ cross_target_platform }}
     script: build-sysroot.sh
     build:
@@ -64,6 +73,9 @@ outputs:
       run_exports:
         strong:
           - __glibc >={{ version }},<3.0.a0
+    requirements:
+      run:
+        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*
 {% endif %}
     test:
       commands:
