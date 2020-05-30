@@ -1,5 +1,5 @@
 {% set version = "2.12" %}
-{% set build_number = "4" %}
+{% set build_number = "5" %}
 
 package:
   name: linux-sysroot
@@ -37,7 +37,7 @@ build:
 
 outputs:
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
-    version: 1
+    version: 4
     build:
       noarch: generic
     requirements:
