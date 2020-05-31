@@ -1,5 +1,6 @@
 {% set version = "2.12" %}
-{% set build_number = "5" %}
+{% set kernel_headers_version = "2.6.32" %}
+{% set build_number = "6" %}
 
 package:
   name: linux-sysroot
@@ -25,7 +26,7 @@ source:
       # these patches are from the anaconda fork of crosstool-ng
       - 0003-typedef-caddr.patch
       - 0013-Implement-aligned_alloc-using-posix_memaligned.patch
-  - url: http://mirror.centos.org/centos/6.10/os/x86_64/Packages/kernel-headers-2.6.32-754.el6.x86_64.rpm
+  - url: http://mirror.centos.org/centos/6.10/os/x86_64/Packages/kernel-headers-{{ kernel_headers_version }}-754.el6.x86_64.rpm
     sha256: 93b20d547637e3d25a9604b8034334afa910f61898da0f265a3969a68bf8cc6d
     folder: binary-kernel-headers
 
@@ -36,6 +37,20 @@ build:
     - '*'
 
 outputs:
+  - name: kernel-headers_{{ cross_target_platform }}
+    version: {{ kernel_headers_version }}
+    script: build-kernel-headers.sh
+    build:
+      noarch: generic
+      binary_relocation: False
+      detect_binary_files_with_prefix: False
+    requirements:
+      run_constrained:
+        - sysroot_{{ cross_target_platform }} =={{ version }}
+    test:
+      commands:
+        test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/linux/version.h
+
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
     version: 4
     build:
@@ -53,6 +68,9 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
+    requirements:
+      run:
+        - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
     test:
       commands:
         - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/*/*/*

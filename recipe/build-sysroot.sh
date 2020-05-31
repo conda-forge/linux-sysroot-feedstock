@@ -5,7 +5,6 @@ pushd ${PREFIX}/${target_machine}-conda-linux-gnu/sysroot > /dev/null 2>&1
 cp -Rf "${SRC_DIR}"/binary/* .
 mkdir -p usr/include
 cp -Rf "${SRC_DIR}"/binary-tzdata/* usr/
-cp -Rf "${SRC_DIR}"/binary-kernel-headers/include/* usr/include/
 cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/
 cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
