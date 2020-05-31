@@ -1,5 +1,7 @@
 {% set version = "2.17" %}
-{% set build_number = "3" %}
+{% set kernel_headers_version = "3.10.0" %}  # [cross_target_platform != "linux-aarch64"]
+{% set kernel_headers_version = "4.18.0" %}  # [cross_target_platform == "linux-aarch64"]
+{% set build_number = "4" %}
 {% set rpm_url = "http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
@@ -38,9 +40,9 @@ source:
     sha256: d4ab419d81fad20282882d13539495c4bcad26bc714ffeb3754c165525017b2f  # [cross_target_platform == "linux-ppc64le"]
 
   - folder: binary-kernel-headers
-    url: {{ rpm_url }}/kernel-headers-3.10.0-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-64"]
-    url: {{ rpm_url }}/kernel-headers-4.18.0-147.8.1.el7.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-aarch64"]
-    url: {{ rpm_url }}/kernel-headers-3.10.0-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-ppc64le"]
+    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-64"]
+    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-147.8.1.el7.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-aarch64"]
+    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-ppc64le"]
     sha256: a78a986498e77a803d33823db7d77edcde1d0431f8d19e089649404ddcf62c9f  # [cross_target_platform == "linux-64"]
     sha256: 9e9ea85efa4c1e20c1978fca84bb7f8ba17e7ad610717af2929c4d71ff384060  # [cross_target_platform == "linux-aarch64"]
     sha256: df6867bcc614bf7f6561a983db25b2028fadb57d13ec781b5be9fab0de7354db  # [cross_target_platform == "linux-ppc64le"]
@@ -52,6 +54,20 @@ build:
     - '*'
 
 outputs:
+  - name: kernel-headers_{{ cross_target_platform }}
+    version: {{ kernel_headers_version }}
+    script: build-kernel-headers.sh
+    build:
+      noarch: generic
+      binary_relocation: False
+      detect_binary_files_with_prefix: False
+    requirements:
+      run_constrained:
+        - sysroot_{{ cross_target_platform }} =={{ version }}
+    test:
+      commands:
+        test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/linux/version.h
+
 {% if cross_target_platform == "linux-64" %}
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
     version: 3
@@ -73,10 +89,13 @@ outputs:
       run_exports:
         strong:
           - __glibc >={{ version }},<3.0.a0
+{% endif %}
     requirements:
       run:
+{% if cross_target_platform == "linux-64" %}
         - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*
 {% endif %}
+        - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
     test:
       commands:
         - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib*/*
