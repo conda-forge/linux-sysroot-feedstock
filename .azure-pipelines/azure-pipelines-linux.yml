@@ -8,16 +8,16 @@ jobs:
     vmImage: ubuntu-16.04
   strategy:
     matrix:
-      linux_centos_machineaarch64cross_target_platformlinux-aarch64target_machineaarch64:
-        CONFIG: linux_centos_machineaarch64cross_target_platformlinux-aarch64target_machineaarch64
+      linux_centos_machineaarch64cross_target_platformlinux-64:
+        CONFIG: linux_centos_machineaarch64cross_target_platformlinux-64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-      linux_centos_machineppc64lecross_target_platformlinux-ppc64letarget_machinepowerpc64le:
-        CONFIG: linux_centos_machineppc64lecross_target_platformlinux-ppc64letarget_machinepowerpc64le
+      linux_centos_machineppc64lecross_target_platformlinux-ppc64le:
+        CONFIG: linux_centos_machineppc64lecross_target_platformlinux-ppc64le
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-      linux_centos_machinex86_64cross_target_platformlinux-64target_machinex86_64:
-        CONFIG: linux_centos_machinex86_64cross_target_platformlinux-64target_machinex86_64
+      linux_centos_machinex86_64cross_target_platformlinux-aarch64:
+        CONFIG: linux_centos_machinex86_64cross_target_platformlinux-aarch64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
     maxParallel: 8
@@ -39,3 +39,5 @@ jobs:
     displayName: Run docker build
     env:
       BINSTAR_TOKEN: $(BINSTAR_TOKEN)
+      FEEDSTOCK_TOKEN: $(FEEDSTOCK_TOKEN)
+      STAGING_BINSTAR_TOKEN: $(STAGING_BINSTAR_TOKEN)

@@ -1,5 +1,5 @@
 centos_machine:
-- x86_64
+- aarch64
 channel_sources:
 - conda-forge,defaults
 channel_targets:
