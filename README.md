@@ -42,6 +42,7 @@ Current release info
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-_sysroot_linux--64_curr_repodata_hack-green.svg)](https://anaconda.org/conda-forge/_sysroot_linux-64_curr_repodata_hack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/_sysroot_linux-64_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-64_curr_repodata_hack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/_sysroot_linux-64_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-64_curr_repodata_hack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/_sysroot_linux-64_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-64_curr_repodata_hack) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-kernel--headers_linux--64-green.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/kernel-headers_linux-64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/kernel-headers_linux-64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/kernel-headers_linux-64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot--cos6--x86_64-green.svg)](https://anaconda.org/conda-forge/sysroot-cos6-x86_64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot-cos6-x86_64.svg)](https://anaconda.org/conda-forge/sysroot-cos6-x86_64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot-cos6-x86_64.svg)](https://anaconda.org/conda-forge/sysroot-cos6-x86_64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot-cos6-x86_64.svg)](https://anaconda.org/conda-forge/sysroot-cos6-x86_64) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot_linux--64-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) |
 
 Installing linux-sysroot
@@ -53,10 +54,10 @@ Installing `linux-sysroot` from the `conda-forge` channel can be achieved by add
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `_sysroot_linux-64_curr_repodata_hack, kernel-headers_linux-64, sysroot_linux-64` can be installed with:
+Once the `conda-forge` channel has been enabled, `_sysroot_linux-64_curr_repodata_hack, kernel-headers_linux-64, sysroot-cos6-x86_64, sysroot_linux-64` can be installed with:
 
 ```
-conda install _sysroot_linux-64_curr_repodata_hack kernel-headers_linux-64 sysroot_linux-64
+conda install _sysroot_linux-64_curr_repodata_hack kernel-headers_linux-64 sysroot-cos6-x86_64 sysroot_linux-64
 ```
 
 It is possible to list all of the versions of `_sysroot_linux-64_curr_repodata_hack` available on your platform with:
