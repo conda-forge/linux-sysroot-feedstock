@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir -p ${PREFIX}/${target_machine}-conda-linux-gnu/sysroot
-pushd ${PREFIX}/${target_machine}-conda-linux-gnu/sysroot > /dev/null 2>&1
+mkdir -p ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot
+pushd ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot > /dev/null 2>&1
 cp -Rf "${SRC_DIR}"/binary/* .
 mkdir -p usr/include
 cp -Rf "${SRC_DIR}"/binary-tzdata/* usr/
@@ -22,3 +22,7 @@ fi
 ln -s $PWD/lib64 $PWD/lib
 
 popd
+
+if [[ ${ctng_vendor} == "conda_cos7" ]]; then
+  ln -s ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu ${PREFIX}/${target_machine}-conda-linux-gnu
+fi
