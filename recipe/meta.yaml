@@ -44,6 +44,10 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
+{% if ctng_vendor == "conda" %}
+      track_features:
+        - kernel-headers_{{ cross_target_platform }}_{{ version }}_{{ ctng_vendor }}
+{% endif %}
     requirements:
       run_constrained:
         - sysroot_{{ cross_target_platform }} =={{ version }}
@@ -68,6 +72,10 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
+{% if ctng_vendor == "conda" %}
+      track_features:
+        - sysroot_{{ cross_target_platform }}_{{ version }}_{{ ctng_vendor }}
+{% endif %}
     requirements:
       run:
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}

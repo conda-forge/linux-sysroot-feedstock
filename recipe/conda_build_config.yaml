@@ -4,6 +4,7 @@ cross_target_platform:
   - linux-64
 ctng_vendor:
   - conda_cos6
+  - conda
 cdt_name:
   - cos6
 cdt_arch:
