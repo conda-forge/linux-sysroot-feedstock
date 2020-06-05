@@ -1,6 +1,6 @@
 {% set version = "2.12" %}
 {% set kernel_headers_version = "2.6.32" %}
-{% set build_number = "7" %}
+{% set build_number = "8" %}
 
 package:
   name: linux-sysroot
@@ -44,7 +44,7 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
-      string: "{{ ctng_vendor }}_h{{ PKG_HASH }}_{{ build_number }}"
+      string: "{{ ctng_vendor }}_variant_h{{ PKG_HASH }}_{{ build_number }}"
 {% if ctng_vendor == "conda" %}
       track_features:
         - kernel-headers_{{ cross_target_platform }}_{{ version }}_{{ ctng_vendor }}
@@ -73,7 +73,7 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
-      string: "{{ ctng_vendor }}_h{{ PKG_HASH }}_{{ build_number }}"
+      string: "{{ ctng_vendor }}_variant_h{{ PKG_HASH }}_{{ build_number }}"
 {% if ctng_vendor == "conda" %}
       track_features:
         - sysroot_{{ cross_target_platform }}_{{ version }}_{{ ctng_vendor }}
