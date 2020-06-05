@@ -1,6 +1,6 @@
 {% set version = "2.12" %}
 {% set kernel_headers_version = "2.6.32" %}
-{% set build_number = "6" %}
+{% set build_number = "7" %}
 
 package:
   name: linux-sysroot
@@ -49,7 +49,7 @@ outputs:
         - sysroot_{{ cross_target_platform }} =={{ version }}
     test:
       commands:
-        test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/linux/version.h
+        test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/usr/include/linux/version.h
 
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
     version: 4
@@ -73,7 +73,6 @@ outputs:
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
     test:
       commands:
-        - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/*/*/*
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/sbin/ldconfig
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
@@ -81,6 +80,7 @@ outputs:
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
+        - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
 
 about:
   home: http://sources.redhat.com/glibc/
