@@ -10,7 +10,22 @@ cross_target_platform:
   - linux-64
   - linux-aarch64
   - linux-ppc64le
+ctng_vendor:
+  - conda_cos6
+  - conda_cos7
+  - conda_cos7
+cdt_arch:
+  - x86_64
+  - aarch64
+  - ppc64le
+cdt_name:
+  - cos6
+  - cos7
+  - cos7
 zip_keys:
   - - target_machine
     - cross_target_platform
     - centos_machine
+    - cdt_name
+    - cdt_arch
+    - ctng_vendor

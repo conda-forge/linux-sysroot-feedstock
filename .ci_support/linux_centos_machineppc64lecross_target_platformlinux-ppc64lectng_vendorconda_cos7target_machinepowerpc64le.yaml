@@ -1,16 +1,25 @@
+cdt_arch:
+- ppc64le
+cdt_name:
+- cos7
 centos_machine:
-- aarch64
+- ppc64le
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
 cross_target_platform:
-- linux-aarch64
+- linux-ppc64le
+ctng_vendor:
+- conda_cos7
 docker_image:
 - condaforge/linux-anvil-comp7
 target_machine:
-- aarch64
+- powerpc64le
 zip_keys:
 - - target_machine
   - cross_target_platform
   - centos_machine
+  - cdt_name
+  - cdt_arch
+  - ctng_vendor

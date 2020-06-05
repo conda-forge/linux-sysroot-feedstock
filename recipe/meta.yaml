@@ -1,7 +1,7 @@
 {% set version = "2.17" %}
 {% set kernel_headers_version = "3.10.0" %}  # [cross_target_platform != "linux-aarch64"]
 {% set kernel_headers_version = "4.18.0" %}  # [cross_target_platform == "linux-aarch64"]
-{% set build_number = "4" %}
+{% set build_number = "5" %}
 {% set rpm_url = "http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
@@ -66,7 +66,7 @@ outputs:
         - sysroot_{{ cross_target_platform }} =={{ version }}
     test:
       commands:
-        test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/linux/version.h
+        test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/usr/include/linux/version.h
 
 {% if cross_target_platform == "linux-64" %}
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
@@ -98,7 +98,6 @@ outputs:
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
     test:
       commands:
-        - ls -lah $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib*/*
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/sbin/ldconfig
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
@@ -107,6 +106,25 @@ outputs:
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h  # [cross_target_platform != "linux-64"]
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
+        - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
+
+  - name: sysroot-{{ cdt_name }}-{{ cdt_arch }}
+    build:
+      noarch: generic
+    requirements:
+      run:
+        - sysroot_{{ cross_target_platform }} =={{ version }}
+    test:
+      commands:
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/sbin/ldconfig
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/limits.h
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h  # [cross_target_platform == "linux-64"]
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h  # [cross_target_platform != "linux-64"]
+        - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
+        - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
 
 about:
   home: http://sources.redhat.com/glibc/
