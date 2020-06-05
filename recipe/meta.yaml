@@ -86,19 +86,16 @@ outputs:
     script: build-sysroot.sh
     build:
       noarch: generic
+      # I hit a conda solver error and I am not sure why. It seems having
+      # two features is a no-no right now? The solver chokes at the test stage.
+      # We don't need the pure ctng_vendor == conda variant for linux-64, so just skip it.
+      skip: true  # [cross_target_platform == "linux-64" and ctng_vendor == "conda"]
       binary_relocation: False
       detect_binary_files_with_prefix: False
       string: "{{ ctng_vendor }}_variant_h{{ PKG_HASH }}_{{ build_number }}"
 {% if cross_target_platform == "linux-64" %}
       track_features:
-        # I hit a conda solver error and I am not sure why. The docs on conda build
-        # say that no two packages in the same subdir should extra have the same feature.
-        # Using the same feature to weigh this down once for 2.17 for both ctng_vendor
-        # variants should not violate that, but here we are.
-        - sysroot_{{ cross_target_platform }}_{{ version }}_{{ ctng_vendor }}
-        {% if ctng_vendor == "conda" %}
-        - sysroot_{{ cross_target_platform }}_{{ version }}_{{ ctng_vendor }}_extra
-        {% endif %}
+        - sysroot_{{ cross_target_platform }}_{{ version }}
       run_exports:
         strong:
           - __glibc >={{ version }},<3.0.a0
