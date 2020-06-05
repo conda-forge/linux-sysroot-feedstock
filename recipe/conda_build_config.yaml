@@ -8,9 +8,3 @@ cdt_name:
   - cos6
 cdt_arch:
   - x86_64
-zip_keys:
-  - - target_machine
-    - cross_target_platform
-    - ctng_vendor
-    - cdt_name
-    - cdt_arch
