@@ -82,6 +82,13 @@ outputs:
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
         - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
 
+  - name: sysroot-{{ cdt_name }}-{{ cdt_arch }}
+    build:
+      noarch: generic
+    requirements:
+      run:
+        - sysroot_{{ cross_target_platform }} =={{ version }}
+
 about:
   home: http://sources.redhat.com/glibc/
   license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later

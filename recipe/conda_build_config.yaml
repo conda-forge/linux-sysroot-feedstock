@@ -4,6 +4,13 @@ cross_target_platform:
   - linux-64
 ctng_vendor:
   - conda_cos6
+cdt_name:
+  - cos6
+cdt_arch:
+  - x86_64
 zip_keys:
   - - target_machine
     - cross_target_platform
+    - ctng_vendor
+    - cdt_name
+    - cdt_arch
