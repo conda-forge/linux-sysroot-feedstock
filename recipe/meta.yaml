@@ -58,6 +58,9 @@ outputs:
     version: {{ kernel_headers_version }}
     script: build-kernel-headers.sh
     build:
+{% if cross_target_platform == "linux-64" and ctng_vendor == "conda" %}
+      skip: true
+{% endif %}
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
@@ -89,7 +92,9 @@ outputs:
       # I hit a conda solver error and I am not sure why. It seems having
       # two features is a no-no right now? The solver chokes at the test stage.
       # We don't need the pure ctng_vendor == conda variant for linux-64, so just skip it.
-      skip: true  # [cross_target_platform == "linux-64" and ctng_vendor == "conda"]
+{% if cross_target_platform == "linux-64" and ctng_vendor == "conda" %}
+      skip: true
+{% endif %}
       binary_relocation: False
       detect_binary_files_with_prefix: False
       string: "{{ ctng_vendor }}_variant_h{{ PKG_HASH }}_{{ build_number }}"
