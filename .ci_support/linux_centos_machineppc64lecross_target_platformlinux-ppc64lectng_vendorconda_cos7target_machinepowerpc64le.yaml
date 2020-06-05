@@ -20,6 +20,4 @@ zip_keys:
 - - target_machine
   - cross_target_platform
   - centos_machine
-  - cdt_name
   - cdt_arch
-  - ctng_vendor
