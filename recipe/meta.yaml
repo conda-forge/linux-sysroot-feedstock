@@ -61,6 +61,11 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
+      string: "{{ ctng_vendor }}_variant_h{{ PKG_HASH }}_{{ build_number }}"
+{% if ctng_vendor == "conda" %}
+      track_features:
+        - kernel-headers_{{ cross_target_platform }}_{{ version }}_{{ ctng_vendor }}
+{% endif %}
     requirements:
       run_constrained:
         - sysroot_{{ cross_target_platform }} =={{ version }}
@@ -83,9 +88,13 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
+      string: "{{ ctng_vendor }}_variant_h{{ PKG_HASH }}_{{ build_number }}"
 {% if cross_target_platform == "linux-64" %}
       track_features:
         - sysroot_{{ cross_target_platform }}_{{ version }}
+        {% if ctng_vendor == "conda" %}
+        - sysroot_{{ cross_target_platform }}_{{ version }}_{{ ctng_vendor }}
+        {% endif %}
       run_exports:
         strong:
           - __glibc >={{ version }},<3.0.a0
