@@ -8,12 +8,12 @@ jobs:
     vmImage: ubuntu-16.04
   strategy:
     matrix:
-      linux_centos_machineaarch64cross_target_platformlinux-aarch64ctng_vendorconda_cos7target_machineaarch64:
-        CONFIG: linux_centos_machineaarch64cross_target_platformlinux-aarch64ctng_vendorconda_cos7target_machineaarch64
+      linux_centos_machineaarch64cross_target_platformlinux-64ctng_vendorconda_cos7target_machinex86_64:
+        CONFIG: linux_centos_machineaarch64cross_target_platformlinux-64ctng_vendorconda_cos7target_machinex86_64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-      linux_centos_machineaarch64cross_target_platformlinux-aarch64ctng_vendorcondatarget_machineaarch64:
-        CONFIG: linux_centos_machineaarch64cross_target_platformlinux-aarch64ctng_vendorcondatarget_machineaarch64
+      linux_centos_machineaarch64cross_target_platformlinux-64ctng_vendorcondatarget_machinex86_64:
+        CONFIG: linux_centos_machineaarch64cross_target_platformlinux-64ctng_vendorcondatarget_machinex86_64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
       linux_centos_machineppc64lecross_target_platformlinux-ppc64lectng_vendorconda_cos7target_machinepowerpc64le:
@@ -24,12 +24,12 @@ jobs:
         CONFIG: linux_centos_machineppc64lecross_target_platformlinux-ppc64lectng_vendorcondatarget_machinepowerpc64le
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-      linux_centos_machinex86_64cross_target_platformlinux-64ctng_vendorconda_cos7target_machinex86_64:
-        CONFIG: linux_centos_machinex86_64cross_target_platformlinux-64ctng_vendorconda_cos7target_machinex86_64
+      linux_centos_machinex86_64cross_target_platformlinux-aarch64ctng_vendorconda_cos7target_machineaarch64:
+        CONFIG: linux_centos_machinex86_64cross_target_platformlinux-aarch64ctng_vendorconda_cos7target_machineaarch64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-      linux_centos_machinex86_64cross_target_platformlinux-64ctng_vendorcondatarget_machinex86_64:
-        CONFIG: linux_centos_machinex86_64cross_target_platformlinux-64ctng_vendorcondatarget_machinex86_64
+      linux_centos_machinex86_64cross_target_platformlinux-aarch64ctng_vendorcondatarget_machineaarch64:
+        CONFIG: linux_centos_machinex86_64cross_target_platformlinux-aarch64ctng_vendorcondatarget_machineaarch64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
     maxParallel: 8

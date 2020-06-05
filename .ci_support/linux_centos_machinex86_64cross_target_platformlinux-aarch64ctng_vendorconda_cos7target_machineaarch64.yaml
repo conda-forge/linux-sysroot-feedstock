@@ -3,7 +3,7 @@ cdt_arch:
 cdt_name:
 - cos7
 centos_machine:
-- aarch64
+- x86_64
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -11,7 +11,7 @@ channel_targets:
 cross_target_platform:
 - linux-aarch64
 ctng_vendor:
-- conda
+- conda_cos7
 docker_image:
 - condaforge/linux-anvil-comp7
 target_machine:
