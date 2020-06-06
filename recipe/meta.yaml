@@ -1,6 +1,6 @@
 {% set version = "2.12" %}
 {% set kernel_headers_version = "2.6.32" %}
-{% set build_number = "9" %}
+{% set build_number = "10" %}
 
 package:
   name: linux-sysroot
