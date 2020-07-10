@@ -16,7 +16,6 @@ cdt_arch:
   - ppc64le
 
 ctng_vendor:
-  - conda_cos7
   - conda
 cdt_name:
   - cos7

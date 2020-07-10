@@ -1,7 +1,7 @@
 {% set version = "2.17" %}
 {% set kernel_headers_version = "3.10.0" %}  # [cross_target_platform != "linux-aarch64"]
 {% set kernel_headers_version = "4.18.0" %}  # [cross_target_platform == "linux-aarch64"]
-{% set build_number = "7" %}
+{% set build_number = "8" %}
 {% set rpm_url = "http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
@@ -58,17 +58,9 @@ outputs:
     version: {{ kernel_headers_version }}
     script: build-kernel-headers.sh
     build:
-{% if cross_target_platform == "linux-64" and ctng_vendor == "conda" %}
-      skip: true
-{% endif %}
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
-      string: "{{ ctng_vendor }}_variant_h{{ PKG_HASH }}_{{ build_number }}"
-{% if ctng_vendor == "conda" %}
-      track_features:
-        - kernel-headers_{{ cross_target_platform }}_{{ version }}_{{ ctng_vendor }}
-{% endif %}
     requirements:
       run_constrained:
         - sysroot_{{ cross_target_platform }} =={{ version }}
@@ -89,15 +81,8 @@ outputs:
     script: build-sysroot.sh
     build:
       noarch: generic
-      # I hit a conda solver error and I am not sure why. It seems having
-      # two features is a no-no right now? The solver chokes at the test stage.
-      # We don't need the pure ctng_vendor == conda variant for linux-64, so just skip it.
-{% if cross_target_platform == "linux-64" and ctng_vendor == "conda" %}
-      skip: true
-{% endif %}
       binary_relocation: False
       detect_binary_files_with_prefix: False
-      string: "{{ ctng_vendor }}_variant_h{{ PKG_HASH }}_{{ build_number }}"
 {% if cross_target_platform == "linux-64" %}
       track_features:
         - sysroot_{{ cross_target_platform }}_{{ version }}
