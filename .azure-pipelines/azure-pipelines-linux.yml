@@ -8,22 +8,27 @@ jobs:
     vmImage: ubuntu-16.04
   strategy:
     matrix:
-      linux_centos_machineaarch64cross_target_platformlinux-aarch64:
-        CONFIG: linux_centos_machineaarch64cross_target_platformlinux-aarch64
+      linux_centos_machineaarch64cross_target_platformlinux-aarch64target_machineaarch64:
+        CONFIG: linux_centos_machineaarch64cross_target_platformlinux-aarch64target_machineaarch64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-      linux_centos_machineppc64lecross_target_platformlinux-ppc64le:
-        CONFIG: linux_centos_machineppc64lecross_target_platformlinux-ppc64le
+      linux_centos_machineppc64lecross_target_platformlinux-ppc64letarget_machinepowerpc64le:
+        CONFIG: linux_centos_machineppc64lecross_target_platformlinux-ppc64letarget_machinepowerpc64le
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-      linux_centos_machinex86_64cross_target_platformlinux-64:
-        CONFIG: linux_centos_machinex86_64cross_target_platformlinux-64
+      linux_centos_machinex86_64cross_target_platformlinux-64target_machinex86_64:
+        CONFIG: linux_centos_machinex86_64cross_target_platformlinux-64target_machinex86_64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
     maxParallel: 8
   timeoutInMinutes: 360
 
   steps:
+  - script: |
+         rm -rf /opt/ghc
+         df -h
+    displayName: Manage disk space
+
   # configure qemu binfmt-misc running.  This allows us to run docker containers
   # embedded qemu-static
   - script: |
@@ -35,6 +40,7 @@ jobs:
   - script: |
         export CI=azure
         export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
+        export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
         .scripts/run_docker_build.sh
     displayName: Run docker build
     env:

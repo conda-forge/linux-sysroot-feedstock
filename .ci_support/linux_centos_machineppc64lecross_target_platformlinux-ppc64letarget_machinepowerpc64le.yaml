@@ -12,7 +12,6 @@ cross_target_platform:
 - linux-ppc64le
 ctng_vendor:
 - conda
-- conda_cos7
 docker_image:
 - condaforge/linux-anvil-comp7
 target_machine:
