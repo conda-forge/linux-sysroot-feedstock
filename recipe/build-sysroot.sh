@@ -16,7 +16,3 @@ ln -s $PWD/lib64 $PWD/lib
 ln -s $PWD/usr/lib64 $PWD/usr/lib
 
 popd
-
-if [[ ${ctng_vendor} == "conda_cos6" ]]; then
-  ln -s ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu ${PREFIX}/${target_machine}-conda-linux-gnu
-fi
