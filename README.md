@@ -5,7 +5,7 @@ Home: http://sources.redhat.com/glibc/
 
 Package license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: (CDT) The GNU libc libraries and header files for the Linux kernel for use by glibc
 
