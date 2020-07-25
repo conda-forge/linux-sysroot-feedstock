@@ -1,6 +1,6 @@
 {% set version = "2.12" %}
 {% set kernel_headers_version = "2.6.32" %}
-{% set build_number = "11" %}
+{% set build_number = "12" %}
 
 package:
   name: linux-sysroot
@@ -58,6 +58,7 @@ outputs:
     requirements:
       run:
         - sysroot_{{ cross_target_platform }} {{ version }}.*
+        - kernel-headers_{{ cross_target_platform }} {{ kernel_headers_version }}.*
     test:
       commands:
         - echo "works!"
