@@ -1,7 +1,7 @@
 {% set version = "2.17" %}
 {% set kernel_headers_version = "3.10.0" %}  # [cross_target_platform != "linux-aarch64"]
 {% set kernel_headers_version = "4.18.0" %}  # [cross_target_platform == "linux-aarch64"]
-{% set build_number = "9" %}
+{% set build_number = "10" %}
 {% set rpm_url = "http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
@@ -46,6 +46,12 @@ source:
     sha256: a78a986498e77a803d33823db7d77edcde1d0431f8d19e089649404ddcf62c9f  # [cross_target_platform == "linux-64"]
     sha256: 9e9ea85efa4c1e20c1978fca84bb7f8ba17e7ad610717af2929c4d71ff384060  # [cross_target_platform == "linux-aarch64"]
     sha256: df6867bcc614bf7f6561a983db25b2028fadb57d13ec781b5be9fab0de7354db  # [cross_target_platform == "linux-ppc64le"]
+
+  - folder: binary-freebl
+    url: {{ rpm_url }}/nss-softokn-freebl-3.44.0-8.el7_7.{{ centos_machine }}.rpm
+    sha256: 9949831b67f6eb68dc9df6df3e4570bd5f9301de3c7d67c41512fcaaadb40da5  # [cross_target_platform == "linux-64"]
+    sha256: 5a62051cc69e76ffa44291ed12464a3ce4a8224dbf829330739aae500f33b2b2  # [cross_target_platform == "linux-aarch64"]
+    sha256: 01439cbf4297a341e31b425961bdafc251a4765e22035977ca459c939f949899  # [cross_target_platform == "linux-ppc64le"]
 
 build:
   number: {{ build_number }}
