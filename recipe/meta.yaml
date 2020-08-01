@@ -108,7 +108,8 @@ about:
   home: http://sources.redhat.com/glibc/
   license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
   license_family: GPL
-  # license files are packaged with source
+  # other license files are packaged with source
+  license_file: nss-license
   summary: "(CDT) The GNU libc libraries and header files for the Linux kernel for use by glibc"
   description: |
         The glibc package contains standard libraries which are used by multiple
