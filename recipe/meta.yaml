@@ -1,6 +1,6 @@
 {% set version = "2.12" %}
 {% set kernel_headers_version = "2.6.32" %}
-{% set build_number = "12" %}
+{% set build_number = "13" %}
 
 package:
   name: linux-sysroot
@@ -29,6 +29,10 @@ source:
   - url: http://mirror.centos.org/centos/6.10/os/x86_64/Packages/kernel-headers-{{ kernel_headers_version }}-754.el6.x86_64.rpm
     sha256: 93b20d547637e3d25a9604b8034334afa910f61898da0f265a3969a68bf8cc6d
     folder: binary-kernel-headers
+  - url: http://mirror.centos.org/centos/6.10/os/x86_64/Packages/nss-softokn-freebl-3.14.3-23.3.el6_8.x86_64.rpm
+    sha256: bccc1e55c5cf90d7ee5ef2d25253fc8dd2c3854121a65711f5f5618b097ffb70
+    folder: binary-freebl
+    no_hoist: true
 
 build:
   number: {{ build_number }}
@@ -102,9 +106,10 @@ outputs:
 
 about:
   home: http://sources.redhat.com/glibc/
-  license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
+  license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later AND MPL-2.0
   license_family: GPL
-  # license files are packaged with source
+  # other license files are packaged with source
+  license_file: nss-license
   summary: "(CDT) The GNU libc libraries and header files for the Linux kernel for use by glibc"
   description: |
         The glibc package contains standard libraries which are used by multiple
