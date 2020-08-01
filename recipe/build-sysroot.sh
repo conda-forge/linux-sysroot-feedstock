@@ -15,4 +15,7 @@ ln -s $PWD/lib64 $PWD/lib
 
 ln -s $PWD/usr/lib64 $PWD/usr/lib
 
+cp "${SRC_DIR}"/binary-freebl/lib64/libfreebl3.so ${PWD}/lib64/.
+ln -s ${PWD}/lib64/libfreebl3.so ${PWD}/usr/lib64/libfreebl3.so
+
 popd
