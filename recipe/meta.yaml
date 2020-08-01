@@ -138,7 +138,7 @@ outputs:
 
 about:
   home: http://sources.redhat.com/glibc/
-  license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
+  license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later AND MPL-2.0
   license_family: GPL
   license_file: nss-license
   # other license files are packaged with source
