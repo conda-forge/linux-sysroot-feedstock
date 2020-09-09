@@ -34,7 +34,7 @@ source:
     sha256: 1f46ff3924c3d55de7647366a06653db791fe528b06a0be1b3ddd0bea91b752e  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-tzdata
-    url: {{ rpm_url }}/tzdata-2019c-1.el7.noarch.rpm
+    url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/tzdata-2019c-1.el7.noarch.rpm
     sha256: a467bd14a5f0fec9e6227eae6aac92c155947a102e818c2bb62e2339e44a694a
 
   - folder: binary-glibc-headers
