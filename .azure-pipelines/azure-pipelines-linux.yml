@@ -8,16 +8,20 @@ jobs:
     vmImage: ubuntu-16.04
   strategy:
     matrix:
-      linux_64_centos_machineaarch64cross_target_platformlinux-aarch64:
-        CONFIG: linux_64_centos_machineaarch64cross_target_platformlinux-aarch64
+      linux_64_centos_machineaarch64cross_target_platformlinux-aarch64target_machineaarch64:
+        CONFIG: linux_64_centos_machineaarch64cross_target_platformlinux-aarch64target_machineaarch64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-      linux_64_centos_machineppc64lecross_target_platformlinux-ppc64le:
-        CONFIG: linux_64_centos_machineppc64lecross_target_platformlinux-ppc64le
+      linux_64_centos_machineppc64lecross_target_platformlinux-ppc64letarget_machinepowerpc64le:
+        CONFIG: linux_64_centos_machineppc64lecross_target_platformlinux-ppc64letarget_machinepowerpc64le
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-      linux_64_centos_machinex86_64cross_target_platformlinux-64:
-        CONFIG: linux_64_centos_machinex86_64cross_target_platformlinux-64
+      linux_64_centos_machines390xcross_target_platformlinux-s390xtarget_machines390x:
+        CONFIG: linux_64_centos_machines390xcross_target_platformlinux-s390xtarget_machines390x
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: condaforge/linux-anvil-comp7
+      linux_64_centos_machinex86_64cross_target_platformlinux-64target_machinex86_64:
+        CONFIG: linux_64_centos_machinex86_64cross_target_platformlinux-64target_machinex86_64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
     maxParallel: 8

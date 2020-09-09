@@ -1,0 +1,23 @@
+cdt_arch:
+- s390x
+cdt_name:
+- cos7
+centos_machine:
+- s390x
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- conda-forge main
+cross_target_platform:
+- linux-s390x
+ctng_vendor:
+- conda
+docker_image:
+- condaforge/linux-anvil-comp7
+target_machine:
+- s390x
+zip_keys:
+- - target_machine
+  - cross_target_platform
+  - centos_machine
+  - cdt_arch
