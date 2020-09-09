@@ -19,6 +19,12 @@ if [ -d "lib" ]; then
     mv lib/* lib64/
     rm -rf lib
 fi
+
+if [[ "$target_machine" == "s390x" ]]; then
+   rm -rf $PWD/lib64/ld64.so.*
+   ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so*
+fi
+
 ln -s $PWD/lib64 $PWD/lib
 
 cp "${SRC_DIR}"/binary-freebl/usr/lib64/libfreebl3.so ${PWD}/usr/lib64/.
