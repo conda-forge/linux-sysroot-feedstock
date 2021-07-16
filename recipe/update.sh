@@ -103,7 +103,7 @@ echo >> asd.txt
 
 
 echo "  - folder: binary-kernel-headers" >> asd.txt
-echo "    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1160.el7.{{ centos_machine }}.rpm  # [cross_target_platform == \"linux-x86_64\"]"  >> asd.txt
+echo "    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1160.el7.{{ centos_machine }}.rpm  # [cross_target_platform == \"linux-64\"]"  >> asd.txt
 echo "    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-193.28.1.el7.{{ centos_machine }}.rpm  # [cross_target_platform == \"linux-aarch64\"]"  >> asd.txt
 echo "    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1160.el7.{{ centos_machine }}.rpm  # [cross_target_platform == \"linux-ppc64le\"]"  >> asd.txt
 echo "    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1160.el7.{{ centos_machine }}.rpm  # [cross_target_platform == \"linux-s390x\"]"  >> asd.txt
