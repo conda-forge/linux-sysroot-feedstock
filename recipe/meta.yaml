@@ -1,8 +1,8 @@
 {% set version = "2.17" %}
 {% set kernel_headers_version = "3.10.0" %}  # [cross_target_platform != "linux-aarch64"]
 {% set kernel_headers_version = "4.18.0" %}  # [cross_target_platform == "linux-aarch64"]
-{% set build_number = "10" %}
-{% set rpm_url = "http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
+{% set build_number = "11" %}
+{% set rpm_url = "http://mirror.centos.org/centos/7.9.2009/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
 {% set rpm_url = "http://download.sinenomine.net/clefos/7/os/s390x" %}             # [cross_target_platform == "linux-s390x"]
@@ -13,42 +13,42 @@ package:
 
 source:
   - folder: binary
-    url: {{ rpm_url }}/glibc-2.17-307.el7.1.{{ centos_machine }}.rpm
-    sha256: 247b58681972da7ddfa7ba2ae2e5b3a3fe4399acd12f756c157547a97eb323b9  # [cross_target_platform == "linux-64"]
-    sha256: 0d86de50873347411a40c7e7f27d39c58c64de8b7893ba9ee6be351754c484ec  # [cross_target_platform == "linux-aarch64"]
-    sha256: 72b69c9b5167cec0fa0ada58e013466207c09474dc80e29fb787b59142d75fcd  # [cross_target_platform == "linux-ppc64le"]
-    sha256: c6ce1ac0472ec946cf7064e02caad113e4f348fdc1259161d5640dbdb295634b  # [cross_target_platform == "linux-s390x"]
+    url: {{ rpm_url }}/glibc-2.17-317.el7.{{ centos_machine }}.rpm
+    sha256: 49eb081de1ddd13f5440abdbb3b42cdd01d11b74d624793ae1b80a1cf432551b  # [cross_target_platform == "linux-64"]
+    sha256: ca1976545bcd4a6c099f1b3e2505469083b6bb4901d2517275a8da4138c0b21a  # [cross_target_platform == "linux-aarch64"]
+    sha256: f9ff840d0cd01cb900c5ae3a5ce0adb5d388be7a938dc83cdeb374d27fc0a68e  # [cross_target_platform == "linux-ppc64le"]
+    sha256: 3b37b5d41f81c4e63808d10a6ac5e4cf45501cb3c7553c8cd592f6afb2c724d4  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-glibc-common
-    url: {{ rpm_url }}/glibc-common-2.17-307.el7.1.{{ centos_machine }}.rpm
-    sha256: fa6f445d704de3eb0ec01107f30bbdcbc3a7a480e72e428e34760c8c2d0de8a0  # [cross_target_platform == "linux-64"]
-    sha256: d5223860fad4efc04dbc9a7b08bc87c183df8605f457e8fedb412783b4845a1b  # [cross_target_platform == "linux-aarch64"]
-    sha256: fbd6666b150575939ed12b682c5e29d2c8bc8fbcb87def073566d4378e6dd45c  # [cross_target_platform == "linux-ppc64le"]
-    sha256: e6a3796bf72bd92f31d7aefe0096009bfa8ab592e143362c3c1b73c2129f7bb3  # [cross_target_platform == "linux-s390x"]
+    url: {{ rpm_url }}/glibc-common-2.17-317.el7.{{ centos_machine }}.rpm
+    sha256: e89e472b20c02c25fd69047abc7a0e7e3b1deeb4d5b88b17886318c8af8439d7  # [cross_target_platform == "linux-64"]
+    sha256: 07c274dd3bd53185d63cb960726175d001f912f272c32019462dbd78c05f7083  # [cross_target_platform == "linux-aarch64"]
+    sha256: b83d663f9822828bd52282c0e43523a266ad3646d76108e4e3a32e7cf25ac658  # [cross_target_platform == "linux-ppc64le"]
+    sha256: a3b96710b7e8f532b62fa62ee7cda97cae2aa2ffbc6d1aebb79a6896926ead6c  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-glibc-devel
-    url: {{ rpm_url }}/glibc-devel-2.17-307.el7.1.{{ centos_machine }}.rpm
-    sha256: 17d0e74b6f6c7ba7708caeafef20e0e95de9072f9f46c187298700a83ead66ce  # [cross_target_platform == "linux-64"]
-    sha256: 2e763b0032bc347e136d301893b68a01e56538edce64328a3356141bbed4b186  # [cross_target_platform == "linux-aarch64"]
-    sha256: 06de9ca65035b1549bfee5fe344d92a94ea6a27bcb263cc10fdcc671255ec677  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 1f46ff3924c3d55de7647366a06653db791fe528b06a0be1b3ddd0bea91b752e  # [cross_target_platform == "linux-s390x"]
+    url: {{ rpm_url }}/glibc-devel-2.17-317.el7.{{ centos_machine }}.rpm
+    sha256: 57e04523b12c9aa5a0632cbfa2ff13e33f1ecec5e6bd0b609a77d9c24cebf8c4  # [cross_target_platform == "linux-64"]
+    sha256: 458738f7b415fb73473725b6bef340234954e4eb00731cbf8aa1afad5ccd12f6  # [cross_target_platform == "linux-aarch64"]
+    sha256: 915b115a348dd14bad459287601bbd4c963c5e06d01217aafd343b7d3cccc10c  # [cross_target_platform == "linux-ppc64le"]
+    sha256: e18aa2509940bdd5751a5ddb4c962688ba54a29d7ef1c080ee0f87656033dd1e  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-glibc-headers
-    url: {{ rpm_url }}/glibc-headers-2.17-307.el7.1.{{ centos_machine }}.rpm
-    sha256: 49b1d791d06fe488dd95112a4bc391df58b6d3a85b686867abfa3b6608e0314e  # [cross_target_platform == "linux-64"]
-    sha256: 89ff7a55c845b8bf224956d40f80f8279a734d0499006de581dd267754def148  # [cross_target_platform == "linux-aarch64"]
-    sha256: d4ab419d81fad20282882d13539495c4bcad26bc714ffeb3754c165525017b2f  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 034e49d09f864c3afcf007a991da5c89ee2106ebeb3bdcf8aca61fc4f5ad916d  # [cross_target_platform == "linux-s390x"]
+    url: {{ rpm_url }}/glibc-headers-2.17-317.el7.{{ centos_machine }}.rpm
+    sha256: b7e4e19b362cbd73e09e6ee5eff3d70dbeb7cc2c702a927b8f646f324d4ec4a3  # [cross_target_platform == "linux-64"]
+    sha256: 58a5802d026435b36d7080ea4943868a82fc41642a2b0e475239bd6aaa5882cd  # [cross_target_platform == "linux-aarch64"]
+    sha256: e1b7daaccec1eafa1fb7ead6c4c81bf9390b2b849e96e1d2498e1352c0254a67  # [cross_target_platform == "linux-ppc64le"]
+    sha256: 029b6d565ee8014bd25434efa25097bd0f35c084e6a018a2c19c8a6cf6df57e3  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-kernel-headers
-    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-64"]
-    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-147.8.1.el7.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-aarch64"]
-    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-ppc64le"]
-    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1127.el7.{{ centos_machine }}.rpm     # [cross_target_platform == "linux-s390x"]
-    sha256: a78a986498e77a803d33823db7d77edcde1d0431f8d19e089649404ddcf62c9f  # [cross_target_platform == "linux-64"]
-    sha256: 9e9ea85efa4c1e20c1978fca84bb7f8ba17e7ad610717af2929c4d71ff384060  # [cross_target_platform == "linux-aarch64"]
-    sha256: df6867bcc614bf7f6561a983db25b2028fadb57d13ec781b5be9fab0de7354db  # [cross_target_platform == "linux-ppc64le"]
-    sha256: b4bd26bbccab8028d903d250a7e599f77c7c5ea8b7137f96aecf998016799d93  # [cross_target_platform == "linux-s390x"]
+    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1160.el7.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-x86_64"]
+    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}.28.1.el7.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-aarch64"]
+    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1160.el7.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-ppc64le"]
+    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1160.el7.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-s390x"]
+    sha256: 81b4e4f401d2402736ceba4627eaafd5b615c2cc45aa4d4f941ea79562045139  # [cross_target_platform == "linux-64"]
+    sha256: 56fffc40800cd7c30830009c860f04c8dba1110a6271efd804a0bb01e0bdf8a4  # [cross_target_platform == "linux-aarch64"]
+    sha256: 6875ad8dbbf0cff85bf39bd2446ffb9e92de78e113496fba37fa5da9f10348b1  # [cross_target_platform == "linux-ppc64le"]
+    sha256: 77de4979db9fc09108fcb09c7b19daed832f7ec8964d8fc8b18610b54e4b30da  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-freebl
     url: {{ rpm_url }}/nss-softokn-freebl-3.44.0-8.el7_7.{{ centos_machine }}.rpm
@@ -58,8 +58,8 @@ source:
     sha256: 8c88f6be69f0d88ac91a577cfb507c879446d3950a19843927082bf0d660accf  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-tzdata
-    url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/tzdata-2019c-1.el7.noarch.rpm
-    sha256: a467bd14a5f0fec9e6227eae6aac92c155947a102e818c2bb62e2339e44a694a
+    url: http://mirror.centos.org/centos/7.9.2009/os/x86_64/Packages/tzdata-2020a-1.el7.noarch.rpm
+    sha256: bc5c790c0a346bb20abbbd866e0c1cf664cec9c3e4d4e21dbfe32b32616257ba
 
 build:
   number: {{ build_number }}
