@@ -33,10 +33,6 @@ source:
     sha256: 06de9ca65035b1549bfee5fe344d92a94ea6a27bcb263cc10fdcc671255ec677  # [cross_target_platform == "linux-ppc64le"]
     sha256: 1f46ff3924c3d55de7647366a06653db791fe528b06a0be1b3ddd0bea91b752e  # [cross_target_platform == "linux-s390x"]
 
-  - folder: binary-tzdata
-    url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/tzdata-2019c-1.el7.noarch.rpm
-    sha256: a467bd14a5f0fec9e6227eae6aac92c155947a102e818c2bb62e2339e44a694a
-
   - folder: binary-glibc-headers
     url: {{ rpm_url }}/glibc-headers-2.17-307.el7.1.{{ centos_machine }}.rpm
     sha256: 49b1d791d06fe488dd95112a4bc391df58b6d3a85b686867abfa3b6608e0314e  # [cross_target_platform == "linux-64"]
@@ -60,6 +56,10 @@ source:
     sha256: 5a62051cc69e76ffa44291ed12464a3ce4a8224dbf829330739aae500f33b2b2  # [cross_target_platform == "linux-aarch64"]
     sha256: 01439cbf4297a341e31b425961bdafc251a4765e22035977ca459c939f949899  # [cross_target_platform == "linux-ppc64le"]
     sha256: 8c88f6be69f0d88ac91a577cfb507c879446d3950a19843927082bf0d660accf  # [cross_target_platform == "linux-s390x"]
+
+  - folder: binary-tzdata
+    url: http://mirror.centos.org/centos/7.8.2003/os/x86_64/Packages/tzdata-2019c-1.el7.noarch.rpm
+    sha256: a467bd14a5f0fec9e6227eae6aac92c155947a102e818c2bb62e2339e44a694a
 
 build:
   number: {{ build_number }}
