@@ -21,8 +21,8 @@ if [ -d "lib" ]; then
 fi
 
 if [[ "$target_machine" == "s390x" ]]; then
-   rm -rf $PWD/lib64/ld64.so.*
-   ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so*
+   rm -rf $PWD/lib64/ld64.so.1
+   ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so.1
 fi
 
 ln -s $PWD/lib64 $PWD/lib
