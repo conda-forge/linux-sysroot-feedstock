@@ -1,7 +1,7 @@
 {% set version = "2.17" %}
 {% set kernel_headers_version = "3.10.0" %}  # [cross_target_platform != "linux-aarch64"]
 {% set kernel_headers_version = "4.18.0" %}  # [cross_target_platform == "linux-aarch64"]
-{% set build_number = "11" %}
+{% set build_number = "12" %}
 {% set rpm_url = "http://mirror.centos.org/centos/7.9.2009/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
@@ -39,6 +39,14 @@ source:
     sha256: 58a5802d026435b36d7080ea4943868a82fc41642a2b0e475239bd6aaa5882cd  # [cross_target_platform == "linux-aarch64"]
     sha256: e1b7daaccec1eafa1fb7ead6c4c81bf9390b2b849e96e1d2498e1352c0254a67  # [cross_target_platform == "linux-ppc64le"]
     sha256: 029b6d565ee8014bd25434efa25097bd0f35c084e6a018a2c19c8a6cf6df57e3  # [cross_target_platform == "linux-s390x"]
+
+
+  - folder: binary-glibc-static
+    url: {{ rpm_url }}/glibc-static-2.17-317.el7.{{ centos_machine }}.rpm
+    sha256: 18ee19487ec11ccebe39f52018f3d3aab7e1826bf754779ab1665104473806b7  # [cross_target_platform == "linux-64"]
+    sha256: 9738890cf7a46874e92c337966bc1dbf481094da95b16a468bab7edba665777d  # [cross_target_platform == "linux-aarch64"]
+    sha256: 5ca6ac4974d817596132974b43ef79d8afbf57144a3f18df7eff66e495b2c7f8  # [cross_target_platform == "linux-ppc64le"]
+    sha256: e8eca33de49bb465129e609713d7178457c0b5189d9c2d8a6cd836ad08fbfadc  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-kernel-headers
     url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1160.el7.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-64"]
