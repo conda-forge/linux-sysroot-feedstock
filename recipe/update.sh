@@ -102,6 +102,32 @@ rm glibc-headers-2.17-317.el7.s390x.rpm
 echo >> asd.txt
 
 
+echo "  - folder: binary-glibc-static" >> asd.txt
+echo "    url: {{ rpm_url }}/glibc-static-2.17-317.el7.{{ centos_machine }}.rpm"  >> asd.txt
+
+wget http://mirror.centos.org/centos/7.9.2009/os/x86_64/Packages/glibc-static-2.17-317.el7.x86_64.rpm
+sha=$(sha256sum glibc-static-2.17-317.el7.x86_64.rpm | cut -b -64)
+echo "    sha256: $sha  # [cross_target_platform == \"linux-64\"]" >> asd.txt
+rm glibc-static-2.17-317.el7.x86_64.rpm
+
+wget http://mirror.centos.org/altarch/7/os/aarch64/Packages/glibc-static-2.17-317.el7.aarch64.rpm
+sha=$(sha256sum glibc-static-2.17-317.el7.aarch64.rpm | cut -b -64)
+echo "    sha256: $sha  # [cross_target_platform == \"linux-aarch64\"]" >> asd.txt
+rm glibc-static-2.17-317.el7.aarch64.rpm
+
+wget http://mirror.centos.org/altarch/7/os/ppc64le/Packages/glibc-static-2.17-317.el7.ppc64le.rpm
+sha=$(sha256sum glibc-static-2.17-317.el7.ppc64le.rpm | cut -b -64)
+echo "    sha256: $sha  # [cross_target_platform == \"linux-ppc64le\"]" >> asd.txt
+rm glibc-static-2.17-317.el7.ppc64le.rpm
+
+wget http://download.sinenomine.net/clefos/7/os/s390x/glibc-static-2.17-317.el7.s390x.rpm
+sha=$(sha256sum glibc-static-2.17-317.el7.s390x.rpm | cut -b -64)
+echo "    sha256: $sha  # [cross_target_platform == \"linux-s390x\"]" >> asd.txt
+rm glibc-static-2.17-317.el7.s390x.rpm
+
+echo >> asd.txt
+
+
 echo "  - folder: binary-kernel-headers" >> asd.txt
 echo "    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-1160.el7.{{ centos_machine }}.rpm  # [cross_target_platform == \"linux-64\"]"  >> asd.txt
 echo "    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_version }}-193.28.1.el7.{{ centos_machine }}.rpm  # [cross_target_platform == \"linux-aarch64\"]"  >> asd.txt

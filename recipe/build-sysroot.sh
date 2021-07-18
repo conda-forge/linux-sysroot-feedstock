@@ -7,6 +7,7 @@ mkdir -p usr/include
 cp -Rf "${SRC_DIR}"/binary-tzdata/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/
 cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
+cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
 
 mkdir -p usr/lib
