@@ -26,6 +26,10 @@ if [[ "$target_machine" == "s390x" ]]; then
    ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so.1
 fi
 
+rm -f $PWD/lib64/libnsl*.so
+rm -f $PWD/usr/lib64/libnsl.a
+rm -f $PWD/usr/lib64/libnso.so
+
 ln -s $PWD/lib64 $PWD/lib
 
 cp "${SRC_DIR}"/binary-freebl/usr/lib64/libfreebl3.so ${PWD}/usr/lib64/.
