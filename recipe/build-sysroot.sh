@@ -31,6 +31,14 @@ fi
 ## https://github.com/conda-forge/rasterio-feedstock/issues/220
 rm lib64/libnsl*.so*
 rm usr/lib64/libnsl.{a,so}
+rm usr/include/rpcsvc/ypclnt.h
+rm usr/include/rpcsvc/yp.h
+rm usr/include/rpcsvc/yppasswd.h
+rm usr/include/rpcsvc/yppasswd.x
+rm usr/include/rpcsvc/yp_prot.h
+rm usr/include/rpcsvc/ypupd.h
+rm usr/include/rpcsvc/yp.x
+
 
 ln -s $PWD/lib64 $PWD/lib
 
