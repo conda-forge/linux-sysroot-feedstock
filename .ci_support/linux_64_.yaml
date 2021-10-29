@@ -3,7 +3,7 @@ cdt_arch:
 cdt_name:
 - cos6
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 cross_target_platform:
@@ -11,6 +11,9 @@ cross_target_platform:
 ctng_vendor:
 - conda
 docker_image:
-- condaforge/linux-anvil-comp7
+- quay.io/condaforge/linux-anvil-comp7
 target_machine:
 - x86_64
+zip_keys:
+- - cdt_name
+  - docker_image
