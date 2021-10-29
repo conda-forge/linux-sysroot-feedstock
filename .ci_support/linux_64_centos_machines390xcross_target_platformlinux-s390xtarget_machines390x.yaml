@@ -1,11 +1,9 @@
-cdt_arch:
-- s390x
 cdt_name:
-- cos7
+- cos6
 centos_machine:
 - s390x
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 cross_target_platform:
@@ -13,11 +11,19 @@ cross_target_platform:
 ctng_vendor:
 - conda
 docker_image:
-- condaforge/linux-anvil-comp7
+- quay.io/condaforge/linux-anvil-comp7
+sysroot_cdt_arch:
+- s390x
+sysroot_cdt_name:
+- cos7
 target_machine:
 - s390x
+target_platform:
+- linux-64
 zip_keys:
+- - cdt_name
+  - docker_image
 - - target_machine
   - cross_target_platform
   - centos_machine
-  - cdt_arch
+  - sysroot_cdt_arch

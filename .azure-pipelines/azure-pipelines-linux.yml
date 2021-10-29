@@ -5,26 +5,25 @@
 jobs:
 - job: linux
   pool:
-    vmImage: ubuntu-16.04
+    vmImage: ubuntu-latest
   strategy:
     matrix:
       linux_64_centos_machineaarch64cross_target_platformlinux-aarch64target_machineaarch64:
         CONFIG: linux_64_centos_machineaarch64cross_target_platformlinux-aarch64target_machineaarch64
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: condaforge/linux-anvil-comp7
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-comp7
       linux_64_centos_machineppc64lecross_target_platformlinux-ppc64letarget_machinepowerpc64le:
         CONFIG: linux_64_centos_machineppc64lecross_target_platformlinux-ppc64letarget_machinepowerpc64le
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: condaforge/linux-anvil-comp7
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-comp7
       linux_64_centos_machines390xcross_target_platformlinux-s390xtarget_machines390x:
         CONFIG: linux_64_centos_machines390xcross_target_platformlinux-s390xtarget_machines390x
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: condaforge/linux-anvil-comp7
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-comp7
       linux_64_centos_machinex86_64cross_target_platformlinux-64target_machinex86_64:
         CONFIG: linux_64_centos_machinex86_64cross_target_platformlinux-64target_machinex86_64
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: condaforge/linux-anvil-comp7
-    maxParallel: 8
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-comp7
   timeoutInMinutes: 360
 
   steps:
@@ -45,6 +44,11 @@ jobs:
         export CI=azure
         export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
         export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
+        if [[ "${BUILD_REASON:-}" == "PullRequest" ]]; then
+          export IS_PR_BUILD="True"
+        else
+          export IS_PR_BUILD="False"
+        fi
         .scripts/run_docker_build.sh
     displayName: Run docker build
     env:
