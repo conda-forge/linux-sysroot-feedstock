@@ -86,9 +86,12 @@ outputs:
     requirements:
       run:
         # on linux-64 2.12 has the highest version and 2.17/2.28 are lower
-        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*  # [cross_target_platform == "linux-64"]
+{% if cross_target_platform == "linux-64" %}
+        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*
+{% else %}
         # on non-x86_64, 2.17 has the highest version
-        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 4.*  # [cross_target_platform != "linux-64"]
+        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 4.*
+{% endif %}
       run_constrained:
         - sysroot_{{ cross_target_platform }} =={{ version }}
     test:
@@ -121,10 +124,13 @@ outputs:
 {% endif %}
     requirements:
       run:
+{% if cross_target_platform == "linux-64" %}
         # on linux-64 2.12 has the highest version and 2.17/2.28 are lower
-        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*  # [cross_target_platform == "linux-64"]
+        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*
+{% else %}
         # on non-x86_64, 2.17 has the highest version
         - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 4.*  # [cross_target_platform != "linux-64"]
+{% endif %}
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
     test:
       commands:
