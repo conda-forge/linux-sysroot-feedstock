@@ -1,7 +1,7 @@
 cdt_name:
 - cos6
 centos_machine:
-- s390x
+- aarch64
 channel_sources:
 - conda-forge
 channel_targets:

@@ -8,16 +8,16 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_centos_machineaarch64cross_target_platformlinux-ppc64le:
-        CONFIG: linux_64_centos_machineaarch64cross_target_platformlinux-ppc64le
+      linux_64_centos_machineaarch64cross_target_platformlinux-aarch64:
+        CONFIG: linux_64_centos_machineaarch64cross_target_platformlinux-aarch64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_centos_machineppc64lecross_target_platformlinux-s390x:
-        CONFIG: linux_64_centos_machineppc64lecross_target_platformlinux-s390x
+      linux_64_centos_machineppc64lecross_target_platformlinux-ppc64le:
+        CONFIG: linux_64_centos_machineppc64lecross_target_platformlinux-ppc64le
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_centos_machines390xcross_target_platformlinux-aarch64:
-        CONFIG: linux_64_centos_machines390xcross_target_platformlinux-aarch64
+      linux_64_centos_machines390xcross_target_platformlinux-s390x:
+        CONFIG: linux_64_centos_machines390xcross_target_platformlinux-s390x
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
       linux_64_centos_machinex86_64cross_target_platformlinux-64:
