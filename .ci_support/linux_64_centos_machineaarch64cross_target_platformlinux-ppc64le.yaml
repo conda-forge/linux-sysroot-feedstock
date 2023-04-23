@@ -1,7 +1,7 @@
 cdt_name:
 - cos6
 centos_machine:
-- ppc64le
+- aarch64
 channel_sources:
 - conda-forge
 channel_targets:
