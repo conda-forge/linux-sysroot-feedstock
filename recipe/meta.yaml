@@ -85,8 +85,8 @@ outputs:
       detect_binary_files_with_prefix: False
     requirements:
       run:
-        # on linux-64 2.12 has the highest version and 2.17/2.28 are lower
 {% if cross_target_platform == "linux-64" %}
+        # on linux-64 2.12 has the highest version and 2.17/2.28 are lower
         - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*
 {% else %}
         # on non-x86_64, 2.17 has the highest version
@@ -99,10 +99,13 @@ outputs:
         test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/usr/include/linux/version.h
 
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
+{% if cross_target_platform == "linux-64" %}
     # on linux-64 2.12 has the highest version and 2.17/2.28 are lower
-    version: 3  # [cross_target_platform == "linux-64"]
+    version: 3
+{% else %}
     # on non-x86_64, 2.17 has the highest version
-    version: 4  # [cross_target_platform != "linux-64"]
+    version: 4
+{% endif %}
     build:
       noarch: generic
     test:
