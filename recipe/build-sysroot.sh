@@ -42,7 +42,7 @@ rm -f usr/include/rpcsvc/ypupd.h
 rm -f usr/include/rpcsvc/yp.x
 
 echo "freebl"
-ls -lah "${SRC_DIR}"/binary-freebl/usr/lib*/*
+ls -lah "${SRC_DIR}"/binary-freebl/**/*
 
 cp "${SRC_DIR}"/binary-freebl/usr/lib64/libfreebl3.so ${PWD}/usr/lib64/.
 
