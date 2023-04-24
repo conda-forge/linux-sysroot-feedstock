@@ -41,9 +41,6 @@ rm -f usr/include/rpcsvc/yp_prot.h
 rm -f usr/include/rpcsvc/ypupd.h
 rm -f usr/include/rpcsvc/yp.x
 
-echo "freebl"
-ls -lah "${SRC_DIR}"/binary-freebl/**/*
-
-cp "${SRC_DIR}"/binary-freebl/usr/lib64/libfreebl3.so ${PWD}/usr/lib64/.
+cp "${SRC_DIR}"/binary-freebl/lib64/libfreebl3.so ${PWD}/lib64/.
 
 popd
