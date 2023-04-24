@@ -43,6 +43,6 @@ rm -f usr/include/rpcsvc/yp.x
 
 cp "${SRC_DIR}"/binary-freebl/lib64/libfreebl3.so ${PWD}/lib64/.
 
-ls -lah .
+ls -lah usr/*
 
 popd
