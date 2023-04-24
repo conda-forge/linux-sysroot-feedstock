@@ -13,8 +13,8 @@ cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
 mkdir -p usr/lib64
 if [ $(compgen -G 'usr/lib/*') ]; then
     mv usr/lib/* usr/lib64/
-    rm -rf usr/lib
 fi
+rm -rf usr/lib
 ln -s $PWD/usr/lib64 $PWD/usr/lib
 
 if [ -d "lib" ]; then
@@ -42,7 +42,5 @@ rm -f usr/include/rpcsvc/ypupd.h
 rm -f usr/include/rpcsvc/yp.x
 
 cp "${SRC_DIR}"/binary-freebl/lib64/libfreebl3.so ${PWD}/lib64/.
-
-ls -lah usr/*
 
 popd
