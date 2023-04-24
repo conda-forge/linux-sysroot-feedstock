@@ -10,16 +10,18 @@ cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
 
-mkdir -p usr/lib
 mkdir -p usr/lib64
-mv usr/lib/* usr/lib64/
-rm -rf usr/lib
+if [ -d "usr/lib" ]; do
+    mv usr/lib/* usr/lib64/
+    rm -rf usr/lib
+done
 ln -s $PWD/usr/lib64 $PWD/usr/lib
 
 if [ -d "lib" ]; then
     mv lib/* lib64/
     rm -rf lib
 fi
+ln -s $PWD/lib64 $PWD/lib
 
 if [[ "$target_machine" == "s390x" ]]; then
    rm -rf $PWD/lib64/ld64.so.1
@@ -38,9 +40,6 @@ rm usr/include/rpcsvc/yppasswd.x
 rm usr/include/rpcsvc/yp_prot.h
 rm usr/include/rpcsvc/ypupd.h
 rm usr/include/rpcsvc/yp.x
-
-
-ln -s $PWD/lib64 $PWD/lib
 
 cp "${SRC_DIR}"/binary-freebl/usr/lib64/libfreebl3.so ${PWD}/usr/lib64/.
 
