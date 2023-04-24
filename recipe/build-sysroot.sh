@@ -11,10 +11,10 @@ cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
 
 mkdir -p usr/lib64
-if [ -d "usr/lib" ]; do
+if [ -d "usr/lib" ]; then
     mv usr/lib/* usr/lib64/
     rm -rf usr/lib
-done
+fi
 ln -s $PWD/usr/lib64 $PWD/usr/lib
 
 if [ -d "lib" ]; then
