@@ -2,9 +2,9 @@
 {% set kernel_headers_version = "4.18.0" %}  # [cross_target_platform != "linux-aarch64"]
 {% set kernel_headers_version = "4.18.0" %}  # [cross_target_platform == "linux-aarch64"]
 {% set build_number = "13" %}
-{% set rpm_url = "https://repo.almalinux.org/almalinux/8.7/BaseOS/" + centos_machine + "/os/Packages/" %}
-{% set appstream_rpm_url = "https://repo.almalinux.org/almalinux/8.7/AppStream/" + centos_machine + "/os/Packages" %}
-{% set powertools_rpm_url = "https://repo.almalinux.org/almalinux/8.7/PowerTools/" + centos_machine + "/os/Packages" %}
+{% set rpm_url = "https://repo.almalinux.org/almalinux/8.7/BaseOS/" ~ centos_machine ~ "/os/Packages/" %}
+{% set appstream_rpm_url = "https://repo.almalinux.org/almalinux/8.7/AppStream/" ~ centos_machine ~ "/os/Packages" %}
+{% set powertools_rpm_url = "https://repo.almalinux.org/almalinux/8.7/PowerTools/" ~ centos_machine ~ "/os/Packages" %}
 
 package:
   name: linux-sysroot
