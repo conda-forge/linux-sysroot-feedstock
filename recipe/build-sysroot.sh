@@ -10,8 +10,6 @@ cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
 
-echo $(compgen -G 'usr/lib/*')
-
 mkdir -p usr/lib64
 if [ $(compgen -G 'usr/lib/*') ]; then
     mv usr/lib/* usr/lib64/
@@ -33,15 +31,18 @@ fi
 ## Linking or building against libsnsl produces binaries that don't run on recent Linux distributions.
 ## Libraries and headers removed here to prevent this. See
 ## https://github.com/conda-forge/rasterio-feedstock/issues/220
-rm lib64/libnsl*.so*
-rm usr/lib64/libnsl.{a,so}
-rm usr/include/rpcsvc/ypclnt.h
-rm usr/include/rpcsvc/yp.h
-rm usr/include/rpcsvc/yppasswd.h
-rm usr/include/rpcsvc/yppasswd.x
-rm usr/include/rpcsvc/yp_prot.h
-rm usr/include/rpcsvc/ypupd.h
-rm usr/include/rpcsvc/yp.x
+rm -f lib64/libnsl*.so*
+rm -f usr/lib64/libnsl.{a,so}
+rm -f usr/include/rpcsvc/ypclnt.h
+rm -f usr/include/rpcsvc/yp.h
+rm -f usr/include/rpcsvc/yppasswd.h
+rm -f usr/include/rpcsvc/yppasswd.x
+rm -f usr/include/rpcsvc/yp_prot.h
+rm -f usr/include/rpcsvc/ypupd.h
+rm -f usr/include/rpcsvc/yp.x
+
+echo "freebl"
+ls -lah "${SRC_DIR}"/binary-freebl/usr/lib*/*
 
 cp "${SRC_DIR}"/binary-freebl/usr/lib64/libfreebl3.so ${PWD}/usr/lib64/.
 
