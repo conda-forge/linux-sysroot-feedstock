@@ -10,6 +10,9 @@ cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
 cp -Rf "${SRC_DIR}"/binary-glibc-langpack-en/* .
+cp -Rf "${SRC_DIR}"/binary-glibc-nss-devel/* .
+cp -Rf "${SRC_DIR}"/binary-nss_db/* .
+cp -Rf "${SRC_DIR}"/binary-nss_nis/* .
 
 mkdir -p usr/lib64
 if [ $(compgen -G 'usr/lib/*') ]; then

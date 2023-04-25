@@ -864,6 +864,22 @@ source:
     sha256: c9b9f8b070c8727770848823f88125370e11d3bc97e2d71ee86e46d65b764a5c  # [cross_target_platform == "linux-64"]
     sha256: 3f96fd3218c8282dc834e5efc48acd2757f447103d44fbbf4363649e0b6fe1db  # [cross_target_platform == "linux-aarch64"]
 
+  - folder: binary-glibc-nss-devel
+    url: {{ powertools_url }}/glibc-nss-devel-2.28-211.el8.{{ centos_machine }}.rpm
+    sha256: 8196e6a5e3a8c4b6841de581bc2967cc0034e90ee25bc9a86a12f2d278ce129c  # [cross_target_platform == "linux-64"]
+    sha256: 711978f2952ea5eb9ff1a92cc0941ceb0e0acdfae493a7455d07a6dadf7497cd  # [cross_target_platform == "linux-aarch64"]
+
+  - folder: binary-nss_db
+    url: {{ rpm_url }}/nss_db-2.28-211.el8.{{ centos_machine }}.rpm
+    sha256: fb04e1baeb2e971fbef45d87a17aa8ce9254f570908c1ec9a0152f287d4b6b60  # [cross_target_platform == "linux-64"]
+    sha256: 0b71b64074dd0b5ababe7019d01419724785c0cb2e06724cd0318552c86bcb9b  # [cross_target_platform == "linux-aarch64"]
+
+  - folder: binary-nss_nis
+    url: {{ rpm_url }}/nss_nis-3.0-8.el8.{{ centos_machine }}.rpm
+    sha256: 092ae0b3db08c0bd8af1187f37abf426af9092495f3276bd186c90679f342e59  # [cross_target_platform == "linux-64"]
+    sha256: 3c7fe091fcef8971b5de41b9093025405d2064fb05e5c510ec3a92454f49e2be  # [cross_target_platform == "linux-aarch64"]
+
+
 {% if cross_target_platform == "linux-64" %}
 {% for folder, url, shaval in langpacks_x86_64 %}
   - folder: binary-{{ folder }}
