@@ -9,12 +9,7 @@ cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/
 cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
-cp -Rf "${SRC_DIR}"/binary-glibc-langpacks/* .
 cp -Rf "${SRC_DIR}"/binary-glibc-langpack-en/* .
-# only doing english to debug
-# for dr in $(compgen -G "${SRC_DIR}"'/binary-glibc-langpack-*'); do
-#     cp -Rf ${dr}/* .
-# done
 
 mkdir -p usr/lib64
 if [ $(compgen -G 'usr/lib/*') ]; then
@@ -28,11 +23,6 @@ if [ -d "lib" ]; then
     rm -rf lib
 fi
 ln -s $PWD/lib64 $PWD/lib
-
-if [[ "$target_machine" == "s390x" ]]; then
-   rm -rf $PWD/lib64/ld64.so.1
-   ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so.1
-fi
 
 ## Linking or building against libsnsl produces binaries that don't run on recent Linux distributions.
 ## Libraries and headers removed here to prevent this. See
