@@ -53,4 +53,9 @@ rm -f $PWD/bin/ld.so
 ln -s $PWD/lib64/ld-2.28.so $PWD/bin/ld.so
 ln -s $PWD/bin $PWD/usr/bin
 
+if [[ "$target_machine" == "s390x" ]]; then
+   rm -rf $PWD/lib64/ld64.so.1
+   ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so.1
+fi
+
 popd
