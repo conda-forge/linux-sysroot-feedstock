@@ -303,6 +303,23 @@ outputs:
       commands:
         test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/usr/include/linux/version.h
 
+  - name: langpacks_{{ cross_target_platform }}
+    version: {{ version }}
+    script: build-langpacks.sh
+    build:
+      noarch: generic
+      binary_relocation: False
+      detect_binary_files_with_prefix: False
+    requirements:
+      run:
+        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*
+      run_constrained:
+        - sysroot_{{ cross_target_platform }} =={{ version }}
+    test:
+      commands:
+        - test ! -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/share/locale/en_GB
+        - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/share/locale/fr
+
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
     version: 3
     build:

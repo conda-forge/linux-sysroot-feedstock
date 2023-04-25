@@ -49,4 +49,7 @@ rm -f usr/include/rpcsvc/yp.x
 
 cp "${SRC_DIR}"/binary-freebl/lib64/libfreebl3.so ${PWD}/lib64/.
 
+# the locales have moved - making a sym link to the old area
+ln -s $PWD/share/locale $PWD/usr/share/locale
+
 popd
