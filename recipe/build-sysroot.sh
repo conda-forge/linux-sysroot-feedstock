@@ -9,6 +9,7 @@ cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/
 cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
+cp -Rf "${SRC_DIR}"/binary-glibc-langpacks/* .
 
 mkdir -p usr/lib64
 if [ $(compgen -G 'usr/lib/*') ]; then

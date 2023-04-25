@@ -67,6 +67,10 @@ source:
     url: https://repo.almalinux.org/almalinux/8.7/BaseOS/x86_64/os/Packages/tzdata-2023c-1.el8.noarch.rpm
     sha256: b33647f0a02d09d96fadf9c18ad421931061aaf608e0e7a86e702c9b3f4e3111
 
+  - folder: binary-glibc-langpacks
+    url: {{rpm_url}}/glibc-all-langpacks-2.28-211.el8.{{ centos_machine }}.rpm
+    sha256: c9b9f8b070c8727770848823f88125370e11d3bc97e2d71ee86e46d65b764a5c  # [cross_target_platform == "linux-64"]
+
 build:
   number: {{ build_number }}
   noarch: generic
