@@ -810,8 +810,8 @@ source:
     url: {{ rpm_url }}/glibc-2.28-211.el8.{{ centos_machine }}.rpm
     sha256: a82cc18a623f63f5e3370188543930fbc44cbb668407c3fe2b89fbb717e07279  # [cross_target_platform == "linux-64"]
     sha256: 03d09c7c70e78aad0f9d02a1284383635b41f9d7332d1ea1659f1beee9e6b9fc  # [cross_target_platform == "linux-aarch64"]
-    sha256: f9ff840d0cd01cb900c5ae3a5ce0adb5d388be7a938dc83cdeb374d27fc0a68e  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 3b37b5d41f81c4e63808d10a6ac5e4cf45501cb3c7553c8cd592f6afb2c724d4  # [cross_target_platform == "linux-s390x"]
+    sha256: b31850cbfb942cff564d9c9fac45421f84ce41d69c4dead217a88d55c3171135  # [cross_target_platform == "linux-ppc64le"]
+    sha256: 54532f82ac9fdce0065305e50c5aafb2a2d6c03cf40e4da883b34a92436bdc18  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-glibc-common
     url: {{ rpm_url }}/glibc-common-2.28-211.el8.{{ centos_machine }}.rpm
