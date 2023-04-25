@@ -10,6 +10,9 @@ cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* .
 cp -Rf "${SRC_DIR}"/binary-glibc-langpacks/* .
+for dr in $(compgen -G "${SRC_DIR}"'/binary-glibc-langpack-*'); do
+    cp -Rf ${dr}/* .
+done
 
 mkdir -p usr/lib64
 if [ $(compgen -G 'usr/lib/*') ]; then
