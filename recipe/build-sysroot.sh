@@ -13,6 +13,9 @@ cp -Rf "${SRC_DIR}"/binary-glibc-langpack-en/* .
 cp -Rf "${SRC_DIR}"/binary-glibc-nss-devel/* .
 cp -Rf "${SRC_DIR}"/binary-nss_db/* .
 cp -Rf "${SRC_DIR}"/binary-nss_nis/* .
+cp -Rf "${SRC_DIR}"/binary-glibc-gconv-extra/* .
+cp -Rf "${SRC_DIR}"/binary-libxcrypt/* .
+cp -Rf "${SRC_DIR}"/binary-libxcrypt-devel/* .
 
 mkdir -p usr/lib64
 if [ $(compgen -G 'usr/lib/*') ]; then
