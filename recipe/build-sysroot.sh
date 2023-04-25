@@ -52,4 +52,9 @@ cp "${SRC_DIR}"/binary-freebl/lib64/libfreebl3.so ${PWD}/lib64/.
 # the locales have moved - making a sym link to the old area
 ln -s $PWD/share/locale $PWD/usr/share/locale
 
+# usr/bin is different?
+rm -f $PWD/bin/ld.so
+ln -s $PWD/lib64/ld-2.28.so $PWD/bin/ld.so
+ln -s $PWD/bin $PWD/usr/bin
+
 popd
