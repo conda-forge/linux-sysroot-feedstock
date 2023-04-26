@@ -971,8 +971,8 @@ outputs:
         - sysroot_{{ cross_target_platform }} =={{ version }}
     test:
       commands:
-        - test ! -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/share/locale/en_GB
-        - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/share/locale/fr
+        - test ! -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale/en_GB
+        - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale/fr
 
   - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
     version: 3
