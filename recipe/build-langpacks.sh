@@ -6,7 +6,7 @@ pushd ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot > /dev/null 2
 cp -Rf "${SRC_DIR}"/binary-glibc-langpacks/* .
 for dr in $(compgen -G "${SRC_DIR}"'/binary-glibc-langpack-*'); do
     if [[ "$(basename ${dr})" != "binary-glibc-langpack-en" ]]; then
-        cp -Rf ${dr}/* .
+        cp -Rf ${dr}/* usr/
     fi
 done
 
