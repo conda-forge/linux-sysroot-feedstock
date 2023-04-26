@@ -12,7 +12,7 @@ for dr in $(compgen -G "${SRC_DIR}"'/binary-glibc-langpack-*'); do
 done
 
 mkdir -p usr/lib64
-if [ $(compgen -G 'usr/lib/*') ]; then
+if [[ $(compgen -G 'usr/lib/*') != "" ]]; then
     mv usr/lib/* usr/lib64/
 fi
 rm -rf usr/lib
