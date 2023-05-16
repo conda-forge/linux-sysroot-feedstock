@@ -1,4 +1,4 @@
-"""A scrip to compute the source entries for the conda_2_28 sysroots.
+"""A script to compute the source entries for the conda_2_28 sysroots.
 
 You feed it the name of an alma8 rpm like this:
 
