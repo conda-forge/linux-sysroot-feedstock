@@ -9,13 +9,13 @@ cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/
 cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* usr/
-cp -Rf "${SRC_DIR}"/binary-glibc-langpack-en/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-nss-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-nss_db/* .
 cp -Rf "${SRC_DIR}"/binary-nss_nis/* usr/.
 cp -Rf "${SRC_DIR}"/binary-glibc-gconv-extra/* usr/
 cp -Rf "${SRC_DIR}"/binary-libxcrypt/* .
 cp -Rf "${SRC_DIR}"/binary-libxcrypt-devel/* .
+cp -Rf "${SRC_DIR}"/binary-glibc-langpacks/* usr/
 
 mkdir -p usr/lib64
 if [ $(compgen -G 'usr/lib/*') ]; then
