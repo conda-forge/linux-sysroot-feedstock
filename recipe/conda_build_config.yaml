@@ -22,7 +22,7 @@ sysroot_cdt_arch:
 ctng_vendor:
   - conda
 sysroot_cdt_name:
-  - cos7
+  - conda_2_28
 
 zip_keys:
   - - target_machine
