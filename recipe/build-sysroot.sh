@@ -50,4 +50,9 @@ if [[ "$target_machine" == "s390x" ]]; then
    ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so.1
 fi
 
+# we don't need these
+rm -rf /usr/share/man
+rm -rf /usr/lib/systemd
+rm -rf /usr/share/doc
+
 popd
