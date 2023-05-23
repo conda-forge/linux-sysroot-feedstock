@@ -51,8 +51,8 @@ if [[ "$target_machine" == "s390x" ]]; then
 fi
 
 # we don't need these
-rm -rf /usr/share/man
-rm -rf /usr/lib/systemd
-rm -rf /usr/share/doc
+rm -rf usr/share/man
+rm -rf usr/lib/systemd
+rm -rf usr/share/doc
 
 popd
