@@ -34,7 +34,6 @@ cp "${SRC_DIR}"/binary-freebl/lib64/libfreebl3.so ${PWD}/lib64/.
 ln -s ${PWD}/lib64/libfreebl3.so ${PWD}/usr/lib64/libfreebl3.so
 
 sed -i.bak 's,AS_NEEDED,AS_NEEDED ( /lib64/librt.so.1 ) AS_NEEDED,g' usr/lib64/libc.so
-cat usr/lib64/libc.so
 rm usr/lib64/libc.so.bak
 
 popd
