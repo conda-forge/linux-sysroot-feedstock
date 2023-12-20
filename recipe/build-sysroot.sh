@@ -27,6 +27,8 @@ rm usr/include/rpcsvc/ypupd.h
 rm usr/include/rpcsvc/yp.x
 
 # we supply libcrypt/libxcrypt as a separate package
+rm include/crypt.h
+rm usr/include/crypt.h
 rm lib64/libcrypt*.so*
 rm usr/lib64/libcrypt.{a,so}
 rm lib64/libxcrypt*.so*
