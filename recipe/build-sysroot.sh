@@ -39,6 +39,10 @@ rm usr/include/rpcsvc/yp_prot.h
 rm usr/include/rpcsvc/ypupd.h
 rm usr/include/rpcsvc/yp.x
 
+# we supply libcrypt/libxcrypt as a separate package
+rm usr/include/crypt.h
+rm lib64/libcrypt*.so*
+rm usr/lib64/libcrypt.{a,so}
 
 ln -s $PWD/lib64 $PWD/lib
 
