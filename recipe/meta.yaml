@@ -5,7 +5,7 @@
 {% set rpm_url = "http://mirror.centos.org/centos/7.9.2009/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
 {% set rpm_url = "http://mirror.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
-{% set rpm_url = "http://download.sinenomine.net/clefos/7/os/s390x" %}             # [cross_target_platform == "linux-s390x"]
+{% set rpm_url = "https://download.sinenomine.net/clefos/7/os/s390x" %}             # [cross_target_platform == "linux-s390x"]
 
 package:
   name: linux-sysroot
