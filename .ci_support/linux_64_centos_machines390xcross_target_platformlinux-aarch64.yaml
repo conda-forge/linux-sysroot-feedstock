@@ -7,17 +7,17 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cross_target_platform:
-- linux-s390x
+- linux-aarch64
 ctng_vendor:
 - conda
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 sysroot_cdt_arch:
-- s390x
+- aarch64
 sysroot_cdt_name:
 - conda_2_28
 target_machine:
-- s390x
+- aarch64
 zip_keys:
 - - target_machine
   - cross_target_platform

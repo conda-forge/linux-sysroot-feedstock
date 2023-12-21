@@ -8,21 +8,21 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_centos_machineaarch64cross_target_platformlinux-aarch64:
-        CONFIG: linux_64_centos_machineaarch64cross_target_platformlinux-aarch64
+      linux_64_centos_machineaarch64cross_target_platformlinux-s390x:
+        CONFIG: linux_64_centos_machineaarch64cross_target_platformlinux-s390x
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_centos_machineaarch64cross_h42cd5a1aaa
+        SHORT_CONFIG: linux_64_centos_machineaarch64cross_h9edaabe27b
       linux_64_centos_machineppc64lecross_target_platformlinux-ppc64le:
         CONFIG: linux_64_centos_machineppc64lecross_target_platformlinux-ppc64le
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
         SHORT_CONFIG: linux_64_centos_machineppc64lecross_hfa97094d6c
-      linux_64_centos_machines390xcross_target_platformlinux-s390x:
-        CONFIG: linux_64_centos_machines390xcross_target_platformlinux-s390x
+      linux_64_centos_machines390xcross_target_platformlinux-aarch64:
+        CONFIG: linux_64_centos_machines390xcross_target_platformlinux-aarch64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_centos_machines390xcross_t_h02fee49e4a
+        SHORT_CONFIG: linux_64_centos_machines390xcross_t_h2fc9af765e
       linux_64_centos_machinex86_64cross_target_platformlinux-64:
         CONFIG: linux_64_centos_machinex86_64cross_target_platformlinux-64
         UPLOAD_PACKAGES: 'True'
@@ -31,11 +31,6 @@ jobs:
   timeoutInMinutes: 360
 
   steps:
-  - script: |
-         rm -rf /opt/ghc
-         df -h
-    displayName: Manage disk space
-
   # configure qemu binfmt-misc running.  This allows us to run docker containers
   # embedded qemu-static
   - script: |
@@ -46,6 +41,9 @@ jobs:
 
   - script: |
         export CI=azure
+        export flow_run_id=azure_$(Build.BuildNumber).$(System.JobAttempt)
+        export remote_url=$(Build.Repository.Uri)
+        export sha=$(Build.SourceVersion)
         export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
         export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
         if [[ "${BUILD_REASON:-}" == "PullRequest" ]]; then
