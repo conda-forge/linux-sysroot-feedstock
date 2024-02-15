@@ -1,9 +1,9 @@
 {% set version = "2.28" %}
 {% set kernel_headers_version = "4.18.0" %}
-{% set build_number = "0" %}
-{% set rpm_url = "https://repo.almalinux.org/almalinux/8.7/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
-{% set appstream_rpm_url = "https://repo.almalinux.org/almalinux/8.7/AppStream/" ~ centos_machine ~ "/os/Packages" %}
-{% set powertools_rpm_url = "https://repo.almalinux.org/almalinux/8.7/PowerTools/" ~ centos_machine ~ "/os/Packages" %}
+{% set build_number = "1" %}
+{% set rpm_url = "https://repo.almalinux.org/vault/8.7/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
+{% set appstream_rpm_url = "https://repo.almalinux.org/vault/8.7/AppStream/" ~ centos_machine ~ "/os/Packages" %}
+{% set powertools_rpm_url = "https://repo.almalinux.org/vault/8.7/PowerTools/" ~ centos_machine ~ "/os/Packages" %}
 
 package:
   name: linux-sysroot
@@ -60,7 +60,7 @@ source:
     sha256: c20ecc30eb7f4b2114bc703186608eb4066c0e27487ef98d67214b80c9674fb6  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-tzdata
-    url: https://repo.almalinux.org/almalinux/8.7/BaseOS/x86_64/os/Packages/tzdata-2023c-1.el8.noarch.rpm
+    url: https://repo.almalinux.org/vault/8.7/BaseOS/x86_64/os/Packages/tzdata-2023c-1.el8.noarch.rpm
     sha256: b33647f0a02d09d96fadf9c18ad421931061aaf608e0e7a86e702c9b3f4e3111
 
   - folder: binary-glibc-langpacks
@@ -97,20 +97,6 @@ source:
     sha256: 0842aadc21686e9c8060bc8dac9f8136fc4100a015e0c5156fb95982331f7336  # [cross_target_platform == "linux-aarch64"]
     sha256: a05b835c89ae9bf922fa0b23c637a372d0e32a37c337065c3ff6f3cb1acd83b3  # [cross_target_platform == "linux-ppc64le"]
     sha256: 7c696ad779339aa18a45cf1ce238924e21a9a31c4db7ba810efce01bf2854c23  # [cross_target_platform == "linux-s390x"]
-
-  - folder: binary-libxcrypt
-    url: {{ rpm_url }}/libxcrypt-4.1.1-6.el8.{{ centos_machine }}.rpm
-    sha256: d47f375a7902f3059a8690edc5949bbfd4708d53762c53414ff8747b7b409809  # [cross_target_platform == "linux-64"]
-    sha256: b574668ace5378e9c18d278aa776e51c9e65961f1c796c4583783900c87d5bf7  # [cross_target_platform == "linux-aarch64"]
-    sha256: cd10fabd2e21a079be2adcd501e10bb957a72a4d41bc3fb839460cf1e6b6ab4e  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 982e62272c86b39757a37f571615f792819d424496805945a8ecae8710505e4b  # [cross_target_platform == "linux-s390x"]
-
-  - folder: binary-libxcrypt-devel
-    url: {{ rpm_url }}/libxcrypt-devel-4.1.1-6.el8.{{ centos_machine }}.rpm
-    sha256: c370e6338926c45830f0451be2666da2a2aafca18468d2a30304fc8f20736798  # [cross_target_platform == "linux-64"]
-    sha256: fc5023f66f92382b9124e6ddf3f810a09ce6354f9e59414fa286c2c1e2ab2e24  # [cross_target_platform == "linux-aarch64"]
-    sha256: c76d4cf48ca7d063e7b6c549283179ef61ed30b45f96d92b8c7b84b72766b449  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 7ab1019601301bc8c3aa90ce15e3b51dd823dbc45b2f243b06a982098b606bcf  # [cross_target_platform == "linux-s390x"]
 
 build:
   number: {{ build_number }}
@@ -169,6 +155,8 @@ outputs:
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
         - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
+        - find "${PREFIX}" \( -name 'libnsl*' -o -path '*/rpcsvc/yp*' \) | { ! grep . ; }
+        - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) | { ! grep . ; }
 
   - name: sysroot-{{ sysroot_cdt_name }}-{{ sysroot_cdt_arch }}
     build:
@@ -187,6 +175,8 @@ outputs:
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
         - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
+        - find "${PREFIX}" \( -name 'libnsl*' -o -path '*/rpcsvc/yp*' \) | { ! grep . ; }
+        - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) | { ! grep . ; }
 
 about:
   home: http://sources.redhat.com/glibc/
