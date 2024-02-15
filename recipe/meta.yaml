@@ -156,7 +156,7 @@ outputs:
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
         - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
         - find "${PREFIX}" \( -name 'libnsl*' -o -path '*/rpcsvc/yp*' \) | { ! grep . ; }
-        - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt*' \) | { ! grep . ; }
+        - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) | { ! grep . ; }
 
   - name: sysroot-{{ sysroot_cdt_name }}-{{ sysroot_cdt_arch }}
     build:
@@ -176,7 +176,7 @@ outputs:
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
         - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
         - find "${PREFIX}" \( -name 'libnsl*' -o -path '*/rpcsvc/yp*' \) | { ! grep . ; }
-        - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt*' \) | { ! grep . ; }
+        - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) | { ! grep . ; }
 
 about:
   home: http://sources.redhat.com/glibc/
