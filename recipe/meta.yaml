@@ -137,7 +137,7 @@ outputs:
       detect_binary_files_with_prefix: False
       track_features:
         - sysroot_{{ cross_target_platform }}_{{ version }}
-        - sysroot_{{ cross_target_platform }}_{{ version }}_extra_weight
+        - sysroot_{{ cross_target_platform }}_{{ version }}_feature_2
       run_exports:
         strong:
           - __glibc >={{ version }},<3.0.a0
