@@ -1,10 +1,10 @@
 {% set version = "2.17" %}
 {% set kernel_headers_version = "3.10.0" %}  # [cross_target_platform != "linux-aarch64"]
 {% set kernel_headers_version = "4.18.0" %}  # [cross_target_platform == "linux-aarch64"]
-{% set build_number = "13" %}
-{% set rpm_url = "http://mirror.centos.org/centos/7.9.2009/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
-{% set rpm_url = "http://mirror.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
-{% set rpm_url = "http://mirror.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
+{% set build_number = "14" %}
+{% set rpm_url = "https://vault.centos.org/centos/7.9.2009/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
+{% set rpm_url = "https://vault.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
+{% set rpm_url = "https://vault.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
 {% set rpm_url = "https://download.sinenomine.net/clefos/7/os/s390x" %}             # [cross_target_platform == "linux-s390x"]
 
 package:
@@ -119,8 +119,6 @@ outputs:
       binary_relocation: False
       detect_binary_files_with_prefix: False
 {% if cross_target_platform == "linux-64" %}
-      track_features:
-        - sysroot_{{ cross_target_platform }}_{{ version }}
       run_exports:
         strong:
           - __glibc >={{ version }},<3.0.a0
