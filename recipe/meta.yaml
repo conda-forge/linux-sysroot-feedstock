@@ -65,10 +65,6 @@ source:
     sha256: 01439cbf4297a341e31b425961bdafc251a4765e22035977ca459c939f949899  # [cross_target_platform == "linux-ppc64le"]
     sha256: 8c88f6be69f0d88ac91a577cfb507c879446d3950a19843927082bf0d660accf  # [cross_target_platform == "linux-s390x"]
 
-  - folder: binary-tzdata
-    url: http://vault.centos.org/centos/7.9.2009/os/x86_64/Packages/tzdata-2020a-1.el7.noarch.rpm
-    sha256: bc5c790c0a346bb20abbbd866e0c1cf664cec9c3e4d4e21dbfe32b32616257ba
-
 build:
   number: {{ build_number }}
   noarch: generic
@@ -133,6 +129,7 @@ outputs:
         - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 4.*
 {% endif %}
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
+        - tzdata
     test:
       commands:
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
