@@ -4,7 +4,6 @@ mkdir -p ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot
 pushd ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot > /dev/null 2>&1
 cp -Rf "${SRC_DIR}"/binary/* .
 mkdir -p usr/include
-cp -Rf "${SRC_DIR}"/binary-tzdata/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/
 cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
@@ -47,6 +46,9 @@ if [[ "$target_machine" == "s390x" ]]; then
    rm -rf $PWD/lib64/ld64.so.1
    ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so.1
 fi
+
+mkdir -p usr/share
+ln -sf ${PREFIX}/share/zoneinfo usr/share/zoneinfo
 
 # we don't need these
 rm -rf usr/share/man
