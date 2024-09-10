@@ -1,6 +1,6 @@
 {% set version = "2.28" %}
 {% set kernel_headers_version = "4.18.0" %}
-{% set build_number = "2" %}
+{% set build_number = "3" %}
 {% set rpm_url = "https://repo.almalinux.org/vault/8.7/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
 {% set appstream_rpm_url = "https://repo.almalinux.org/vault/8.7/AppStream/" ~ centos_machine ~ "/os/Packages" %}
 {% set powertools_rpm_url = "https://repo.almalinux.org/vault/8.7/PowerTools/" ~ centos_machine ~ "/os/Packages" %}
@@ -113,21 +113,11 @@ outputs:
       binary_relocation: False
       detect_binary_files_with_prefix: False
     requirements:
-      run:
-        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*
       run_constrained:
         - sysroot_{{ cross_target_platform }} =={{ version }}
     test:
       commands:
         test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/usr/include/linux/version.h
-
-  - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
-    version: 3
-    build:
-      noarch: generic
-    test:
-      commands:
-        - echo "works!"
 
   - name: sysroot_{{ cross_target_platform }}
     script: build-sysroot.sh
@@ -143,7 +133,6 @@ outputs:
           - __glibc >={{ version }},<3.0.a0
     requirements:
       run:
-        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
     test:
       commands:
