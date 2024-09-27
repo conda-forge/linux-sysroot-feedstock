@@ -1,7 +1,7 @@
 {% set version = "2.17" %}
 {% set kernel_headers_version = "3.10.0" %}  # [cross_target_platform != "linux-aarch64"]
 {% set kernel_headers_version = "4.18.0" %}  # [cross_target_platform == "linux-aarch64"]
-{% set build_number = "16" %}
+{% set build_number = "17" %}
 {% set rpm_url = "https://vault.centos.org/centos/7.9.2009/os/x86_64/Packages" %}  # [cross_target_platform == "linux-64"]
 {% set rpm_url = "https://vault.centos.org/altarch/7/os/aarch64/Packages" %}       # [cross_target_platform == "linux-aarch64"]
 {% set rpm_url = "https://vault.centos.org/altarch/7/os/ppc64le/Packages" %}       # [cross_target_platform == "linux-ppc64le"]
@@ -80,33 +80,11 @@ outputs:
       binary_relocation: False
       detect_binary_files_with_prefix: False
     requirements:
-      run:
-{% if cross_target_platform == "linux-64" %}
-        # on linux-64 2.12 has the highest version and 2.17/2.28 are lower
-        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*
-{% else %}
-        # on non-x86_64, 2.17 has the highest version
-        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 4.*
-{% endif %}
       run_constrained:
         - sysroot_{{ cross_target_platform }} =={{ version }}
     test:
       commands:
         test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/usr/include/linux/version.h
-
-  - name: _sysroot_{{ cross_target_platform }}_curr_repodata_hack
-{% if cross_target_platform == "linux-64" %}
-    # on linux-64 2.12 has the highest version and 2.17/2.28 are lower
-    version: 3
-{% else %}
-    # on non-x86_64, 2.17 has the highest version
-    version: 4
-{% endif %}
-    build:
-      noarch: generic
-    test:
-      commands:
-        - echo "works!"
 
   - name: sysroot_{{ cross_target_platform }}
     script: build-sysroot.sh
@@ -121,13 +99,6 @@ outputs:
 {% endif %}
     requirements:
       run:
-{% if cross_target_platform == "linux-64" %}
-        # on linux-64 2.12 has the highest version and 2.17/2.28 are lower
-        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 3.*
-{% else %}
-        # on non-x86_64, 2.17 has the highest version
-        - _sysroot_{{ cross_target_platform }}_curr_repodata_hack 4.*
-{% endif %}
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
         - tzdata
     test:
@@ -165,7 +136,7 @@ outputs:
         - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) \! -name libcrypt.so.1 \! -name libcrypt-2.17.so | { ! grep . ; }
 
 about:
-  home: http://sources.redhat.com/glibc/
+  home: https://vault.centos.org/centos/7.9.2009
   license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later AND MPL-2.0
   license_family: GPL
   license_file: nss-license
