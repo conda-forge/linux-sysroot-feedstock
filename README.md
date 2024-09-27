@@ -3,7 +3,7 @@ About linux-sysroot-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/linux-sysroot-feedstock/blob/main/LICENSE.txt)
 
-Home: http://sources.redhat.com/glibc/
+Home: https://repo.almalinux.org/vault/8.7
 
 Package license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later AND MPL-2.0
 
@@ -40,10 +40,6 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-_sysroot_linux--64_curr_repodata_hack-green.svg)](https://anaconda.org/conda-forge/_sysroot_linux-64_curr_repodata_hack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/_sysroot_linux-64_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-64_curr_repodata_hack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/_sysroot_linux-64_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-64_curr_repodata_hack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/_sysroot_linux-64_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-64_curr_repodata_hack) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-_sysroot_linux--aarch64_curr_repodata_hack-green.svg)](https://anaconda.org/conda-forge/_sysroot_linux-aarch64_curr_repodata_hack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/_sysroot_linux-aarch64_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-aarch64_curr_repodata_hack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/_sysroot_linux-aarch64_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-aarch64_curr_repodata_hack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/_sysroot_linux-aarch64_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-aarch64_curr_repodata_hack) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-_sysroot_linux--ppc64le_curr_repodata_hack-green.svg)](https://anaconda.org/conda-forge/_sysroot_linux-ppc64le_curr_repodata_hack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/_sysroot_linux-ppc64le_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-ppc64le_curr_repodata_hack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/_sysroot_linux-ppc64le_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-ppc64le_curr_repodata_hack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/_sysroot_linux-ppc64le_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-ppc64le_curr_repodata_hack) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-_sysroot_linux--s390x_curr_repodata_hack-green.svg)](https://anaconda.org/conda-forge/_sysroot_linux-s390x_curr_repodata_hack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/_sysroot_linux-s390x_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-s390x_curr_repodata_hack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/_sysroot_linux-s390x_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-s390x_curr_repodata_hack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/_sysroot_linux-s390x_curr_repodata_hack.svg)](https://anaconda.org/conda-forge/_sysroot_linux-s390x_curr_repodata_hack) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-kernel--headers_linux--64-green.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/kernel-headers_linux-64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/kernel-headers_linux-64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/kernel-headers_linux-64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-kernel--headers_linux--aarch64-green.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-aarch64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/kernel-headers_linux-aarch64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-aarch64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/kernel-headers_linux-aarch64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-aarch64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/kernel-headers_linux-aarch64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-aarch64) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-kernel--headers_linux--ppc64le-green.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-ppc64le) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/kernel-headers_linux-ppc64le.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-ppc64le) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/kernel-headers_linux-ppc64le.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-ppc64le) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/kernel-headers_linux-ppc64le.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-ppc64le) |
@@ -67,41 +63,41 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `_sysroot_linux-64_curr_repodata_hack, _sysroot_linux-aarch64_curr_repodata_hack, _sysroot_linux-ppc64le_curr_repodata_hack, _sysroot_linux-s390x_curr_repodata_hack, kernel-headers_linux-64, kernel-headers_linux-aarch64, kernel-headers_linux-ppc64le, kernel-headers_linux-s390x, sysroot-conda_2_28-aarch64, sysroot-conda_2_28-ppc64le, sysroot-conda_2_28-s390x, sysroot-conda_2_28-x86_64, sysroot_linux-64, sysroot_linux-aarch64, sysroot_linux-ppc64le, sysroot_linux-s390x` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `kernel-headers_linux-64, kernel-headers_linux-aarch64, kernel-headers_linux-ppc64le, kernel-headers_linux-s390x, sysroot-conda_2_28-aarch64, sysroot-conda_2_28-ppc64le, sysroot-conda_2_28-s390x, sysroot-conda_2_28-x86_64, sysroot_linux-64, sysroot_linux-aarch64, sysroot_linux-ppc64le, sysroot_linux-s390x` can be installed with `conda`:
 
 ```
-conda install _sysroot_linux-64_curr_repodata_hack _sysroot_linux-aarch64_curr_repodata_hack _sysroot_linux-ppc64le_curr_repodata_hack _sysroot_linux-s390x_curr_repodata_hack kernel-headers_linux-64 kernel-headers_linux-aarch64 kernel-headers_linux-ppc64le kernel-headers_linux-s390x sysroot-conda_2_28-aarch64 sysroot-conda_2_28-ppc64le sysroot-conda_2_28-s390x sysroot-conda_2_28-x86_64 sysroot_linux-64 sysroot_linux-aarch64 sysroot_linux-ppc64le sysroot_linux-s390x
-```
-
-or with `mamba`:
-
-```
-mamba install _sysroot_linux-64_curr_repodata_hack _sysroot_linux-aarch64_curr_repodata_hack _sysroot_linux-ppc64le_curr_repodata_hack _sysroot_linux-s390x_curr_repodata_hack kernel-headers_linux-64 kernel-headers_linux-aarch64 kernel-headers_linux-ppc64le kernel-headers_linux-s390x sysroot-conda_2_28-aarch64 sysroot-conda_2_28-ppc64le sysroot-conda_2_28-s390x sysroot-conda_2_28-x86_64 sysroot_linux-64 sysroot_linux-aarch64 sysroot_linux-ppc64le sysroot_linux-s390x
-```
-
-It is possible to list all of the versions of `_sysroot_linux-64_curr_repodata_hack` available on your platform with `conda`:
-
-```
-conda search _sysroot_linux-64_curr_repodata_hack --channel conda-forge
+conda install kernel-headers_linux-64 kernel-headers_linux-aarch64 kernel-headers_linux-ppc64le kernel-headers_linux-s390x sysroot-conda_2_28-aarch64 sysroot-conda_2_28-ppc64le sysroot-conda_2_28-s390x sysroot-conda_2_28-x86_64 sysroot_linux-64 sysroot_linux-aarch64 sysroot_linux-ppc64le sysroot_linux-s390x
 ```
 
 or with `mamba`:
 
 ```
-mamba search _sysroot_linux-64_curr_repodata_hack --channel conda-forge
+mamba install kernel-headers_linux-64 kernel-headers_linux-aarch64 kernel-headers_linux-ppc64le kernel-headers_linux-s390x sysroot-conda_2_28-aarch64 sysroot-conda_2_28-ppc64le sysroot-conda_2_28-s390x sysroot-conda_2_28-x86_64 sysroot_linux-64 sysroot_linux-aarch64 sysroot_linux-ppc64le sysroot_linux-s390x
+```
+
+It is possible to list all of the versions of `kernel-headers_linux-64` available on your platform with `conda`:
+
+```
+conda search kernel-headers_linux-64 --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search kernel-headers_linux-64 --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search _sysroot_linux-64_curr_repodata_hack --channel conda-forge
+mamba repoquery search kernel-headers_linux-64 --channel conda-forge
 
-# List packages depending on `_sysroot_linux-64_curr_repodata_hack`:
-mamba repoquery whoneeds _sysroot_linux-64_curr_repodata_hack --channel conda-forge
+# List packages depending on `kernel-headers_linux-64`:
+mamba repoquery whoneeds kernel-headers_linux-64 --channel conda-forge
 
-# List dependencies of `_sysroot_linux-64_curr_repodata_hack`:
-mamba repoquery depends _sysroot_linux-64_curr_repodata_hack --channel conda-forge
+# List dependencies of `kernel-headers_linux-64`:
+mamba repoquery depends kernel-headers_linux-64 --channel conda-forge
 ```
 
 
