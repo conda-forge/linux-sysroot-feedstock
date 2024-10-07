@@ -29,3 +29,7 @@ zip_keys:
     - cross_target_platform
     - centos_machine
     - sysroot_cdt_arch
+
+with_features:
+  - true
+  - false
