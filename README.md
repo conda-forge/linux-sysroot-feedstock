@@ -60,14 +60,14 @@ Current release info
 Installing linux-sysroot
 ========================
 
-Installing `linux-sysroot` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `linux-sysroot` from the `conda-forge/label/sysroot-with-crypt` channel can be achieved by adding `conda-forge/label/sysroot-with-crypt` to your channels with:
 
 ```
-conda config --add channels conda-forge
+conda config --add channels conda-forge/label/sysroot-with-crypt
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `_sysroot_linux-64_curr_repodata_hack, _sysroot_linux-aarch64_curr_repodata_hack, _sysroot_linux-ppc64le_curr_repodata_hack, _sysroot_linux-s390x_curr_repodata_hack, kernel-headers_linux-64, kernel-headers_linux-aarch64, kernel-headers_linux-ppc64le, kernel-headers_linux-s390x, sysroot-cos7-aarch64, sysroot-cos7-ppc64le, sysroot-cos7-s390x, sysroot-cos7-x86_64, sysroot_linux-64, sysroot_linux-aarch64, sysroot_linux-ppc64le, sysroot_linux-s390x` can be installed with `conda`:
+Once the `conda-forge/label/sysroot-with-crypt` channel has been enabled, `_sysroot_linux-64_curr_repodata_hack, _sysroot_linux-aarch64_curr_repodata_hack, _sysroot_linux-ppc64le_curr_repodata_hack, _sysroot_linux-s390x_curr_repodata_hack, kernel-headers_linux-64, kernel-headers_linux-aarch64, kernel-headers_linux-ppc64le, kernel-headers_linux-s390x, sysroot-cos7-aarch64, sysroot-cos7-ppc64le, sysroot-cos7-s390x, sysroot-cos7-x86_64, sysroot_linux-64, sysroot_linux-aarch64, sysroot_linux-ppc64le, sysroot_linux-s390x` can be installed with `conda`:
 
 ```
 conda install _sysroot_linux-64_curr_repodata_hack _sysroot_linux-aarch64_curr_repodata_hack _sysroot_linux-ppc64le_curr_repodata_hack _sysroot_linux-s390x_curr_repodata_hack kernel-headers_linux-64 kernel-headers_linux-aarch64 kernel-headers_linux-ppc64le kernel-headers_linux-s390x sysroot-cos7-aarch64 sysroot-cos7-ppc64le sysroot-cos7-s390x sysroot-cos7-x86_64 sysroot_linux-64 sysroot_linux-aarch64 sysroot_linux-ppc64le sysroot_linux-s390x
@@ -82,26 +82,26 @@ mamba install _sysroot_linux-64_curr_repodata_hack _sysroot_linux-aarch64_curr_r
 It is possible to list all of the versions of `_sysroot_linux-64_curr_repodata_hack` available on your platform with `conda`:
 
 ```
-conda search _sysroot_linux-64_curr_repodata_hack --channel conda-forge
+conda search _sysroot_linux-64_curr_repodata_hack --channel conda-forge/label/sysroot-with-crypt
 ```
 
 or with `mamba`:
 
 ```
-mamba search _sysroot_linux-64_curr_repodata_hack --channel conda-forge
+mamba search _sysroot_linux-64_curr_repodata_hack --channel conda-forge/label/sysroot-with-crypt
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search _sysroot_linux-64_curr_repodata_hack --channel conda-forge
+mamba repoquery search _sysroot_linux-64_curr_repodata_hack --channel conda-forge/label/sysroot-with-crypt
 
 # List packages depending on `_sysroot_linux-64_curr_repodata_hack`:
-mamba repoquery whoneeds _sysroot_linux-64_curr_repodata_hack --channel conda-forge
+mamba repoquery whoneeds _sysroot_linux-64_curr_repodata_hack --channel conda-forge/label/sysroot-with-crypt
 
 # List dependencies of `_sysroot_linux-64_curr_repodata_hack`:
-mamba repoquery depends _sysroot_linux-64_curr_repodata_hack --channel conda-forge
+mamba repoquery depends _sysroot_linux-64_curr_repodata_hack --channel conda-forge/label/sysroot-with-crypt
 ```
 
 
@@ -123,7 +123,7 @@ available continuous integration services. Thanks to the awesome service provide
 [CircleCI](https://circleci.com/), [AppVeyor](https://www.appveyor.com/),
 [Drone](https://cloud.drone.io/welcome), and [TravisCI](https://travis-ci.com/)
 it is possible to build and upload installable packages to the
-[conda-forge](https://anaconda.org/conda-forge) [Anaconda-Cloud](https://anaconda.org/)
+[conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.
 
 To manage the continuous integration and simplify feedstock maintenance

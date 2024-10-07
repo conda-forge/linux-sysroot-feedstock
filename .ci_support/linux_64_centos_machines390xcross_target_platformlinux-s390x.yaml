@@ -1,11 +1,11 @@
 cdt_name:
-- cos6
+- cos7
 centos_machine:
 - s390x
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge main
+- conda-forge sysroot-with-crypt
 cross_target_platform:
 - linux-s390x
 ctng_vendor:
