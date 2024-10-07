@@ -24,6 +24,9 @@ ctng_vendor:
 sysroot_cdt_name:
   - cos7
 
+channel_targets:
+  - conda-forge sysroot-with-crypt
+
 zip_keys:
   - - target_machine
     - cross_target_platform
