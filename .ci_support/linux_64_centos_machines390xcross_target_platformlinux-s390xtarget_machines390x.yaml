@@ -11,7 +11,7 @@ cross_target_platform:
 ctng_vendor:
 - conda
 docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
+- quay.io/condaforge/linux-anvil-alma-x86_64:8
 target_machine:
 - s390x
 with_features:
