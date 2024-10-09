@@ -13,11 +13,6 @@ cross_target_platform:
   - linux-aarch64
   - linux-ppc64le
   - linux-s390x
-sysroot_cdt_arch:
-  - x86_64
-  - aarch64
-  - ppc64le
-  - s390x
 
 ctng_vendor:
   - conda
@@ -31,7 +26,6 @@ zip_keys:
   - - target_machine
     - cross_target_platform
     - centos_machine
-    - sysroot_cdt_arch
 
 with_features:
   - true
