@@ -11,7 +11,7 @@
 # artefact contains a first build number, the alma version, and another build number
 {% set glibc_build = glibc_build1 ~ ".el" ~ alma_version.replace(".", "_") ~ "." ~ glibc_build2 %}
 {% set glibc_string = glibc_version ~ "-" ~ glibc_build %}
-{% set kh_string = kh_version ~ "-" ~ kh_build ~ ".el" ~ alma_version.replace(".", "_") %}
+{% set kernel_headers_string = kernel_headers_version ~ "-" ~ kernel_headers_build ~ ".el" ~ alma_version.replace(".", "_") %}
 
 package:
   name: linux-sysroot
@@ -77,7 +77,7 @@ source:
     sha256: c3ac2c243a879e985a5ee9669c998374908e6f083d4a96586b028862075485cc  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-kernel-headers
-    url: {{ rpm_url }}/kernel-headers-{{ kh_string }}.{{ centos_machine }}.rpm
+    url: {{ rpm_url }}/kernel-headers-{{ kernel_headers_string }}.{{ centos_machine }}.rpm
     sha256: 1da03ae05118d6e42bd26efd5a0770d30362109731cbd5bdaef9e0a4f01a7659  # [cross_target_platform == "linux-64"]
     sha256: 28cc76582fb17f7c557aa95d4b2a364113c019ffdf2e95efb5232da8873b977c  # [cross_target_platform == "linux-aarch64"]
     sha256: 47019f21239170869460c073a54adae5508e45284c10d22b7c9fbff1e8436269  # [cross_target_platform == "linux-ppc64le"]
@@ -112,7 +112,7 @@ build:
 
 outputs:
   - name: kernel-headers_{{ cross_target_platform }}
-    version: {{ kh_version }}
+    version: {{ kernel_headers_version }}
     script: build-kernel-headers.sh
     build:
       noarch: generic

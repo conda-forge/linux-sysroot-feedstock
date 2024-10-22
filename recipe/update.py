@@ -36,7 +36,7 @@ url_template = (
 
 el_ver = "el" + config["alma_version"][0].replace(".", "_")
 glibc_string = f"{config['glibc_version'][0]}-{config['glibc_build1'][0]}.{el_ver}.{config['glibc_build2'][0]}"
-kh_string = f"{config['kh_version'][0]}-{config['kh_build'][0]}.{el_ver}"
+kernel_headers_string = f"{config['kernel_headers_version'][0]}-{config['kernel_headers_build'][0]}.{el_ver}"
 
 out_lines = []
 
@@ -50,7 +50,7 @@ name2string = {
     "glibc-headers": glibc_string,
     "glibc-nss-devel": glibc_string,
     "glibc-static": glibc_string,
-    "kernel-headers": kh_string,
+    "kernel-headers": kernel_headers_string,
     "nss_db": glibc_string,
     # manual versions
     "nss_nis": "3.0-8.el8",
@@ -78,7 +78,7 @@ for pkg, string in name2string.items():
     )
     string_jinja = (
         "{{ glibc_string }}" if string == glibc_string else
-        "{{ kh_string }}" if string == kh_string else string
+        "{{ kernel_headers_string }}" if string == kernel_headers_string else string
     )
     # quadruple curly braces to keep {{ }} jinja templates
     out_lines.append(f"    url: {url_jinja}/{pkg}-{string_jinja}.{{{{ centos_machine }}}}.rpm")
