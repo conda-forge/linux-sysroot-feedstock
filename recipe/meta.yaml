@@ -1,22 +1,25 @@
-{% set glibc_version = "2.28" %}
-{% set kh_version = "4.18.0" %}
 {% set build_number = "4" %}
 
+{% if alma_version is undefined %}
 {% set alma_version = "8.9" %}
+{% endif %}
+
 {% set rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
 {% set appstream_rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/AppStream/" ~ centos_machine ~ "/os/Packages" %}
 {% set powertools_rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/PowerTools/" ~ centos_machine ~ "/os/Packages" %}
 
 # artefact contains a first build number, the alma version, and another build number
-{% set glibc_build = "236.el" ~ alma_version.replace(".", "_") ~ ".13" %}
+{% set glibc_build = glibc_build1 ~ ".el" ~ alma_version.replace(".", "_") ~ "." ~ glibc_build2 %}
 {% set glibc_string = glibc_version ~ "-" ~ glibc_build %}
-{% set kh_string = kh_version ~ "-513.24.1.el" ~ alma_version.replace(".", "_") %}
+{% set kh_string = kh_version ~ "-" ~ kh_build ~ ".el" ~ alma_version.replace(".", "_") %}
 
 package:
   name: linux-sysroot
   version: {{ glibc_version }}
 
 source:
+  # for calculating the hashes below, you can run `python update.py`
+  # in the recipe folder (after ensuring the versions in CBC are correct)
   - folder: binary-glibc
     url: {{ rpm_url }}/glibc-{{ glibc_string }}.{{ centos_machine }}.rpm
     sha256: a82cc18a623f63f5e3370188543930fbc44cbb668407c3fe2b89fbb717e07279  # [cross_target_platform == "linux-64"]
