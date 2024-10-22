@@ -29,7 +29,7 @@ config = load(cbc_content, Loader=BaseLoader)
 rpm_arches = config["centos_machine"]
 conda_arches = config["cross_target_platform"]
 
-alma_version = "8.9"
+alma_version = "9.3"
 
 url_template = (
     f"https://repo.almalinux.org/vault/{alma_version}"
@@ -91,7 +91,7 @@ name2string = {
     # manual versions
     # TODO: calculate them automatically as well
     "nss_nis": "3.0-8.el8",
-    "nss-softokn-freebl": "3.90.0-6.el8_9",
+    "nss-softokn-freebl": "3.90.0-7.el9_3",
 }
 
 def get_subfolder(pkg, string):
