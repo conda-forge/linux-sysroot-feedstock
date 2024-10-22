@@ -10,7 +10,7 @@ package:
   version: {{ version }}
 
 source:
-  - folder: binary
+  - folder: binary-glibc
     url: {{ rpm_url }}/glibc-2.28-211.el8.{{ centos_machine }}.rpm
     sha256: a82cc18a623f63f5e3370188543930fbc44cbb668407c3fe2b89fbb717e07279  # [cross_target_platform == "linux-64"]
     sha256: 03d09c7c70e78aad0f9d02a1284383635b41f9d7332d1ea1659f1beee9e6b9fc  # [cross_target_platform == "linux-aarch64"]
@@ -52,14 +52,14 @@ source:
     sha256: 56173d98602390d0734f6af6b4dc96bbd8f83c512f8dfd7dffdc5a264bba9522  # [cross_target_platform == "linux-ppc64le"]
     sha256: bf9434718af1dd54dd21774263e6b6a1cf9452f1a4a294b6dd2fa126f72ab568  # [cross_target_platform == "linux-s390x"]
 
-  - folder: binary-freebl
+  - folder: binary-nss-softokn-freebl
     url: {{ appstream_rpm_url }}/nss-softokn-freebl-3.79.0-11.el8_7.{{ centos_machine }}.rpm
     sha256: a85fddc98b0384289a53aced70e318dfd9d146c731fffa965cf624381b1e3165  # [cross_target_platform == "linux-64"]
     sha256: 93e8648ee10a28ca8e553ae220cc55215a400ed958d7ba22f8f84acbcb058a22  # [cross_target_platform == "linux-aarch64"]
     sha256: 890ce026fdab076710e1c0ffc6ee808a4c41b75f336529990ead3fa05b5712f3  # [cross_target_platform == "linux-ppc64le"]
     sha256: c20ecc30eb7f4b2114bc703186608eb4066c0e27487ef98d67214b80c9674fb6  # [cross_target_platform == "linux-s390x"]
 
-  - folder: binary-glibc-langpacks
+  - folder: binary-glibc-all-langpacks
     url: {{ rpm_url }}/glibc-all-langpacks-2.28-211.el8.{{ centos_machine }}.rpm
     sha256: c9b9f8b070c8727770848823f88125370e11d3bc97e2d71ee86e46d65b764a5c  # [cross_target_platform == "linux-64"]
     sha256: 3f96fd3218c8282dc834e5efc48acd2757f447103d44fbbf4363649e0b6fe1db  # [cross_target_platform == "linux-aarch64"]
