@@ -1,3 +1,7 @@
+ace:
+- 8.0.1
+alma_version:
+- '8.9'
 cdt_name:
 - cos7
 centos_machine:
@@ -12,6 +16,18 @@ ctng_vendor:
 - conda
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
+glib:
+- '2'
+glibc_build1:
+- '236'
+glibc_build2:
+- '13'
+glibc_version:
+- '2.28'
+kernel_headers_build:
+- 513.24.1
+kernel_headers_version:
+- 4.18.0
 target_machine:
 - powerpc64le
 zip_keys:
