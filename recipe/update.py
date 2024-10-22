@@ -97,7 +97,7 @@ def get_subfolder(pkg, string):
     # find in which subfolder the rpm lives on the alma vault;
     # we assume that the layout for x86_64 works for all arches
     pkg_template = url_template + f"/{pkg}-{string}.x86_64.rpm"
-    for sf in ["BaseOS", "PowerTools", "AppStream"]:
+    for sf in ["BaseOS", "CRB", "AppStream"]:
         url = pkg_template.format(arch="x86_64", subfolder=sf)
         logging.info(f"Testing if {url} exists")
         if requests.get(url).status_code == 200:
@@ -109,7 +109,7 @@ for pkg, string in name2string.items():
     subfolder = get_subfolder(pkg, string)
     url_jinja = (
         "{{ rpm_url }}" if subfolder == "BaseOS" else
-        "{{ powertools_rpm_url }}" if subfolder == "PowerTools" else
+        "{{ crb_rpm_url }}" if subfolder == "CRB" else
         "{{ appstream_rpm_url }}"
     )
     # quadruple curly braces to keep {{ }} jinja templates

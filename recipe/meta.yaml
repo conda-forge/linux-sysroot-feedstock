@@ -5,7 +5,7 @@
 
 {% set rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
 {% set appstream_rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/AppStream/" ~ centos_machine ~ "/os/Packages" %}
-{% set powertools_rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/PowerTools/" ~ centos_machine ~ "/os/Packages" %}
+{% set crb_rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/CRB/" ~ centos_machine ~ "/os/Packages" %}
 
 package:
   name: linux-sysroot
