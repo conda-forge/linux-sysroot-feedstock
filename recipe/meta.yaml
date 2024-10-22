@@ -85,13 +85,6 @@ source:
     sha256: 3b5a1169f2e85c22bc1e89e789cefd1844ae74693618d4d095023a00414f6c06  # [cross_target_platform == "linux-ppc64le"]
     sha256: 694d74694f8cdbb7ed6141808fa177f119dce7d666f8c47d9e4fedd3fc980d86  # [cross_target_platform == "linux-s390x"]
 
-  - folder: binary-nss_nis
-    url: {{ rpm_url }}/nss_nis-3.0-8.el8.{{ centos_machine }}.rpm
-    sha256: 092ae0b3db08c0bd8af1187f37abf426af9092495f3276bd186c90679f342e59  # [cross_target_platform == "linux-64"]
-    sha256: 3c7fe091fcef8971b5de41b9093025405d2064fb05e5c510ec3a92454f49e2be  # [cross_target_platform == "linux-aarch64"]
-    sha256: 360f1582f13e9e86e4812446bbb0b2ae7e5477459e381c0475f04a0afff9fee6  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 4515b05ba15ce464aaf445516817194b3f95849db5394acd6ccf67f5c2fc515a  # [cross_target_platform == "linux-s390x"]
-
   - folder: binary-nss-softokn-freebl
     url: {{ appstream_rpm_url }}/nss-softokn-freebl-3.90.0-6.el8_9.{{ centos_machine }}.rpm
     sha256: 53bcc5c46f4b951a19469b22693718110ec2c4ffb1ffd8ae416aaa0848800ebd  # [cross_target_platform == "linux-64"]

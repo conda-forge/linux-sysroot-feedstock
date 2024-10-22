@@ -90,7 +90,6 @@ name2string = {
     "nss_db": glibc_string,
     # manual versions
     # TODO: calculate them automatically as well
-    "nss_nis": "3.0-8.el8",
     "nss-softokn-freebl": "3.90.0-7.el9_3",
 }
 

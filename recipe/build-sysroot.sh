@@ -10,7 +10,6 @@ cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-nss-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-nss_db/* .
-cp -Rf "${SRC_DIR}"/binary-nss_nis/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-gconv-extra/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-all-langpacks/* usr/
 
