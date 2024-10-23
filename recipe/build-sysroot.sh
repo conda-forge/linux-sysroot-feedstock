@@ -4,7 +4,7 @@ mkdir -p ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot
 pushd ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot > /dev/null 2>&1
 cp -Rf "${SRC_DIR}"/binary-glibc/* .
 mkdir -p usr/include
-cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/
+cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/ | true
 cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* usr/

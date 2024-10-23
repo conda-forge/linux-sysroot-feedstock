@@ -50,8 +50,8 @@ source:
     sha256: 48b89589e90b1ccaa80a4efc8e7b231d39561c595e4ea39461d91c3d84269cf8  # [cross_target_platform == "linux-ppc64le"]
     sha256: 486cb2b877c9e127019c6f92fac89c6ce438b7427ba1f012de54ca33355ecd2e  # [cross_target_platform == "linux-s390x"]
 
-  - folder: binary-glibc-headers
-    url: {{ appstream_rpm_url }}/glibc-headers-2.34-83.el9_3.12.{{ centos_machine }}.rpm
+  - folder: binary-glibc-headers                                              # [cross_target_platform in ("linux-64", "linux-s390x")]
+    url: {{ appstream_rpm_url }}/glibc-headers-2.34-83.el9_3.12.{{ centos_machine }}.rpm  # [cross_target_platform in ("linux-64", "linux-s390x")]
     sha256: 28e0b6aa9c9a52cb58e62cd5ab0be002414c4bbf561f140f874f4e9058b90d4f  # [cross_target_platform == "linux-64"]
     sha256: d9f67d8a72f7ea715dc18bb7aad776cd3df3d5154cbe8572b38034bca5bc802d  # [cross_target_platform == "linux-s390x"]
 
