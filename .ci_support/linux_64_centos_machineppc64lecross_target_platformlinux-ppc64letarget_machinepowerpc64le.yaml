@@ -12,6 +12,8 @@ ctng_vendor:
 - conda
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
+glib:
+- '2'
 target_machine:
 - powerpc64le
 zip_keys:
