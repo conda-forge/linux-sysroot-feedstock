@@ -39,15 +39,41 @@ url_template = (
 
 el_ver = "el" + alma_version.replace(".", "_")
 
-a = requests.get(url_template.format(subfolder="BaseOS", arch="x86_64")).content.decode('utf-8')
+# determine version of glibc & kernel-headers; in different subfolders as of alma 9
 
+# Get content of https://repo.almalinux.org/vault/9.3/BaseOS/x86_64/os/Packages/,
+# which looks something like:
+# ```
+# <html>
+# <head><title>Index of /vault/9.3/BaseOS/x86_64/os/Packages/</title></head>
+# <body>
+# <h1>Index of /vault/9.3/BaseOS/x86_64/os/Packages/</h1><hr><pre><a href="../">../</a>
+# <a href="{pkg}-{string}.x86_64.rpm">{pkg}-{string}.x86_64.rpm</a> {date} {size}
+# <a href="{pkg}-{string}.x86_64.rpm">{pkg}-{string}.x86_64.rpm</a> {date} {size}
+# ...
+# </pre><hr></body>
+# </html>
+# ```
+baseos_frontpage = url_template.format(subfolder="BaseOS", arch="x86_64")
+logging.info(f"Fetching content of {baseos_frontpage}")
+baseos_pkgs_html = requests.get(baseos_frontpage).content.decode("utf-8")
+
+appstream_frontpage = url_template.format(subfolder="AppStream", arch="x86_64")
+logging.info(f"Fetching content of {appstream_frontpage}")
+appstream_pkgs_html = requests.get(appstream_frontpage).content.decode("utf-8")
+
+# glibc artefacts have two build numbers plus the alma version, e.g.
+#   2.28-236.el8_9.13.x86_64.rpm
+#   ↑    ↑     ↑   ↑
+#   └glibc_ver └alma_version
+#        └build1   └build2
 glibc_build1 = 0
 glibc_build2 = 0
 glibc_version = 0
 kernel_headers_build = Version("0.0.0")
 kernel_headers_version = 0
 
-for line in a.splitlines():
+for line in (baseos_pkgs_html + appstream_pkgs_html).splitlines():
     if not line.startswith("<a href=\""):
         continue
     line = line[len("<a href=\""):]
@@ -71,8 +97,16 @@ for line in a.splitlines():
         kernel_headers_build = max(kernel_headers_build, Version(build.rsplit(".", 3)[0]))
         kernel_headers_version = version
 
+if glibc_version == 0:
+    raise ValueError("could not determine glibc version!")
+if kernel_headers_version == 0:
+    raise ValueError("could not determine kernel-headers version!")
+
 glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}.{glibc_build2}"
 kernel_headers_string = f"{kernel_headers_version}-{kernel_headers_build}.{el_ver}"
+
+logging.info(f"Determined {glibc_string=}")
+logging.info(f"Determined {kernel_headers_string=}")
 
 out_lines = []
 
