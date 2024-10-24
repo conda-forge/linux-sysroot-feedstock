@@ -121,6 +121,7 @@ outputs:
       track_features:
         - sysroot_{{ cross_target_platform }}_{{ glibc_version }}
         - sysroot_{{ cross_target_platform }}_{{ glibc_version }}_feature_2
+        - sysroot_{{ cross_target_platform }}_{{ glibc_version }}_feature_3
       run_exports:
         strong:
           - __glibc >={{ glibc_version }},<3.0.a0
