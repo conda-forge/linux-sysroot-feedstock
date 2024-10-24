@@ -3,7 +3,7 @@ About linux-sysroot-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/linux-sysroot-feedstock/blob/main/LICENSE.txt)
 
-Home: https://repo.almalinux.org/vault/8.9
+Home: https://repo.almalinux.org/vault/9.3
 
 Package license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later AND MPL-2.0
 
