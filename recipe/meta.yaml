@@ -83,6 +83,13 @@ source:
     sha256: 6c74f8b2381c1d34c2019a4ff25072086ab121baea57e641bbf54edf77a7e3c5  # [cross_target_platform == "linux-ppc64le"]
     sha256: e604355ce87ebe6421908bbc07f3a0f5e8d9367d88e80948283154134bfcb6c7  # [cross_target_platform == "linux-s390x"]
 
+  - folder: binary-nss_hesiod
+    url: {{ crb_rpm_url }}/nss_hesiod-2.34-83.el9_3.12.{{ centos_machine }}.rpm
+    sha256: c4665dee234cbffdb79e0d9276155cae5b0e8866a632b0f6e317cca48eb96941  # [cross_target_platform == "linux-64"]
+    sha256: c8ef2a79184275acaec4c11709bcab1b1d8d18815f1ed78e8615d03224d9b8ab  # [cross_target_platform == "linux-aarch64"]
+    sha256: d1799cafd67079645ed2f92e45fef5afd60574b516d21ca80cac359512492849  # [cross_target_platform == "linux-ppc64le"]
+    sha256: c235c8472031210087f0c65d82d80f9e95e78831d427a2b0a8bf764990a60040  # [cross_target_platform == "linux-s390x"]
+
   - folder: binary-nss-softokn-freebl
     url: {{ appstream_rpm_url }}/nss-softokn-freebl-3.90.0-7.el9_3.{{ centos_machine }}.rpm
     sha256: 123708986c57400dc9ffef906b9ecd138e304b437500d66759cfcf5eafcd81be  # [cross_target_platform == "linux-64"]
