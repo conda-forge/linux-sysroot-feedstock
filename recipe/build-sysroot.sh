@@ -53,3 +53,6 @@ ln -s $PWD/lib64 $PWD/lib
 cp "${SRC_DIR}"/binary-freebl/usr/lib64/libfreebl3.so ${PWD}/usr/lib64/.
 
 popd
+
+mkdir -p ${PREFIX}/bin
+echo "--sysroot=${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot" >> ${PREFIX}/bin/${target_machine}-${ctng_vendor}-linux-gnu.cfg
