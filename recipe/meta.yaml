@@ -99,7 +99,6 @@ source:
     sha256: 18abf6ae89d959b8fce384af7c77c2480a4e0f53c05636c79efea2f98c1c8c91  # [cross_target_platform == "linux-aarch64"]
     sha256: b16e029528112e6b3076bab7ec899fdd09567f2031583178683a1a6a2e6c0d2a  # [cross_target_platform == "linux-ppc64le"]
     sha256: bc1689f6f34b1c26ac4f1b6143ff78d9fb76f90d52dcb0a0b070d41003bef9f8  # [cross_target_platform == "linux-s390x"]
-
   # END source
 
 build:
