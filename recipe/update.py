@@ -182,18 +182,20 @@ with open("meta.yaml") as f:
 skip = False
 for line in old_meta:
     if line.startswith("{% set alma_version"):
-        line = "{% set alma_version = \"" + alma_version + "\" %}"
-    if line.startswith("{% set glibc_version"):
-        line = "{% set glibc_version = \"" + glibc_version + "\" %}"
-    if line.startswith("{% set kernel_headers_version"):
-        line = "{% set kernel_headers_version = \"" + kernel_headers_version + "\" %}"
-    if line.startswith("  # END source"):
+        line = f'{{% set alma_version = "{alma_version}" %}}'
+    elif line.startswith("{% set glibc_version"):
+        line = f'{{% set glibc_version = "{glibc_version}" %}}'
+    elif line.startswith("{% set kernel_headers_version"):
+        line = f'{{% set kernel_headers_version = "{kernel_headers_version}" %}}'
+    elif line.startswith("  # END source"):
         skip = False
-        new_meta.extend(out_lines)
+        # skip empty line at the end
+        new_meta.extend(out_lines[:-1])
+
     if not skip:
         new_meta.append(line.rstrip())
-    if line.startswith("  # START source"):
-        skip = True
+        if line.startswith("  # START source"):
+            skip = True
 
 new_meta.append("")
 
