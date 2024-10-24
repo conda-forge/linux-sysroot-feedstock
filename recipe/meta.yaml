@@ -135,6 +135,8 @@ outputs:
         strong:
           - __glibc >={{ glibc_version }},<3.0.a0
     requirements:
+      host:
+        - tzdata
       run:
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
         - tzdata
