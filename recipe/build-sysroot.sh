@@ -56,3 +56,6 @@ rm -rf usr/lib/systemd
 rm -rf usr/share/doc
 
 popd
+
+mkdir -p ${PREFIX}/bin
+echo "--sysroot=${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot" >> ${PREFIX}/bin/${target_machine}-${ctng_vendor}-linux-gnu.cfg
