@@ -89,13 +89,6 @@ source:
     sha256: c8ef2a79184275acaec4c11709bcab1b1d8d18815f1ed78e8615d03224d9b8ab  # [cross_target_platform == "linux-aarch64"]
     sha256: d1799cafd67079645ed2f92e45fef5afd60574b516d21ca80cac359512492849  # [cross_target_platform == "linux-ppc64le"]
     sha256: c235c8472031210087f0c65d82d80f9e95e78831d427a2b0a8bf764990a60040  # [cross_target_platform == "linux-s390x"]
-
-  - folder: binary-nss-softokn-freebl
-    url: {{ appstream_rpm_url }}/nss-softokn-freebl-3.90.0-7.el9_3.{{ centos_machine }}.rpm
-    sha256: 123708986c57400dc9ffef906b9ecd138e304b437500d66759cfcf5eafcd81be  # [cross_target_platform == "linux-64"]
-    sha256: 42c5ba072a5847031bd669bedbb17375349038afbe1db4a8a5dbcf7e12291e7c  # [cross_target_platform == "linux-aarch64"]
-    sha256: b10edf0d66aacfd179d8f7ee1a6bb8ab12988ce6e66af930a6100a4526c036c0  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 4179f09b84bbe4b6aed3653bffd492f93860f64037f3bca30e3688ccffd11ecc  # [cross_target_platform == "linux-s390x"]
   # END source
 
 build:
@@ -154,10 +147,9 @@ outputs:
 
 about:
   home: https://repo.almalinux.org/vault/{{ alma_version }}
-  license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later AND MPL-2.0
+  license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
   license_family: GPL
-  license_file: nss-license
-  # other license files are packaged with source
+  # license files are packaged with source
   summary: "(CDT) The GNU libc libraries and header files for the Linux kernel for use by glibc"
   description: |
         The glibc package contains standard libraries which are used by multiple
