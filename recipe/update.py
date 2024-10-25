@@ -118,14 +118,8 @@ name2string = {
     "glibc-devel": glibc_string,
     "glibc-gconv-extra": glibc_string,
     "glibc-headers": glibc_string,
-    "glibc-nss-devel": glibc_string,
     "glibc-static": glibc_string,
     "kernel-headers": kernel_headers_string,
-    "nss_db": glibc_string,
-    "nss_hesiod": glibc_string,
-    # manual versions
-    # TODO: calculate them automatically as well
-    "nss-softokn-freebl": "3.90.0-7.el9_3",
 }
 
 def get_subfolder(pkg, string):

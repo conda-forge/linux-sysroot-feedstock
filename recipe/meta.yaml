@@ -55,13 +55,6 @@ source:
     sha256: 28e0b6aa9c9a52cb58e62cd5ab0be002414c4bbf561f140f874f4e9058b90d4f  # [cross_target_platform == "linux-64"]
     sha256: d9f67d8a72f7ea715dc18bb7aad776cd3df3d5154cbe8572b38034bca5bc802d  # [cross_target_platform == "linux-s390x"]
 
-  - folder: binary-glibc-nss-devel
-    url: {{ crb_rpm_url }}/glibc-nss-devel-2.34-83.el9_3.12.{{ centos_machine }}.rpm
-    sha256: da773402abd25cda4311e62ee115c2bf8acac3626b66f2c0fbe1bbba43d2df46  # [cross_target_platform == "linux-64"]
-    sha256: c9b156b6e42aac6fc862f98431a8b5d3aa669e92d2235091899b795b1d66ce7d  # [cross_target_platform == "linux-aarch64"]
-    sha256: 4b42d61d3fb2b4c6ec25ceffcf1e70fe20c64f05970ab2ce87ed530f81d16eab  # [cross_target_platform == "linux-ppc64le"]
-    sha256: c90d9b9d294a7f7232c26d2e15e09f0fce977a2cb7c433a8d3e244476c65109a  # [cross_target_platform == "linux-s390x"]
-
   - folder: binary-glibc-static
     url: {{ crb_rpm_url }}/glibc-static-2.34-83.el9_3.12.{{ centos_machine }}.rpm
     sha256: 753eacb9062f03b62a7b2d6b02fd9424ba9e17124640724fabd83103b10074d7  # [cross_target_platform == "linux-64"]
@@ -75,20 +68,6 @@ source:
     sha256: 1e35a540a5f4fc017c4caf8f44979e2959813ab4c1ebc9a464af7ade2738b6e5  # [cross_target_platform == "linux-aarch64"]
     sha256: 9a12ccefcb5289eed6479a7fb9dc73c19096e170a6bef0757d438fbe063ae349  # [cross_target_platform == "linux-ppc64le"]
     sha256: 1c5597d50bba7adf24d2f291fea0d4683bdd85ea9b2a275e5674290ad84dbce8  # [cross_target_platform == "linux-s390x"]
-
-  - folder: binary-nss_db
-    url: {{ crb_rpm_url }}/nss_db-2.34-83.el9_3.12.{{ centos_machine }}.rpm
-    sha256: afb7b7623fe37a496c93c0532d0efa09ef3bb59afda90d29e0675988525c2e6c  # [cross_target_platform == "linux-64"]
-    sha256: 78f373c7326febf9ba8973491b4f8578e1d46d1f5e05391ccdae2c770c2c77e4  # [cross_target_platform == "linux-aarch64"]
-    sha256: 6c74f8b2381c1d34c2019a4ff25072086ab121baea57e641bbf54edf77a7e3c5  # [cross_target_platform == "linux-ppc64le"]
-    sha256: e604355ce87ebe6421908bbc07f3a0f5e8d9367d88e80948283154134bfcb6c7  # [cross_target_platform == "linux-s390x"]
-
-  - folder: binary-nss_hesiod
-    url: {{ crb_rpm_url }}/nss_hesiod-2.34-83.el9_3.12.{{ centos_machine }}.rpm
-    sha256: c4665dee234cbffdb79e0d9276155cae5b0e8866a632b0f6e317cca48eb96941  # [cross_target_platform == "linux-64"]
-    sha256: c8ef2a79184275acaec4c11709bcab1b1d8d18815f1ed78e8615d03224d9b8ab  # [cross_target_platform == "linux-aarch64"]
-    sha256: d1799cafd67079645ed2f92e45fef5afd60574b516d21ca80cac359512492849  # [cross_target_platform == "linux-ppc64le"]
-    sha256: c235c8472031210087f0c65d82d80f9e95e78831d427a2b0a8bf764990a60040  # [cross_target_platform == "linux-s390x"]
   # END source
 
 build:
