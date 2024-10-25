@@ -58,13 +58,6 @@ source:
     sha256: 9af0dfb99b3e1b48cd12478cf5990d81ca2741ff7b6ed73f26c103b087bae6d4  # [cross_target_platform == "linux-ppc64le"]
     sha256: df20862810f932edd2ec7498cf7eb66a9e7530761b49970d1f38710856a3b39f  # [cross_target_platform == "linux-s390x"]
 
-  - folder: binary-glibc-nss-devel
-    url: {{ powertools_rpm_url }}/glibc-nss-devel-2.28-236.el8_9.13.{{ centos_machine }}.rpm
-    sha256: 777d14a317846edd4d52bea859ec7a99b72fd100eca423ef7882ebf19866feff  # [cross_target_platform == "linux-64"]
-    sha256: 1040b1dab8435d009d340c4aca3938c7f1fc8baf9c81bcee1f6acfcc6aec2c31  # [cross_target_platform == "linux-aarch64"]
-    sha256: c2b92662dad3a58e81b089c894868ebbeaf31b0945f590fc46644c46bc8be55b  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 5750e669f2dc48e02d4f9213e0c7ca232a45d79605827fe00913afdb0d7ae039  # [cross_target_platform == "linux-s390x"]
-
   - folder: binary-glibc-static
     url: {{ powertools_rpm_url }}/glibc-static-2.28-236.el8_9.13.{{ centos_machine }}.rpm
     sha256: e62d95f6222546cc3ecc19fd17a1eb35740ef9d489244635a3f54efa001b9d50  # [cross_target_platform == "linux-64"]
@@ -78,20 +71,6 @@ source:
     sha256: 28cc76582fb17f7c557aa95d4b2a364113c019ffdf2e95efb5232da8873b977c  # [cross_target_platform == "linux-aarch64"]
     sha256: 47019f21239170869460c073a54adae5508e45284c10d22b7c9fbff1e8436269  # [cross_target_platform == "linux-ppc64le"]
     sha256: aabf8d0539f1cdf5067d13cbfc8fdfa8223a90cafae159da84eea29bcb31cc1e  # [cross_target_platform == "linux-s390x"]
-
-  - folder: binary-nss_db
-    url: {{ rpm_url }}/nss_db-2.28-236.el8_9.13.{{ centos_machine }}.rpm
-    sha256: 4e57caeaaeabe2e5644ae62dc79642fb612b8176c54d1af3922a60a686a15824  # [cross_target_platform == "linux-64"]
-    sha256: 054f2572db4e5dee49ad37315779aea01021b37322d4ba7cacf44d478c0f9eb1  # [cross_target_platform == "linux-aarch64"]
-    sha256: 3b5a1169f2e85c22bc1e89e789cefd1844ae74693618d4d095023a00414f6c06  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 694d74694f8cdbb7ed6141808fa177f119dce7d666f8c47d9e4fedd3fc980d86  # [cross_target_platform == "linux-s390x"]
-
-  - folder: binary-nss_nis
-    url: {{ rpm_url }}/nss_nis-3.0-8.el8.{{ centos_machine }}.rpm
-    sha256: 092ae0b3db08c0bd8af1187f37abf426af9092495f3276bd186c90679f342e59  # [cross_target_platform == "linux-64"]
-    sha256: 3c7fe091fcef8971b5de41b9093025405d2064fb05e5c510ec3a92454f49e2be  # [cross_target_platform == "linux-aarch64"]
-    sha256: 360f1582f13e9e86e4812446bbb0b2ae7e5477459e381c0475f04a0afff9fee6  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 4515b05ba15ce464aaf445516817194b3f95849db5394acd6ccf67f5c2fc515a  # [cross_target_platform == "linux-s390x"]
   # END source
 
 build:
