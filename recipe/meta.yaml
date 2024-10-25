@@ -129,6 +129,7 @@ about:
   home: https://repo.almalinux.org/vault/{{ alma_version }}
   license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
   license_family: GPL
+  license_file: LICENSE
   # license files are packaged with source
   summary: "(CDT) The GNU libc libraries and header files for the Linux kernel for use by glibc"
   description: |
