@@ -8,9 +8,6 @@ cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/
 cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* usr/
-cp -Rf "${SRC_DIR}"/binary-glibc-nss-devel/* usr/
-cp -Rf "${SRC_DIR}"/binary-nss_db/* .
-cp -Rf "${SRC_DIR}"/binary-nss_nis/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-gconv-extra/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-all-langpacks/* usr/
 
@@ -39,8 +36,6 @@ rm -f usr/include/rpcsvc/yppasswd.x
 rm -f usr/include/rpcsvc/yp_prot.h
 rm -f usr/include/rpcsvc/ypupd.h
 rm -f usr/include/rpcsvc/yp.x
-
-cp "${SRC_DIR}"/binary-nss-softokn-freebl/lib64/libfreebl3.so ${PWD}/lib64/.
 
 if [[ "$target_machine" == "s390x" ]]; then
    rm -rf $PWD/lib64/ld64.so.1
