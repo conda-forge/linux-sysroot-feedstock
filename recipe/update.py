@@ -29,7 +29,7 @@ config = load(cbc_content, Loader=BaseLoader)
 rpm_arches = config["centos_machine"]
 conda_arches = config["cross_target_platform"]
 
-alma_version = "8.9"
+alma_version = "9.3"
 
 url_template = (
     f"https://repo.almalinux.org/vault/{alma_version}"
@@ -39,15 +39,41 @@ url_template = (
 
 el_ver = "el" + alma_version.replace(".", "_")
 
-a = requests.get(url_template.format(subfolder="BaseOS", arch="x86_64")).content.decode('utf-8')
+# determine version of glibc & kernel-headers; in different subfolders as of alma 9
 
+# Get content of https://repo.almalinux.org/vault/9.3/BaseOS/x86_64/os/Packages/,
+# which looks something like:
+# ```
+# <html>
+# <head><title>Index of /vault/9.3/BaseOS/x86_64/os/Packages/</title></head>
+# <body>
+# <h1>Index of /vault/9.3/BaseOS/x86_64/os/Packages/</h1><hr><pre><a href="../">../</a>
+# <a href="{pkg}-{string}.x86_64.rpm">{pkg}-{string}.x86_64.rpm</a> {date} {size}
+# <a href="{pkg}-{string}.x86_64.rpm">{pkg}-{string}.x86_64.rpm</a> {date} {size}
+# ...
+# </pre><hr></body>
+# </html>
+# ```
+baseos_frontpage = url_template.format(subfolder="BaseOS", arch="x86_64")
+logging.info(f"Fetching content of {baseos_frontpage}")
+baseos_pkgs_html = requests.get(baseos_frontpage).content.decode("utf-8")
+
+appstream_frontpage = url_template.format(subfolder="AppStream", arch="x86_64")
+logging.info(f"Fetching content of {appstream_frontpage}")
+appstream_pkgs_html = requests.get(appstream_frontpage).content.decode("utf-8")
+
+# glibc artefacts have two build numbers plus the alma version, e.g.
+#   2.28-236.el8_9.13.x86_64.rpm
+#   ↑    ↑     ↑   ↑
+#   └glibc_ver └alma_version
+#        └build1   └build2
 glibc_build1 = 0
 glibc_build2 = 0
 glibc_version = 0
 kernel_headers_build = Version("0.0.0")
 kernel_headers_version = 0
 
-for line in a.splitlines():
+for line in (baseos_pkgs_html + appstream_pkgs_html).splitlines():
     if not line.startswith("<a href=\""):
         continue
     line = line[len("<a href=\""):]
@@ -71,8 +97,16 @@ for line in a.splitlines():
         kernel_headers_build = max(kernel_headers_build, Version(build.rsplit(".", 3)[0]))
         kernel_headers_version = version
 
+if glibc_version == 0:
+    raise ValueError("could not determine glibc version!")
+if kernel_headers_version == 0:
+    raise ValueError("could not determine kernel-headers version!")
+
 glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}.{glibc_build2}"
 kernel_headers_string = f"{kernel_headers_version}-{kernel_headers_build}.{el_ver}"
+
+logging.info(f"Determined {glibc_string=}")
+logging.info(f"Determined {kernel_headers_string=}")
 
 out_lines = []
 
@@ -84,21 +118,15 @@ name2string = {
     "glibc-devel": glibc_string,
     "glibc-gconv-extra": glibc_string,
     "glibc-headers": glibc_string,
-    "glibc-nss-devel": glibc_string,
     "glibc-static": glibc_string,
     "kernel-headers": kernel_headers_string,
-    "nss_db": glibc_string,
-    # manual versions
-    # TODO: calculate them automatically as well
-    "nss_nis": "3.0-8.el8",
-    "nss-softokn-freebl": "3.90.0-6.el8_9",
 }
 
 def get_subfolder(pkg, string):
     # find in which subfolder the rpm lives on the alma vault;
     # we assume that the layout for x86_64 works for all arches
     pkg_template = url_template + f"/{pkg}-{string}.x86_64.rpm"
-    for sf in ["BaseOS", "PowerTools", "AppStream"]:
+    for sf in ["BaseOS", "CRB", "AppStream"]:
         url = pkg_template.format(arch="x86_64", subfolder=sf)
         logging.info(f"Testing if {url} exists")
         if requests.get(url).status_code == 200:
@@ -110,17 +138,28 @@ for pkg, string in name2string.items():
     subfolder = get_subfolder(pkg, string)
     url_jinja = (
         "{{ rpm_url }}" if subfolder == "BaseOS" else
-        "{{ powertools_rpm_url }}" if subfolder == "PowerTools" else
+        "{{ crb_rpm_url }}" if subfolder == "CRB" else
         "{{ appstream_rpm_url }}"
     )
     # quadruple curly braces to keep {{ }} jinja templates
     out_lines.append(f"    url: {url_jinja}/{pkg}-{string}.{{{{ centos_machine }}}}.rpm")
+
+    if pkg == "glibc-headers":
+        # as of alma 9, these don't get packaged on aarch64/ppc64le anymore, see
+        # https://forums.almalinux.org/t/glibc-headers-missing-on-aarch64-ppc64le-in-alma-9/4943
+        # https://git.almalinux.org/rpms/glibc/src/commit/ae95bb14329a3f969dec04a21878967117331039/SPECS/glibc.spec#L92
+        selector = '# [cross_target_platform in ("linux-64", "linux-s390x")]'
+        out_lines[-2] += " " * 46 + selector
+        out_lines[-1] += "  " + selector
 
     for rpm_arch, conda_arch in zip(rpm_arches, conda_arches):
         rpm_url = (
             url_template.format(arch=rpm_arch, subfolder=subfolder)
             + f"/{pkg}-{string}.{rpm_arch}.rpm"
         )
+        if pkg == "glibc-headers" and rpm_arch in ("aarch64", "ppc64le"):
+            # see above for special-casing of glibc-headers
+            continue
         logging.info(f"Downloading {rpm_url}")
         r = requests.get(rpm_url)
         if r.status_code != 200:
@@ -138,18 +177,20 @@ with open("meta.yaml") as f:
 skip = False
 for line in old_meta:
     if line.startswith("{% set alma_version"):
-        line = "{% set alma_version = \"" + alma_version + "\" %}"
-    if line.startswith("{% set glibc_version"):
-        line = "{% set glibc_version = \"" + glibc_version + "\" %}"
-    if line.startswith("{% set kernel_headers_version"):
-        line = "{% set kernel_headers_version = \"" + kernel_headers_version + "\" %}"
-    if line.startswith("  # END source"):
+        line = f'{{% set alma_version = "{alma_version}" %}}'
+    elif line.startswith("{% set glibc_version"):
+        line = f'{{% set glibc_version = "{glibc_version}" %}}'
+    elif line.startswith("{% set kernel_headers_version"):
+        line = f'{{% set kernel_headers_version = "{kernel_headers_version}" %}}'
+    elif line.startswith("  # END source"):
         skip = False
-        new_meta.extend(out_lines)
+        # skip empty line at the end
+        new_meta.extend(out_lines[:-1])
+
     if not skip:
         new_meta.append(line.rstrip())
-    if line.startswith("  # START source"):
-        skip = True
+        if line.startswith("  # START source"):
+            skip = True
 
 new_meta.append("")
 
