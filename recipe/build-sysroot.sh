@@ -41,12 +41,12 @@ rm usr/include/rpcsvc/yp_prot.h
 rm usr/include/rpcsvc/ypupd.h
 rm usr/include/rpcsvc/yp.x
 
-# we supply libcrypt/libxcrypt as a separate package
-rm usr/include/crypt.h
-## In the (near) future we may want to remove all libcrypt*.so* files;
-## for now, just remove .a/.so so we stop linking new packages to libcrypt.so.1.
-# rm lib64/libcrypt*.so*
-rm usr/lib64/libcrypt.{a,so}
+# # we supply libcrypt/libxcrypt as a separate package
+# rm usr/include/crypt.h
+# ## In the (near) future we may want to remove all libcrypt*.so* files;
+# ## for now, just remove .a/.so so we stop linking new packages to libcrypt.so.1.
+# # rm lib64/libcrypt*.so*
+# rm usr/lib64/libcrypt.{a,so}
 
 ln -s $PWD/lib64 $PWD/lib
 
