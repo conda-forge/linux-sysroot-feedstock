@@ -92,11 +92,9 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
-{% if cross_target_platform == "linux-64" %}
       run_exports:
         strong:
           - __glibc >={{ version }},<3.0.a0
-{% endif %}
     requirements:
       run:
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
