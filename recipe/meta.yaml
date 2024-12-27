@@ -112,8 +112,8 @@ outputs:
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
         - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
-        # - find "${PREFIX}" \( -name 'libnsl*' -o -path '*/rpcsvc/yp*' \) | { ! grep . ; }
-        # - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) \! -name libcrypt.so.1 \! -name libcrypt-2.17.so | { ! grep . ; }
+        - find "${PREFIX}" \( -name 'libnsl*' -o -path '*/rpcsvc/yp*' \) | { ! grep . ; }                                                # [with_crypt == "false"]
+        - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) \! -name libcrypt.so.1 \! -name libcrypt-2.17.so | { ! grep . ; }  # [with_crypt == "false"]
 
   - name: sysroot-{{ sysroot_cdt_name }}-{{ sysroot_cdt_arch }}
     build:
@@ -132,8 +132,8 @@ outputs:
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
         - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
-        # - find "${PREFIX}" \( -name 'libnsl*' -o -path '*/rpcsvc/yp*' \) | { ! grep . ; }
-        # - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) \! -name libcrypt.so.1 \! -name libcrypt-2.17.so | { ! grep . ; }
+        - find "${PREFIX}" \( -name 'libnsl*' -o -path '*/rpcsvc/yp*' \) | { ! grep . ; }                                                # [with_crypt == "false"]
+        - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) \! -name libcrypt.so.1 \! -name libcrypt-2.17.so | { ! grep . ; }  # [with_crypt == "false"]
 
 about:
   home: https://vault.centos.org/centos/7.9.2009
