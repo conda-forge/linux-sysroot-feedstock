@@ -1,26 +1,30 @@
 cdt_name:
-- cos7
+- conda
 centos_machine:
-- s390x
+- ppc64le
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge main
+- conda-forge sysroot-with-crypt
 cross_target_platform:
-- linux-s390x
+- linux-ppc64le
 ctng_vendor:
 - conda
 docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
+- quay.io/condaforge/linux-anvil-x86_64:alma9
 sysroot_cdt_arch:
-- s390x
+- ppc64le
 sysroot_cdt_name:
 - cos7
 target_machine:
-- s390x
+- powerpc64le
 target_platform:
 - linux-64
+with_crypt:
+- 'true'
 zip_keys:
+- - channel_targets
+  - with_crypt
 - - target_machine
   - cross_target_platform
   - centos_machine
