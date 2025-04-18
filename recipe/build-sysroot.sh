@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+# These all get copied into a "usr" subdir to mimic the typical installation prefix of the package via yum or dnf.
 mkdir -p ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot
 pushd ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot > /dev/null 2>&1
 cp -Rf "${SRC_DIR}"/binary-glibc/* .
@@ -19,7 +20,12 @@ rm -rf usr/lib
 ln -s $PWD/usr/lib64 $PWD/usr/lib
 
 if [ -d "lib" ]; then
-    mv lib/* lib64/
+    # Only move libs if they don't already exists to avoid errors.
+    for lib_file in lib/*; do
+        if [ ! -f lib64/$(basename -- "${lib_file}") ]; then
+            mv ${lib_file} lib64/
+        fi
+    done
     rm -rf lib
 fi
 ln -s $PWD/lib64 $PWD/lib
@@ -42,6 +48,7 @@ if [[ "$target_machine" == "s390x" ]]; then
    ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so.1
 fi
 
+# Create sysroot/usr/share/zoneinfo and link it to the install location for the tzdata package.
 mkdir -p usr/share
 ln -sf ${PREFIX}/share/zoneinfo usr/share/zoneinfo
 

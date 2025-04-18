@@ -29,19 +29,30 @@ config = load(cbc_content, Loader=BaseLoader)
 rpm_arches = config["centos_machine"]
 conda_arches = config["cross_target_platform"]
 
-alma_version = "8.9"
+rocky_version = "8.9"
 
 url_template = (
-    f"https://repo.almalinux.org/vault/{alma_version}"
-    # second part intententionally not filled yet
-    "/{subfolder}/{arch}/os/Packages"
+    f"https://download.rockylinux.org/vault/rocky/{rocky_version}"
+    # second part intentionally not filled yet
+    "/{subfolder}/{arch}/os/Packages/{letter}"
 )
 
-el_ver = "el" + alma_version.replace(".", "_")
+el_ver = "el" + rocky_version.replace(".", "_")
 
 # determine version of glibc & kernel-headers
 
-# Get content of https://repo.almalinux.org/vault/8.9/BaseOS/x86_64/os/Packages/,
+# glibc artefacts have two build numbers plus the rocky version, e.g.
+#   2.28-236.el8_9.13.x86_64.rpm
+#   ↑    ↑     ↑   ↑
+#   └glibc_ver └rocky_version
+#        └build1   └build2
+glibc_build1 = 0
+glibc_build2 = 0
+glibc_version = 0
+kernel_headers_build = Version("0.0.0")
+kernel_headers_version = 0
+
+# Get content of https://download.rockylinux.org/vault/rocky/8.9/BaseOS/x86_64/os/Packages/g/,
 # which looks something like:
 # ```
 # <html>
@@ -54,44 +65,36 @@ el_ver = "el" + alma_version.replace(".", "_")
 # </pre><hr></body>
 # </html>
 # ```
-baseos_frontpage = url_template.format(subfolder="BaseOS", arch="x86_64")
-logging.info(f"Fetching content of {baseos_frontpage}")
-baseos_pkgs_html = requests.get(baseos_frontpage).content.decode("utf-8")
+for letter in ["g", "k"]:
+    baseos_frontpage = url_template.format(subfolder="BaseOS", arch="x86_64", letter=letter)
+    logging.info(f"Fetching content of {baseos_frontpage}")
+    baseos_pkgs_html = requests.get(baseos_frontpage).content.decode("utf-8")
 
-# glibc artefacts have two build numbers plus the alma version, e.g.
-#   2.28-236.el8_9.13.x86_64.rpm
-#   ↑    ↑     ↑   ↑
-#   └glibc_ver └alma_version
-#        └build1   └build2
-glibc_build1 = 0
-glibc_build2 = 0
-glibc_version = 0
-kernel_headers_build = Version("0.0.0")
-kernel_headers_version = 0
+    for line in baseos_pkgs_html.splitlines():
+        if not line.startswith("<a href=\""):
+            continue
+        line = line[len("<a href=\""):]
+        url = line[:line.index("\">")]
 
-for line in baseos_pkgs_html.splitlines():
-    if not line.startswith("<a href=\""):
-        continue
-    line = line[len("<a href=\""):]
-    url = line[:line.index("\">")]
+        if el_ver not in url:
+            continue
 
-    if el_ver not in url:
-        continue
+        if not url.endswith("x86_64.rpm"):
+            continue
 
-    if not url.endswith("x86_64.rpm"):
-        continue
+        name, version, build = url.rsplit("-", 2)
 
-    name, version, build = url.rsplit("-", 2)
-    # glibc-2.28-236.el8.7.x86_64.rpm
-    if name == "glibc":
-        glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
-        glibc_build2 = max(glibc_build2, int(build.split(".")[2]))
-        glibc_version = version
+        # glibc-2.28-236.el8.7.x86_64.rpm
+        if name == "glibc":
+            glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
+            glibc_build2 = max(glibc_build2, int(build.split(".")[2]))
+            glibc_version = version
 
-    # kernel-headers-4.18.0-513.24.1.el8_9.x86_64.rpm
-    if name == "kernel-headers":
-        kernel_headers_build = max(kernel_headers_build, Version(build.rsplit(".", 3)[0]))
-        kernel_headers_version = version
+        # kernel-headers-4.18.0-513.24.1.el8_9.x86_64.rpm
+        # kernel-headers-4.18.0-513.11.1.el8_9.0.1.x86_64.rpm
+        if name == "kernel-headers":
+            kernel_headers_build = max(kernel_headers_build, Version(build.rsplit(".", build.count(".") - 2)[0]))
+            kernel_headers_version = version
 
 if glibc_version == 0:
     raise ValueError("could not determine glibc version!")
@@ -119,11 +122,11 @@ name2string = {
 }
 
 def get_subfolder(pkg, string):
-    # find in which subfolder the rpm lives on the alma vault;
+    # find in which subfolder the rpm lives on the rocky vault;
     # we assume that the layout for x86_64 works for all arches
     pkg_template = url_template + f"/{pkg}-{string}.x86_64.rpm"
     for sf in ["BaseOS", "PowerTools", "AppStream"]:
-        url = pkg_template.format(arch="x86_64", subfolder=sf)
+        url = pkg_template.format(arch="x86_64", subfolder=sf, letter=pkg[0])
         logging.info(f"Testing if {url} exists")
         if requests.get(url).status_code == 200:
             return sf
@@ -138,11 +141,11 @@ for pkg, string in name2string.items():
         "{{ appstream_rpm_url }}"
     )
     # quadruple curly braces to keep {{ }} jinja templates
-    out_lines.append(f"    url: {url_jinja}/{pkg}-{string}.{{{{ centos_machine }}}}.rpm")
+    out_lines.append(f"    url: {url_jinja}/{pkg[0]}/{pkg}-{string}.{{{{ centos_machine }}}}.rpm")
 
     for rpm_arch, conda_arch in zip(rpm_arches, conda_arches):
         rpm_url = (
-            url_template.format(arch=rpm_arch, subfolder=subfolder)
+            url_template.format(arch=rpm_arch, subfolder=subfolder, letter=pkg[0])
             + f"/{pkg}-{string}.{rpm_arch}.rpm"
         )
         logging.info(f"Downloading {rpm_url}")
@@ -161,8 +164,8 @@ with open("meta.yaml") as f:
 
 skip = False
 for line in old_meta:
-    if line.startswith("{% set alma_version"):
-        line = f'{{% set alma_version = "{alma_version}" %}}'
+    if line.startswith("{% set rocky_version"):
+        line = f'{{% set rocky_version = "{rocky_version}" %}}'
     elif line.startswith("{% set glibc_version"):
         line = f'{{% set glibc_version = "{glibc_version}" %}}'
     elif line.startswith("{% set kernel_headers_version"):

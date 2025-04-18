@@ -3,7 +3,5 @@ build_parameters:
   - "--suppress-variables"
   - "--skip-existing"
 
-upload_without_merge: True
-upload_to_staging_channel_in_pr: False
-channels: [cuda12_def]
+# Avoid needing versioned branches committed to aggregate.
 aggregate_check: False
