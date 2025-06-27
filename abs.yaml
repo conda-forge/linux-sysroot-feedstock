@@ -1,0 +1,7 @@
+# dependence on linux sysroot, eg lib64/libc.so.6, don't do overlinking checks
+build_parameters:
+  - "--suppress-variables"
+  - "--skip-existing"
+
+# Avoid needing versioned branches committed to aggregate.
+aggregate_check: False
