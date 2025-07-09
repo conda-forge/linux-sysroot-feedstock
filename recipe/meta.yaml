@@ -1,7 +1,7 @@
 {% set alma_version = "9.3" %}
 {% set glibc_version = "2.34" %}
 {% set kernel_headers_version = "5.14.0" %}
-{% set build_number = "0" %}
+{% set build_number = "1" %}
 
 {% set rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
 {% set appstream_rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/AppStream/" ~ centos_machine ~ "/os/Packages" %}
@@ -110,6 +110,11 @@ outputs:
       run:
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
         - tzdata
+      run_constrained:
+        # ensure sysroots for other targets in same environment respect version as lower bound
+        - sysroot_linux-64 >={{ glibc_version }}
+        - sysroot_linux-aarch64 >={{ glibc_version }}
+        - sysroot_linux-ppc64le >={{ glibc_version }}        
     test:
       commands:
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
