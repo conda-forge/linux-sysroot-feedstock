@@ -1,5 +1,5 @@
 cdt_name:
-- cos7
+- conda
 centos_machine:
 - ppc64le
 channel_sources:
@@ -11,9 +11,7 @@ cross_target_platform:
 ctng_vendor:
 - conda
 docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
-glib:
-- '2'
+- quay.io/condaforge/linux-anvil-x86_64:alma9
 target_machine:
 - powerpc64le
 zip_keys:
