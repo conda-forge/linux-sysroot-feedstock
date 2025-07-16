@@ -13,7 +13,7 @@ package:
 
 source:
   # for calculating the hashes below, you can run `python update.py`
-  # in the recipe folder (after ensuring the versions in CBC are correct)
+  # in the recipe folder (only `alma_version` needs to be set therein)
   # START source
   - folder: binary-glibc
     url: {{ rpm_url }}/glibc-2.34-83.el9_3.12.{{ centos_machine }}.rpm
