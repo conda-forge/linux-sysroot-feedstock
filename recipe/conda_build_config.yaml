@@ -21,3 +21,7 @@ zip_keys:
   - - target_machine
     - cross_target_platform
     - centos_machine
+
+with_features:
+  - true
+  - false

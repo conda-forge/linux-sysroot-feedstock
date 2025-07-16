@@ -1,7 +1,7 @@
 {% set alma_version = "9.3" %}
 {% set glibc_version = "2.34" %}
 {% set kernel_headers_version = "5.14.0" %}
-{% set build_number = "0" %}
+{% set build_number = "1" %}
 
 {% set rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
 {% set appstream_rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/AppStream/" ~ centos_machine ~ "/os/Packages" %}
@@ -98,9 +98,9 @@ outputs:
       binary_relocation: False
       detect_binary_files_with_prefix: False
       track_features:
-        - sysroot_{{ cross_target_platform }}_{{ glibc_version }}
-        - sysroot_{{ cross_target_platform }}_{{ glibc_version }}_feature_2
-        - sysroot_{{ cross_target_platform }}_{{ glibc_version }}_feature_3
+        - sysroot_{{ cross_target_platform }}_{{ glibc_version }}               # [with_features]
+        - sysroot_{{ cross_target_platform }}_{{ glibc_version }}_feature_2     # [with_features]
+        - sysroot_{{ cross_target_platform }}_{{ glibc_version }}_feature_3     # [with_features]
       run_exports:
         strong:
           - __glibc >={{ glibc_version }},<3.0.a0
@@ -108,6 +108,7 @@ outputs:
       host:
         - tzdata
       run:
+        - __glibc >={{ glibc_version }}     # [not with_features]
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
         - tzdata
     test:
