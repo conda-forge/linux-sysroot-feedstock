@@ -1,7 +1,7 @@
 {% set alma_version = "9.5" %}
 {% set glibc_version = "2.34" %}
 {% set kernel_headers_version = "5.14.0" %}
-{% set build_number = "1" %}
+{% set build_number = "2" %}
 
 {% set rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
 {% set appstream_rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/AppStream/" ~ centos_machine ~ "/os/Packages" %}
