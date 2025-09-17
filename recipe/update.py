@@ -32,7 +32,8 @@ conda_arches = config["cross_target_platform"]
 alma_version = "10.0"
 
 url_template = (
-    f"https://repo.almalinux.org/vault/{alma_version}"
+    # switch back `almalinux` -> `vault` as soon as those packages get populated
+    f"https://repo.almalinux.org/almalinux/{alma_version}"
     # second part intententionally not filled yet
     "/{subfolder}/{arch}/os/Packages"
 )
