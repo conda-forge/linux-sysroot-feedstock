@@ -9,7 +9,7 @@ cross_target_platform:
 ctng_vendor:
 - conda
 docker_image:
-- quay.io/condaforge/linux-anvil-x86_64:alma9
+- quay.io/condaforge/linux-anvil-x86_64:alma10
 target_machine:
 - powerpc64le
 with_features:
