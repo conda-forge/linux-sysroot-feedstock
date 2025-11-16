@@ -5,10 +5,13 @@ or
 python update.py -log=INFO
 """
 import argparse
+import gzip
 import hashlib
 import logging
+import re
 import requests
 import os
+import xml.etree.ElementTree as ET
 from ruamel_yaml import BaseLoader, load
 from packaging.version import Version
 
@@ -30,72 +33,62 @@ rpm_arches = config["centos_machine"]
 conda_arches = config["cross_target_platform"]
 
 distro_version = "10.0"
+rocky_base_url = f"https://dl.rockylinux.org/pub/rocky/{distro_version}"
 
-url_template = (
-    # switch back `almalinux` -> `vault` as soon as those packages get populated
-    f"https://repo.almalinux.org/almalinux/{distro_version}"
-    # second part intententionally not filled yet
-    "/{subfolder}/{arch}/os/Packages"
-)
+# second part intententionally not filled yet
+url_template = rocky_base_url + "/{subfolder}/{arch}/os/Packages"
+
+print("getting rockylinux channel metadata")
+r = requests.get(rocky_base_url + "/BaseOS/x86_64/os/repodata/repomd.xml")
+r.raise_for_status()
+rocky_meta_repodata = ET.fromstring(r.content)
+meta_ns = {"repo": "http://linux.duke.edu/metadata/repo"}
+# Find the <data type="primary"> element
+rocky_repodata_xml = rocky_meta_repodata.find("repo:data[@type='primary']", meta_ns)
+# Extract its <location> child
+rocky_repodata_rel_url = rocky_repodata_xml.find("repo:location", meta_ns).get("href")
+rocky_repodata_url = rocky_base_url + "/BaseOS/x86_64/os/" + rocky_repodata_rel_url
+
+print("getting rockylinux repodata")
+r = requests.get(rocky_repodata_url)
+r.raise_for_status()
+rocky_repodata = ET.fromstring(gzip.decompress(r.content))
+
+def rpm_urls():
+    repo_ns = {"common": "http://linux.duke.edu/metadata/common"}
+    for loc in rocky_repodata.findall(".//common:location", repo_ns):
+        href = loc.get("href")
+        if href:
+            yield href
 
 el_ver = "el" + distro_version.replace(".", "_")
 
-# determine version of glibc & kernel-headers; in different subfolders as of alma 9
-
-# Get content of https://repo.almalinux.org/vault/9.3/BaseOS/x86_64/os/Packages/,
-# which looks something like:
-# ```
-# <html>
-# <head><title>Index of /vault/9.3/BaseOS/x86_64/os/Packages/</title></head>
-# <body>
-# <h1>Index of /vault/9.3/BaseOS/x86_64/os/Packages/</h1><hr><pre><a href="../">../</a>
-# <a href="{pkg}-{string}.x86_64.rpm">{pkg}-{string}.x86_64.rpm</a> {date} {size}
-# <a href="{pkg}-{string}.x86_64.rpm">{pkg}-{string}.x86_64.rpm</a> {date} {size}
-# ...
-# </pre><hr></body>
-# </html>
-# ```
-baseos_frontpage = url_template.format(subfolder="BaseOS", arch="x86_64")
-logging.info(f"Fetching content of {baseos_frontpage}")
-baseos_pkgs_html = requests.get(baseos_frontpage).content.decode("utf-8")
-
-appstream_frontpage = url_template.format(subfolder="AppStream", arch="x86_64")
-logging.info(f"Fetching content of {appstream_frontpage}")
-appstream_pkgs_html = requests.get(appstream_frontpage).content.decode("utf-8")
-
 # glibc artefacts have two build numbers plus the alma version, e.g.
-#   2.39-46.el10_0.alma.1.x86_64.rpm
-#   ↑    ↑     ↑        ↑
+#   2.39-43.el10_0.x86_64.rpm
+#   ↑    ↑     ↑
 #   └glibc_ver └distro_version
-#        └build1        └build2
+#        └build1
 glibc_build1 = 0
-glibc_build2 = 0
 glibc_version = 0
 kernel_headers_build = Version("0.0.0")
 kernel_headers_version = 0
 
-for line in (baseos_pkgs_html + appstream_pkgs_html).splitlines():
-    line = line.strip()
-    if not line.startswith("<a href=\""):
-        continue
-    line = line[len('<a href="'):]
-    url = line[:line.index("\">")]
-
+for url in rpm_urls():
     if el_ver not in url:
         continue
 
     if not url.endswith("x86_64.rpm"):
         continue
 
-    name, version, build = url.rsplit("-", 2)
-    # glibc-2.39-46.el10_0.alma.1.x86_64.rpm
+    artefact = re.sub(r"Packages\/[a-z]\/(.*)", r"\1", url)
+    name, version, build = artefact.rsplit("-", 2)
+    # glibc-2.39-43.el10_0.x86_64.rpm
     if name == "glibc":
         glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
-        glibc_build2 = max(glibc_build2, int(build.split(".")[3]))
         glibc_version = version
 
-    # kernel-headers-4.18.0-513.24.1.el8_9.x86_64.rpm
-    if name == "kernel-headers":
+    # kernel-6.12.0-55.41.1.el10_0.x86_64.rpm
+    if name == "kernel":
         kernel_headers_build = max(kernel_headers_build, Version(build.rsplit(".", 3)[0]))
         kernel_headers_version = version
 
@@ -104,7 +97,7 @@ if glibc_version == 0:
 if kernel_headers_version == 0:
     raise ValueError("could not determine kernel-headers version!")
 
-glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}.alma.{glibc_build2}"
+glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}"
 kernel_headers_string = f"{kernel_headers_version}-{kernel_headers_build}.{el_ver}"
 
 logging.info(f"Determined {glibc_string=}")
@@ -120,13 +113,13 @@ name2string = {
     "glibc-devel": glibc_string,
     "glibc-gconv-extra": glibc_string,
     "glibc-static": glibc_string,
-    "kernel-headers": kernel_headers_string,
+    "kernel": kernel_headers_string,
 }
 
 def get_subfolder(pkg, string):
     # find in which subfolder the rpm lives on the alma vault;
     # we assume that the layout for x86_64 works for all arches
-    pkg_template = url_template + f"/{pkg}-{string}.x86_64.rpm"
+    pkg_template = url_template + f"/{pkg[0]}/{pkg}-{string}.x86_64.rpm"
     for sf in ["BaseOS", "CRB", "AppStream"]:
         url = pkg_template.format(arch="x86_64", subfolder=sf)
         logging.info(f"Testing if {url} exists")
@@ -148,7 +141,7 @@ for pkg, string in name2string.items():
     for rpm_arch, conda_arch in zip(rpm_arches, conda_arches):
         rpm_url = (
             url_template.format(arch=rpm_arch, subfolder=subfolder)
-            + f"/{pkg}-{string}.{rpm_arch}.rpm"
+            + f"/{pkg[0]}/{pkg}-{string}.{rpm_arch}.rpm"
         )
         logging.info(f"Downloading {rpm_url}")
         r = requests.get(rpm_url)
