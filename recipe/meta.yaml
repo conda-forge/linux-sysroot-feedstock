@@ -72,9 +72,6 @@ source:
 
 build:
   number: {{ build_number }}
-  noarch: generic
-  missing_dso_whitelist:
-    - '*'
 
 outputs:
   - name: kernel-headers_{{ cross_target_platform }}
@@ -97,6 +94,8 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
+      missing_dso_whitelist:
+        - '*'
       track_features:
         - sysroot_{{ cross_target_platform }}_{{ glibc_version }}               # [with_features]
         - sysroot_{{ cross_target_platform }}_{{ glibc_version }}_feature_2     # [with_features]
