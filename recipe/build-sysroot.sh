@@ -26,8 +26,18 @@ if [ -d "lib" ]; then
     mv lib/* usr/lib64/
     rm -rf lib
 fi
+if [ -d "sbin" ]; then
+    mv sbin/* usr/sbin/
+    rm -rf sbin
+fi
+if [ -d "bin" ]; then
+    mv bin/* usr/bin/
+    rm -rf bin
+fi
 ln -s $PWD/usr/lib64 $PWD/lib64
 ln -s $PWD/usr/lib64 $PWD/lib
+ln -s $PWD/usr/sbin $PWD/sbin
+ln -s $PWD/usr/bin $PWD/bin
 
 ## Linking or building against libsnsl produces binaries that don't run on recent Linux distributions.
 ## Libraries and headers removed here to prevent this. See
