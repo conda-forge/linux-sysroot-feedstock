@@ -145,22 +145,11 @@ for pkg, string in name2string.items():
     # quadruple curly braces to keep {{ }} jinja templates
     out_lines.append(f"    url: {url_jinja}/{pkg}-{string}.{{{{ centos_machine }}}}.rpm")
 
-    if pkg == "glibc-headers":
-        # as of alma 9, these don't get packaged on aarch64/ppc64le anymore, see
-        # https://forums.almalinux.org/t/glibc-headers-missing-on-aarch64-ppc64le-in-alma-9/4943
-        # https://git.almalinux.org/rpms/glibc/src/commit/ae95bb14329a3f969dec04a21878967117331039/SPECS/glibc.spec#L92
-        selector = '# [cross_target_platform in ("linux-64", "linux-s390x")]'
-        out_lines[-2] += " " * 46 + selector
-        out_lines[-1] += "  " + selector
-
     for rpm_arch, conda_arch in zip(rpm_arches, conda_arches):
         rpm_url = (
             url_template.format(arch=rpm_arch, subfolder=subfolder)
             + f"/{pkg}-{string}.{rpm_arch}.rpm"
         )
-        if pkg == "glibc-headers" and rpm_arch in ("aarch64", "ppc64le"):
-            # see above for special-casing of glibc-headers
-            continue
         logging.info(f"Downloading {rpm_url}")
         r = requests.get(rpm_url)
         if r.status_code != 200:
