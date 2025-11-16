@@ -17,11 +17,16 @@ fi
 rm -rf usr/lib
 ln -s $PWD/usr/lib64 $PWD/usr/lib
 
+if [ -d "lib64" ]; then
+    mv lib64/* usr/lib64/
+    rm -rf lib64
+fi
 if [ -d "lib" ]; then
-    mv lib/* lib64/
+    mv lib/* usr/lib64/
     rm -rf lib
 fi
-ln -s $PWD/lib64 $PWD/lib
+ln -s $PWD/usr/lib64 $PWD/lib64
+ln -s $PWD/usr/lib64 $PWD/lib
 
 ## Linking or building against libsnsl produces binaries that don't run on recent Linux distributions.
 ## Libraries and headers removed here to prevent this. See
@@ -37,8 +42,8 @@ rm -f usr/include/rpcsvc/ypupd.h
 rm -f usr/include/rpcsvc/yp.x
 
 if [[ "$target_machine" == "s390x" ]]; then
-   rm -rf $PWD/lib64/ld64.so.1
-   ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so.1
+   rm -rf $PWD/usr/lib64/ld64.so.1
+   ln -s $PWD/usr/lib64/ld-* $PWD/usr/lib64/ld64.so.1
 fi
 
 mkdir -p usr/share
