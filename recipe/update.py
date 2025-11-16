@@ -29,16 +29,16 @@ config = load(cbc_content, Loader=BaseLoader)
 rpm_arches = config["centos_machine"]
 conda_arches = config["cross_target_platform"]
 
-alma_version = "10.0"
+distro_version = "10.0"
 
 url_template = (
     # switch back `almalinux` -> `vault` as soon as those packages get populated
-    f"https://repo.almalinux.org/almalinux/{alma_version}"
+    f"https://repo.almalinux.org/almalinux/{distro_version}"
     # second part intententionally not filled yet
     "/{subfolder}/{arch}/os/Packages"
 )
 
-el_ver = "el" + alma_version.replace(".", "_")
+el_ver = "el" + distro_version.replace(".", "_")
 
 # determine version of glibc & kernel-headers; in different subfolders as of alma 9
 
@@ -66,7 +66,7 @@ appstream_pkgs_html = requests.get(appstream_frontpage).content.decode("utf-8")
 # glibc artefacts have two build numbers plus the alma version, e.g.
 #   2.39-46.el10_0.alma.1.x86_64.rpm
 #   ↑    ↑     ↑        ↑
-#   └glibc_ver └alma_version
+#   └glibc_ver └distro_version
 #        └build1        └build2
 glibc_build1 = 0
 glibc_build2 = 0
@@ -166,8 +166,8 @@ with open("meta.yaml") as f:
 
 skip = False
 for line in old_meta:
-    if line.startswith("{% set alma_version"):
-        line = f'{{% set alma_version = "{alma_version}" %}}'
+    if line.startswith("{% set distro_version"):
+        line = f'{{% set distro_version = "{distro_version}" %}}'
     elif line.startswith("{% set glibc_version"):
         line = f'{{% set glibc_version = "{glibc_version}" %}}'
     elif line.startswith("{% set kernel_headers_version"):
