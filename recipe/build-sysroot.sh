@@ -52,11 +52,6 @@ rm -f usr/include/rpcsvc/yp_prot.h
 rm -f usr/include/rpcsvc/ypupd.h
 rm -f usr/include/rpcsvc/yp.x
 
-if [[ "$target_machine" == "s390x" ]]; then
-   rm -rf $PWD/usr/lib64/ld64.so.1
-   ln -s $PWD/usr/lib64/ld-* $PWD/usr/lib64/ld64.so.1
-fi
-
 mkdir -p usr/share
 ln -sf ${PREFIX}/share/zoneinfo usr/share/zoneinfo
 
