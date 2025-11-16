@@ -107,15 +107,33 @@ outputs:
         - tzdata
     test:
       commands:
-        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
-        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/sbin/ldconfig
-        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
+        # the files below are just a sample of the full content
+        {% for path_fragment in ["lib", "lib64", "usr/lib", "usr/lib64"] %}
+        # libraries & special objects
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/crt1.o
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/libc.a
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/libc.so.6
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/libdl.a
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/libm.a
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/libm.so.6
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/Scrt1.o
+        # ensure vendor templating worked correctly
+        - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/{{ path_fragment }}/libc.so.6
+        {% endfor %}
+        {% for path_fragment in [".", "usr"] %}
+        # binaries
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/bin/ld.so
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/bin/ldd
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/sbin/ldconfig
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/{{ path_fragment }}/sbin/iconvconfig
+        {% endfor %}
+        # headers
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/limits.h
-        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h  # [cross_target_platform == "linux-64"]
-        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h  # [cross_target_platform != "linux-64"]
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h   # [cross_target_platform == "linux-64"]
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h      # [cross_target_platform != "linux-64"]
+        # locale metadata
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
-        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
-        - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
+        # absence of removed libraries
         - find "${PREFIX}" \( -name 'libnsl*' -o -path '*/rpcsvc/yp*' \) | { ! grep . ; }
         - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) | { ! grep . ; }
 
