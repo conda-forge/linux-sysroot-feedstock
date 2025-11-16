@@ -29,10 +29,11 @@ config = load(cbc_content, Loader=BaseLoader)
 rpm_arches = config["centos_machine"]
 conda_arches = config["cross_target_platform"]
 
-alma_version = "9.5"
+alma_version = "10.0"
 
 url_template = (
-    f"https://repo.almalinux.org/vault/{alma_version}"
+    # switch back `almalinux` -> `vault` as soon as those packages get populated
+    f"https://repo.almalinux.org/almalinux/{alma_version}"
     # second part intententionally not filled yet
     "/{subfolder}/{arch}/os/Packages"
 )
@@ -63,13 +64,12 @@ logging.info(f"Fetching content of {appstream_frontpage}")
 appstream_pkgs_html = requests.get(appstream_frontpage).content.decode("utf-8")
 
 # glibc artefacts have two build numbers plus the alma version, e.g.
-#   2.34-125.el9_5.8.alma.1.x86_64.rpm
-#   ↑    ↑     ↑   ↑      ↑
+#   2.39-46.el10_0.alma.1.x86_64.rpm
+#   ↑    ↑     ↑        ↑
 #   └glibc_ver └alma_version
-#        └build1   └build2└build3
+#        └build1        └build2
 glibc_build1 = 0
 glibc_build2 = 0
-glibc_build3 = 0
 glibc_version = 0
 kernel_headers_build = Version("0.0.0")
 kernel_headers_version = 0
@@ -78,7 +78,7 @@ for line in (baseos_pkgs_html + appstream_pkgs_html).splitlines():
     line = line.strip()
     if not line.startswith("<a href=\""):
         continue
-    line = line[len('<a href="./'):]
+    line = line[len('<a href="'):]
     url = line[:line.index("\">")]
 
     if el_ver not in url:
@@ -88,15 +88,10 @@ for line in (baseos_pkgs_html + appstream_pkgs_html).splitlines():
         continue
 
     name, version, build = url.rsplit("-", 2)
-    # glibc-2.34-125.el9_5.8.alma.1.x86_64.rpm
+    # glibc-2.39-46.el10_0.alma.1.x86_64.rpm
     if name == "glibc":
         glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
-        glibc_build2 = max(glibc_build2, int(build.split(".")[2]))
-        try:
-            # don't use max; build3 is not necessarily increasing from oldest to newest
-            glibc_build3 = int(build.split(".")[4])
-        except:
-            pass
+        glibc_build2 = max(glibc_build2, int(build.split(".")[3]))
         glibc_version = version
 
     # kernel-headers-4.18.0-513.24.1.el8_9.x86_64.rpm
@@ -109,7 +104,7 @@ if glibc_version == 0:
 if kernel_headers_version == 0:
     raise ValueError("could not determine kernel-headers version!")
 
-glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}.{glibc_build2}.alma.{glibc_build3}"
+glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}.alma.{glibc_build2}"
 kernel_headers_string = f"{kernel_headers_version}-{kernel_headers_build}.{el_ver}"
 
 logging.info(f"Determined {glibc_string=}")
@@ -124,7 +119,6 @@ name2string = {
     "glibc-common": glibc_string,
     "glibc-devel": glibc_string,
     "glibc-gconv-extra": glibc_string,
-    "glibc-headers": glibc_string,
     "glibc-static": glibc_string,
     "kernel-headers": kernel_headers_string,
 }

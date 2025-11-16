@@ -1,10 +1,10 @@
 #!/bin/bash
+set -ex
 
 mkdir -p ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot
 pushd ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot > /dev/null 2>&1
 cp -Rf "${SRC_DIR}"/binary-glibc/* .
 mkdir -p usr/include
-cp -Rf "${SRC_DIR}"/binary-glibc-headers/include/* usr/include/ | true
 cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-common/* usr/
@@ -18,11 +18,26 @@ fi
 rm -rf usr/lib
 ln -s $PWD/usr/lib64 $PWD/usr/lib
 
+if [ -d "lib64" ]; then
+    mv lib64/* usr/lib64/
+    rm -rf lib64
+fi
 if [ -d "lib" ]; then
-    mv lib/* lib64/
+    mv lib/* usr/lib64/
     rm -rf lib
 fi
-ln -s $PWD/lib64 $PWD/lib
+if [ -d "sbin" ]; then
+    mv sbin/* usr/sbin/
+    rm -rf sbin
+fi
+if [ -d "bin" ]; then
+    mv bin/* usr/bin/
+    rm -rf bin
+fi
+ln -s $PWD/usr/lib64 $PWD/lib64
+ln -s $PWD/usr/lib64 $PWD/lib
+ln -s $PWD/usr/sbin $PWD/sbin
+ln -s $PWD/usr/bin $PWD/bin
 
 ## Linking or building against libsnsl produces binaries that don't run on recent Linux distributions.
 ## Libraries and headers removed here to prevent this. See
@@ -36,11 +51,6 @@ rm -f usr/include/rpcsvc/yppasswd.x
 rm -f usr/include/rpcsvc/yp_prot.h
 rm -f usr/include/rpcsvc/ypupd.h
 rm -f usr/include/rpcsvc/yp.x
-
-if [[ "$target_machine" == "s390x" ]]; then
-   rm -rf $PWD/lib64/ld64.so.1
-   ln -s $PWD/lib64/ld-* $PWD/lib64/ld64.so.1
-fi
 
 mkdir -p usr/share
 ln -sf ${PREFIX}/share/zoneinfo usr/share/zoneinfo
