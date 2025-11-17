@@ -16,7 +16,7 @@ source:
   # in the recipe folder (only `distro_version` needs to be set therein)
   # START source
   - folder: binary-glibc
-    url: {{ rpm_url }}/glibc-2.39-46.el10_0.{{ centos_machine }}.rpm
+    url: {{ rpm_url }}/g/glibc-2.39-46.el10_0.{{ centos_machine }}.rpm
     sha256: 76114979289031522976a9e42635865b211393b67d058d4285093f5b3131cb5e  # [cross_target_platform == "linux-64"]
     sha256: 106adc725be3149c6c3aa82b7557a491a22659b48cb7eb5d1a7623e6f3524ff6  # [cross_target_platform == "linux-aarch64"]
     sha256: 6506860f1442a74c3ff36fe96ff8be467cf7c8efbcf15fdbb32444f3b36d6af8  # [cross_target_platform == "linux-ppc64le"]
@@ -24,7 +24,7 @@ source:
     sha256: e3cb299c9b7aea905cf71246069a4ff8600b92c9155a1c25234f39836832bd08  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-glibc-all-langpacks
-    url: {{ rpm_url }}/glibc-all-langpacks-2.39-46.el10_0.{{ centos_machine }}.rpm
+    url: {{ rpm_url }}/g/glibc-all-langpacks-2.39-46.el10_0.{{ centos_machine }}.rpm
     sha256: d1024a535893b1337f392d53d1aeb36af19668f3a0619b96888cc829584f3918  # [cross_target_platform == "linux-64"]
     sha256: 5234402bc8fb202a4ee97458b627f0916eee5f06470ccd1e4c3e16a82ddb8df6  # [cross_target_platform == "linux-aarch64"]
     sha256: 99d2259c44af7ef906d29bec1b14f026932e55af19d662e28935e24c1415c22a  # [cross_target_platform == "linux-ppc64le"]
@@ -32,7 +32,7 @@ source:
     sha256: dd8d16525c47efee2094239052d123f157ecb1c8c2c7d8136c4380d50a7be1c0  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-glibc-common
-    url: {{ rpm_url }}/glibc-common-2.39-46.el10_0.{{ centos_machine }}.rpm
+    url: {{ rpm_url }}/g/glibc-common-2.39-46.el10_0.{{ centos_machine }}.rpm
     sha256: 1c5077437476010b963e802a9570c1baf63f1bd48dbaca53303aa713a599b415  # [cross_target_platform == "linux-64"]
     sha256: 03f1360eb0bd3686223632d2280034fe1b7c9833992575d701a50b04918a67c9  # [cross_target_platform == "linux-aarch64"]
     sha256: 1769daca93eee16edf2125f335626e919b454c0e3d15482ed2134f25a4622e19  # [cross_target_platform == "linux-ppc64le"]
@@ -40,7 +40,7 @@ source:
     sha256: 8ba0f13985812fa917eedb54e9c20f8668960f442bacd580401cfc4518bc7398  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-glibc-devel
-    url: {{ appstream_rpm_url }}/glibc-devel-2.39-46.el10_0.{{ centos_machine }}.rpm
+    url: {{ appstream_rpm_url }}/g/glibc-devel-2.39-46.el10_0.{{ centos_machine }}.rpm
     sha256: ad8d9023e71a2ae3cebcdff9e5b22e47d63c500b3654e6a61a32ee83257f2919  # [cross_target_platform == "linux-64"]
     sha256: cfa928e01c68b6c831635491a44d3ea3e912b1b4c6938695aee0200545259b0a  # [cross_target_platform == "linux-aarch64"]
     sha256: 513e243ad64418e1d970b82ae07b8329d7dff2a11ac74886318805a7cebd61bf  # [cross_target_platform == "linux-ppc64le"]
@@ -48,7 +48,7 @@ source:
     sha256: b368e47eb8d2b58806a2b6c01035609ff5fca8972303bf77cce0f7bf87b7b50b  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-glibc-gconv-extra
-    url: {{ rpm_url }}/glibc-gconv-extra-2.39-46.el10_0.{{ centos_machine }}.rpm
+    url: {{ rpm_url }}/g/glibc-gconv-extra-2.39-46.el10_0.{{ centos_machine }}.rpm
     sha256: f155193e0200341b430f7029141a857666c0609a8623ceab6f03168b459a4baa  # [cross_target_platform == "linux-64"]
     sha256: 43debb646a34920e482c107947bd4b0167acc67ee3f7682a40a9c5e9e20f4dbd  # [cross_target_platform == "linux-aarch64"]
     sha256: 66c412c4820aad1bad8a789b94a481cf7652485b2c104acdadb5ae6f2c7c920c  # [cross_target_platform == "linux-ppc64le"]
@@ -56,7 +56,7 @@ source:
     sha256: aad90e128192ee24664de387e08ab3372827b5bf4620f9712168170f2f32a4fc  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-glibc-static
-    url: {{ crb_rpm_url }}/glibc-static-2.39-46.el10_0.{{ centos_machine }}.rpm
+    url: {{ crb_rpm_url }}/g/glibc-static-2.39-46.el10_0.{{ centos_machine }}.rpm
     sha256: f5cbde0cff3a11be47a8422d1474a143cd789fca2b5a5acdb088c501926cc751  # [cross_target_platform == "linux-64"]
     sha256: 4b0ce7aa3809ebc3eb7a82c1f2144a85ac45c3968216b633506f67d4b1af5e94  # [cross_target_platform == "linux-aarch64"]
     sha256: bd86c4ab42f6565260425f6466f9ce5377f7d1ad9d884cbc0047a235e44e8d9f  # [cross_target_platform == "linux-ppc64le"]
@@ -64,7 +64,7 @@ source:
     sha256: b6268d23db01f42ebac2ee905b083266fa5d465f47086b33accf6b8cad77ff49  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-kernel
-    url: {{ rpm_url }}/kernel-6.12.0-55.41.1.el10_0.{{ centos_machine }}.rpm
+    url: {{ rpm_url }}/k/kernel-6.12.0-55.41.1.el10_0.{{ centos_machine }}.rpm
     sha256: c4336c45dc1415632a8ea03ebf1a60c4cd4ac925a253bb52a2fb11c9fdb30ddf  # [cross_target_platform == "linux-64"]
     sha256: 1d1d24d5f8f5fc8bb0ea5534036a42c48866b136c8c687a12ecbaba6f0865b31  # [cross_target_platform == "linux-aarch64"]
     sha256: 708cf00f9240c9b6063c8a37b4907de49ad453f4acb025fa5ad39de9d18afb54  # [cross_target_platform == "linux-ppc64le"]

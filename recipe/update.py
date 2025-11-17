@@ -151,7 +151,7 @@ for pkg, string in name2string.items():
         "{{ appstream_rpm_url }}"
     )
     # quadruple curly braces to keep {{ }} jinja templates
-    out_lines.append(f"    url: {url_jinja}/{pkg}-{string}.{{{{ centos_machine }}}}.rpm")
+    out_lines.append(f"    url: {url_jinja}/{pkg[0]}/{pkg}-{string}.{{{{ centos_machine }}}}.rpm")
 
     for rpm_arch, conda_arch in zip(rpm_arches, conda_arches):
         rpm_url = (
