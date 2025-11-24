@@ -107,6 +107,9 @@ outputs:
         - tzdata
     test:
       commands:
+        # for conda-build sysroot detection
+        - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib64
+        - test ! -L $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib64
         # the files below are just a sample of the full content
         {% for path_fragment in ["lib", "lib64", "usr/lib", "usr/lib64"] %}
         # libraries & special objects
