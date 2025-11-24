@@ -88,7 +88,14 @@ outputs:
         - sysroot_{{ cross_target_platform }} =={{ glibc_version }}
     test:
       commands:
-        test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/usr/include/linux/version.h
+        # the files below are just a sample of the full content
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/asm-generic/errno.h
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/asm/types.h
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/drm/drm.h
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/linux/fuse.h
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/sound/asound.h
+        # ensure vendor templating worked correctly
+        - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/usr/include/linux/version.h
 
   - name: sysroot_{{ cross_target_platform }}
     script: build-sysroot.sh
