@@ -88,7 +88,7 @@ def rpm_urls():
 
 el_ver = "el" + distro_version.replace(".", "_")
 
-# glibc artefacts have two build numbers plus the alma version, e.g.
+# glibc artefacts have two build numbers plus the distro version, e.g.
 #   2.39-43.el10_0.x86_64.rpm
 #   ↑    ↑     ↑
 #   └glibc_ver └distro_version
@@ -142,7 +142,9 @@ name2string = {
 }
 
 def get_subfolder(pkg, string):
-    # find in which subfolder the rpm lives on the alma vault;
+    # find in which subfolder the rpm lives in the repository;
+    # this could be done in a more structured way for rocky (due to repodata.xml),
+    # but this code also works for alma with minimal modifications, so leave it;
     # we assume that the layout for x86_64 works for all arches
     pkg_template = url_template + f"/{pkg[0]}/{pkg}-{string}.x86_64.rpm"
     for sf in ["BaseOS", "CRB", "AppStream"]:
