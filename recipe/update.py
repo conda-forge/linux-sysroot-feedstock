@@ -102,8 +102,8 @@ for url in rpm_urls():
         glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
         glibc_version = version
 
-    # kernel-6.12.0-55.41.1.el10_0.x86_64.rpm
-    if name == "kernel":
+    # kernel-headers-6.12.0-55.41.1.el10_0.x86_64.rpm
+    if name == "kernel-headers":
         kernel_headers_build = max(kernel_headers_build, Version(build.rsplit(".", 3)[0]))
         kernel_headers_version = version
 
@@ -128,7 +128,7 @@ name2string = {
     "glibc-devel": glibc_string,
     "glibc-gconv-extra": glibc_string,
     "glibc-static": glibc_string,
-    "kernel": kernel_headers_string,
+    "kernel-headers": kernel_headers_string,
 }
 
 def get_subfolder(pkg, string):

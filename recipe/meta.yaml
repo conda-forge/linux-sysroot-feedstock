@@ -63,7 +63,7 @@ source:
     sha256: 45942b1d933b9b861b9e48b7c988f0d7eb49fe563f1e16b3155a4dcaeebde96f  # [cross_target_platform == "linux-riscv64"]
     sha256: b6268d23db01f42ebac2ee905b083266fa5d465f47086b33accf6b8cad77ff49  # [cross_target_platform == "linux-s390x"]
 
-  - folder: binary-kernel
+  - folder: binary-kernel-headers
     url: {{ rpm_url }}/k/kernel-6.12.0-55.41.1.el10_0.{{ centos_machine }}.rpm
     sha256: c4336c45dc1415632a8ea03ebf1a60c4cd4ac925a253bb52a2fb11c9fdb30ddf  # [cross_target_platform == "linux-64"]
     sha256: 1d1d24d5f8f5fc8bb0ea5534036a42c48866b136c8c687a12ecbaba6f0865b31  # [cross_target_platform == "linux-aarch64"]
