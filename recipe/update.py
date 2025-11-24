@@ -39,39 +39,49 @@ rocky_base_url = f"https://dl.rockylinux.org/pub/rocky/{distro_version}"
 # second part intententionally not filled yet
 url_template = rocky_base_url + "/{subfolder}/{arch}/os/Packages"
 
-# since the rockylinux repodata is >20MB, we cache the result, so that iterative runs
-# during development don't always need to redownload the whole thing; we know from above
-# that we're running in recipe folder, where we can add an appropriate .gitignore without
-# the bot touching it (as opposed to the .gitignore in the feedstock root)
-cache_dir = pathlib.Path("./.cache")
-cache_dir.mkdir(exist_ok=True)
-cache_file = cache_dir / f"rocky_repodata_{distro_version}.cache"
-if cache_file.exists():
-    logging.info(f"Loading cached {cache_file}")
-    rocky_repodata_raw = cache_file.read_bytes()
-else:
-    logging.info("getting rockylinux channel metadata")
-    r = requests.get(rocky_base_url + "/BaseOS/x86_64/os/repodata/repomd.xml")
-    r.raise_for_status()
-    rocky_meta_repodata = ET.fromstring(r.content)
-    meta_ns = {"repo": "http://linux.duke.edu/metadata/repo"}
-    # Find the <data type="primary"> element
-    rocky_repodata_xml = rocky_meta_repodata.find("repo:data[@type='primary']", meta_ns)
-    # Extract its <location> child
-    rocky_repodata_rel_url = rocky_repodata_xml.find("repo:location", meta_ns).get("href")
-    rocky_repodata_url = rocky_base_url + "/BaseOS/x86_64/os/" + rocky_repodata_rel_url
+def get_repodata(subfolder):
+    # since the rockylinux repodata is >20MB, we cache the result, so that iterative runs
+    # during development don't always need to redownload the whole thing; we know from above
+    # that we're running in recipe folder, where we can add an appropriate .gitignore without
+    # the bot touching it (as opposed to the .gitignore in the feedstock root)
+    cache_dir = pathlib.Path("./.cache")
+    cache_dir.mkdir(exist_ok=True)
+    cache_file = cache_dir / f"rocky_repodata_{distro_version}_{subfolder}.cache"
+    if cache_file.exists():
+        logging.info(f"Loading cached {cache_file}")
+        rocky_repodata_raw = cache_file.read_bytes()
+    else:
+        logging.info("getting rockylinux channel metadata")
+        r = requests.get(rocky_base_url + f"/{subfolder}/x86_64/os/repodata/repomd.xml")
+        r.raise_for_status()
+        rocky_meta_repodata = ET.fromstring(r.content)
+        meta_ns = {"repo": "http://linux.duke.edu/metadata/repo"}
+        # Find the <data type="primary"> element
+        rocky_repodata_xml = rocky_meta_repodata.find("repo:data[@type='primary']", meta_ns)
+        # Extract its <location> child
+        rocky_repodata_rel_url = rocky_repodata_xml.find("repo:location", meta_ns).get("href")
+        rocky_repodata_url = rocky_base_url + f"/{subfolder}/x86_64/os/" + rocky_repodata_rel_url
 
-    logging.info("getting rockylinux repodata")
-    r = requests.get(rocky_repodata_url)
-    r.raise_for_status()
-    rocky_repodata_raw = r.content
-    cache_file.write_bytes(rocky_repodata_raw)
+        logging.info(f"getting rockylinux repodata for subfolder {subfolder}")
+        r = requests.get(rocky_repodata_url)
+        r.raise_for_status()
+        rocky_repodata_raw = r.content
+        cache_file.write_bytes(rocky_repodata_raw)
 
-rocky_repodata = ET.fromstring(gzip.decompress(rocky_repodata_raw))
+    return ET.fromstring(gzip.decompress(rocky_repodata_raw))
+
+rocky_repodata = {}
+rocky_repodata["BaseOS"] = get_repodata("BaseOS")
+rocky_repodata["AppStream"] = get_repodata("AppStream")
 
 def rpm_urls():
     repo_ns = {"common": "http://linux.duke.edu/metadata/common"}
-    for loc in rocky_repodata.findall(".//common:location", repo_ns):
+    for loc in rocky_repodata["BaseOS"].findall(".//common:location", repo_ns):
+        href = loc.get("href")
+        if href:
+            yield href
+    # same for AppStream
+    for loc in rocky_repodata["AppStream"].findall(".//common:location", repo_ns):
         href = loc.get("href")
         if href:
             yield href
