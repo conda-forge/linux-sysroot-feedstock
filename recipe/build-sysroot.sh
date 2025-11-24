@@ -11,19 +11,24 @@ cp -Rf "${SRC_DIR}"/binary-glibc-common/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-gconv-extra/* usr/
 cp -Rf "${SRC_DIR}"/binary-glibc-all-langpacks/* usr/
 
-mkdir -p usr/lib64
-if [[ $(compgen -G 'usr/lib/*') != "" ]]; then
-    mv usr/lib/* usr/lib64/
-fi
-rm -rf usr/lib
-ln -s $PWD/usr/lib64 $PWD/usr/lib
+# In alma10 /lib64 is a symlink to /usr/lib64
+# conda-build prefix detection expects /lib64 to not be a symlink
+# so we reverse the symlink so that /usr/lib64 is a symlink to /lib64
+# see https://github.com/conda/conda-build/issues/5853
+# Once that is fixed, we can revert this change
+mkdir -p lib64
+mkdir -p usr
 
-if [ -d "lib64" ]; then
-    mv lib64/* usr/lib64/
-    rm -rf lib64
+if [[ -d "usr/lib" ]]; then
+    mv usr/lib/* lib64/
+    rm -rf usr/lib
+fi
+if [[ -d "usr/lib64" ]]; then
+    mv usr/lib64/* lib64/
+    rm -rf usr/lib64
 fi
 if [ -d "lib" ]; then
-    mv lib/* usr/lib64/
+    mv lib/* lib64/
     rm -rf lib
 fi
 if [ -d "sbin" ]; then
@@ -34,8 +39,9 @@ if [ -d "bin" ]; then
     mv bin/* usr/bin/
     rm -rf bin
 fi
-ln -s $PWD/usr/lib64 $PWD/lib64
-ln -s $PWD/usr/lib64 $PWD/lib
+ln -s $PWD/lib64 $PWD/lib
+ln -s $PWD/lib64 $PWD/usr/lib
+ln -s $PWD/lib64 $PWD/usr/lib64
 ln -s $PWD/usr/sbin $PWD/sbin
 ln -s $PWD/usr/bin $PWD/bin
 
