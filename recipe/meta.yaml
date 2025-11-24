@@ -64,12 +64,12 @@ source:
     sha256: b6268d23db01f42ebac2ee905b083266fa5d465f47086b33accf6b8cad77ff49  # [cross_target_platform == "linux-s390x"]
 
   - folder: binary-kernel-headers
-    url: {{ rpm_url }}/k/kernel-6.12.0-55.41.1.el10_0.{{ centos_machine }}.rpm
-    sha256: c4336c45dc1415632a8ea03ebf1a60c4cd4ac925a253bb52a2fb11c9fdb30ddf  # [cross_target_platform == "linux-64"]
-    sha256: 1d1d24d5f8f5fc8bb0ea5534036a42c48866b136c8c687a12ecbaba6f0865b31  # [cross_target_platform == "linux-aarch64"]
-    sha256: 708cf00f9240c9b6063c8a37b4907de49ad453f4acb025fa5ad39de9d18afb54  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 62f50e3057b8eaadce356a62e472c35b47926b5105d9c5b77947a426e3f0592c  # [cross_target_platform == "linux-riscv64"]
-    sha256: 2aac397da93a897a3a1540907ff1ef729bcb261c266f1d81fbcbe3b0d59769fa  # [cross_target_platform == "linux-s390x"]
+    url: {{ appstream_rpm_url }}/k/kernel-headers-6.12.0-55.41.1.el10_0.{{ centos_machine }}.rpm
+    sha256: c0ae34bc9cda7169051a943ec547693b2a39c6ba48184a8028648c5f616511a7  # [cross_target_platform == "linux-64"]
+    sha256: 66966a6dc361d11a4363112c547cbb85a82054ae3e16825e53aa3ef09dbcea26  # [cross_target_platform == "linux-aarch64"]
+    sha256: d08ac4aa4a5e38a8fdca09d8e895421a1e9ea05d9d18171aa82a7f6a780d576c  # [cross_target_platform == "linux-ppc64le"]
+    sha256: 1ef494d80276f24ae0a08210c5f96adb8221f43d7aacee53afb18c9b9042526d  # [cross_target_platform == "linux-riscv64"]
+    sha256: 1bdca7a9db422a74c66a1ca6d7c043e74e1c9159300a023be43186847bb894ac  # [cross_target_platform == "linux-s390x"]
   # END source
 
 build:
