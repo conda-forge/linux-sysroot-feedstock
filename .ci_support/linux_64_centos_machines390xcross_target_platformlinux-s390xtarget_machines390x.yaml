@@ -1,5 +1,3 @@
-cdt_name:
-- conda
 centos_machine:
 - s390x
 channel_sources:
