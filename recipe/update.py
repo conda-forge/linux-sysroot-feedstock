@@ -17,7 +17,7 @@ from ruamel_yaml import BaseLoader, load
 from packaging.version import Version
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-log', '--loglevel', default='warning')
+parser.add_argument('-log', '--loglevel', default='info')
 
 args = parser.parse_args()
 logging.basicConfig(level=args.loglevel.upper())
