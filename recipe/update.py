@@ -89,11 +89,12 @@ def rpm_urls():
 el_ver = "el" + distro_version.replace(".", "_")
 
 # glibc artefacts have two build numbers plus the distro version, e.g.
-#   2.39-43.el10_0.x86_64.rpm
-#   ↑    ↑     ↑
+#   2.39-58.el10_1.2.x86_64.rpm
+#   ↑    ↑     ↑   ↑
 #   └glibc_ver └distro_version
-#        └build1
+#        └build1   └build2
 glibc_build1 = 0
+glibc_build2 = 0
 glibc_version = 0
 kernel_headers_build = Version("0.0.0")
 kernel_headers_version = 0
@@ -107,9 +108,10 @@ for url in rpm_urls():
 
     artefact = re.sub(r"Packages\/[a-z]\/(.*)", r"\1", url)
     name, version, build = artefact.rsplit("-", 2)
-    # glibc-2.39-43.el10_0.x86_64.rpm
+    # glibc-2.39-58.el10_1.2.x86_64.rpm
     if name == "glibc":
         glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
+        glibc_build2 = max(glibc_build2, int(build.split(".")[2]))
         glibc_version = version
 
     # kernel-headers-6.12.0-55.41.1.el10_0.x86_64.rpm
@@ -122,7 +124,7 @@ if glibc_version == 0:
 if kernel_headers_version == 0:
     raise ValueError("could not determine kernel-headers version!")
 
-glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}"
+glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}.{glibc_build2}"
 kernel_headers_string = f"{kernel_headers_version}-{kernel_headers_build}.{el_ver}"
 
 logging.info(f"Determined {glibc_string=}")
