@@ -33,7 +33,7 @@ config = load(cbc_content, Loader=BaseLoader)
 rpm_arches = config["centos_machine"]
 conda_arches = config["cross_target_platform"]
 
-distro_version = "10.0"
+distro_version = "10.1"
 rocky_base_url = f"https://dl.rockylinux.org/pub/rocky/{distro_version}"
 
 # second part intententionally not filled yet
