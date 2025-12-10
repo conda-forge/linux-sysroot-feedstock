@@ -29,7 +29,7 @@ config = load(cbc_content, Loader=BaseLoader)
 rpm_arches = config["centos_machine"]
 conda_arches = config["cross_target_platform"]
 
-alma_version = "10.0"
+alma_version = "10.1"
 
 url_template = (
     # switch back `almalinux` -> `vault` as soon as those packages get populated
