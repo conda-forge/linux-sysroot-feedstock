@@ -80,7 +80,7 @@ for line in (baseos_pkgs_html + appstream_pkgs_html).splitlines():
     line = line.strip()
     if not line.startswith("<a href=\""):
         continue
-    line = line[len('<a href="'):]
+    line = line[len('<a href="./'):]
     url = line[:line.index("\">")]
 
     if el_ver not in url:
