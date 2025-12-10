@@ -64,12 +64,14 @@ logging.info(f"Fetching content of {appstream_frontpage}")
 appstream_pkgs_html = requests.get(appstream_frontpage).content.decode("utf-8")
 
 # glibc artefacts have two build numbers plus the alma version, e.g.
-#   2.39-46.el10_0.alma.1.x86_64.rpm
-#   ↑    ↑     ↑        ↑
+#   2.39-58.el10_1.2.alma.1.x86_64.rpm
+#   ↑    ↑     ↑   ↑      ↑
 #   └glibc_ver └alma_version
-#        └build1        └build2
+#        └build1   └build2|
+#                         └build3
 glibc_build1 = 0
 glibc_build2 = 0
+glibc_build3 = 0
 glibc_version = 0
 kernel_headers_build = Version("0.0.0")
 kernel_headers_version = 0
@@ -88,10 +90,11 @@ for line in (baseos_pkgs_html + appstream_pkgs_html).splitlines():
         continue
 
     name, version, build = url.rsplit("-", 2)
-    # glibc-2.39-46.el10_0.alma.1.x86_64.rpm
+    # glibc-2.39-58.el10_1.2.alma.1.x86_64.rpm
     if name == "glibc":
         glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
-        glibc_build2 = max(glibc_build2, int(build.split(".")[3]))
+        glibc_build2 = max(glibc_build2, int(build.split(".")[2]))
+        glibc_build3 = max(glibc_build3, int(build.split(".")[4]))
         glibc_version = version
 
     # kernel-headers-4.18.0-513.24.1.el8_9.x86_64.rpm
@@ -104,7 +107,7 @@ if glibc_version == 0:
 if kernel_headers_version == 0:
     raise ValueError("could not determine kernel-headers version!")
 
-glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}.alma.{glibc_build2}"
+glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}.{glibc_build2}.alma.{glibc_build3}"
 kernel_headers_string = f"{kernel_headers_version}-{kernel_headers_build}.{el_ver}"
 
 logging.info(f"Determined {glibc_string=}")
