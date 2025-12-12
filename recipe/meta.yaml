@@ -1,7 +1,7 @@
 {% set alma_version = "9.5" %}
 {% set glibc_version = "2.34" %}
 {% set kernel_headers_version = "5.14.0" %}
-{% set build_number = "2" %}
+{% set build_number = "3" %}
 
 {% set rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
 {% set appstream_rpm_url = "https://repo.almalinux.org/vault/" ~ alma_version ~ "/AppStream/" ~ centos_machine ~ "/os/Packages" %}
@@ -99,7 +99,6 @@ outputs:
       track_features:
         - sysroot_{{ cross_target_platform }}_{{ glibc_version }}               # [with_features]
         - sysroot_{{ cross_target_platform }}_{{ glibc_version }}_feature_2     # [with_features]
-        - sysroot_{{ cross_target_platform }}_{{ glibc_version }}_feature_3     # [with_features]
       run_exports:
         strong:
           - __glibc >={{ glibc_version }},<3.0.a0
