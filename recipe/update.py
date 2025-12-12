@@ -95,6 +95,7 @@ el_ver = "el" + distro_version.replace(".", "_")
 #        └build1   └build2
 glibc_build1 = 0
 glibc_build2 = 0
+glibc_build3 = 0
 glibc_version = 0
 kernel_headers_build = Version("0.0.0")
 kernel_headers_version = 0
