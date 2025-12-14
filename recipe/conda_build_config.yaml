@@ -2,16 +2,19 @@ target_machine:
   - x86_64
   - aarch64
   - powerpc64le
+  - riscv64
   - s390x
 centos_machine:
   - x86_64
   - aarch64
   - ppc64le
+  - riscv64
   - s390x
 cross_target_platform:
   - linux-64
   - linux-aarch64
   - linux-ppc64le
+  - linux-riscv64
   - linux-s390x
 
 ctng_vendor:
