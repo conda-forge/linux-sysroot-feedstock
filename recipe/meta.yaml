@@ -1,7 +1,7 @@
 {% set distro_version = "10.1" %}
 {% set glibc_version = "2.39" %}
 {% set kernel_headers_version = "6.12.0" %}
-{% set build_number = "5" %}
+{% set build_number = "6" %}
 
 {% set rpm_url = "https://dl.rockylinux.org/pub/rocky/" ~ distro_version ~ "/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
 {% set appstream_rpm_url = "https://dl.rockylinux.org/pub/rocky/" ~ distro_version ~ "/AppStream/" ~ centos_machine ~ "/os/Packages" %}
@@ -124,6 +124,9 @@ outputs:
         # for conda-build sysroot detection
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib64
         - test ! -L $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib64
+        # RISC-V ABI uses /{,usr/}lib64/lp64d; we provide it as a symlink to the libdir
+        - test -L $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib64/lp64d      # [cross_target_platform == "linux-riscv64"]
+        - test -L $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib64/lp64d  # [cross_target_platform == "linux-riscv64"]
         # the files below are just a sample of the full content
         {% for path_fragment in ["lib", "lib64", "usr/lib", "usr/lib64"] %}
         # libraries & special objects
