@@ -1,11 +1,11 @@
-{% set rocky_version = "8.9" %}
-{% set glibc_version = "2.28" %}
-{% set kernel_headers_version = "4.18.0" %}
-{% set build_number = "1" %}
+{% set rocky_version = "9.5" %}
+{% set glibc_version = "2.34" %}
+{% set kernel_headers_version = "5.14.0" %}
+{% set build_number = "0" %}
 
 {% set rpm_url = "https://download.rockylinux.org/vault/rocky/" ~ rocky_version ~ "/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
 {% set appstream_rpm_url = "https://download.rockylinux.org/vault/rocky/" ~ rocky_version ~ "/AppStream/" ~ centos_machine ~ "/os/Packages" %}
-{% set powertools_rpm_url = "https://download.rockylinux.org/vault/rocky/" ~ rocky_version ~ "/PowerTools/" ~ centos_machine ~ "/os/Packages" %}
+{% set devel_rpm_url = "https://download.rockylinux.org/vault/rocky/" ~ rocky_version ~ "/devel/" ~ centos_machine ~ "/os/Packages" %}
 
 package:
   name: linux-sysroot
@@ -16,51 +16,51 @@ source:
   # in the recipe folder (after ensuring the versions in CBC are correct)
   # START source
   - folder: binary-glibc
-    url: {{ rpm_url }}/g/glibc-2.28-236.el8_9.13.{{ centos_machine }}.rpm
-    sha256: b245492a8d830a9e2f8ee1a6d24333559bf80f885c511a7643749ce35045a1b0  # [cross_target_platform == "linux-64"]
-    sha256: 553c0240b0ff5c6c0d8aedf0bd46d6bb1a9784c9fcd04af4bff1fa56f12e6c34  # [cross_target_platform == "linux-aarch64"]
+    url: {{ rpm_url }}/g/glibc-2.34-125.el9_5.8.{{ centos_machine }}.rpm
+    sha256: b7fcc189398338475f84a2538e628de3fd0bb0ac778d66c9e4ee06e0fc177689  # [cross_target_platform == "linux-64"]
+    sha256: 7110fd3359cce2266a72df6e9b4f85320c54ca8e90ff159f58f3fe65d287698d  # [cross_target_platform == "linux-aarch64"]
 
   - folder: binary-glibc-all-langpacks
-    url: {{ rpm_url }}/g/glibc-all-langpacks-2.28-236.el8_9.13.{{ centos_machine }}.rpm
-    sha256: 6b5d8154e5879cd6b72bb39ac155f01945e31ed0f24658077984c80569062691  # [cross_target_platform == "linux-64"]
-    sha256: 33e70521847cfbdf0546ee06facf23c39741dab4e4d2c5ff75e6275999e6feef  # [cross_target_platform == "linux-aarch64"]
+    url: {{ rpm_url }}/g/glibc-all-langpacks-2.34-125.el9_5.8.{{ centos_machine }}.rpm
+    sha256: c138c3b76ee3bf0d4268068ff560c0ffb821ac0135f78ab6825c817ec3539cb2  # [cross_target_platform == "linux-64"]
+    sha256: bd033f52cd6c65b4b4faccd7c012d6af4e85a670452a847af6ea2bfe54d68d49  # [cross_target_platform == "linux-aarch64"]
 
   - folder: binary-glibc-common
-    url: {{ rpm_url }}/g/glibc-common-2.28-236.el8_9.13.{{ centos_machine }}.rpm
-    sha256: 0717831be3893442ee3433f30ce9af15789b20a91ddbad0cefa3f76707365d59  # [cross_target_platform == "linux-64"]
-    sha256: 3e0c92a02ae6704f22546c64b3e9b19dc36c724fc17fc7a3346bcaca45e77adf  # [cross_target_platform == "linux-aarch64"]
+    url: {{ rpm_url }}/g/glibc-common-2.34-125.el9_5.8.{{ centos_machine }}.rpm
+    sha256: 07878f56af2ac82507b59e13e786b7dd9811243c4230c5a310ecfb2c43877b1d  # [cross_target_platform == "linux-64"]
+    sha256: a0e38ead8793c1071f2f6e7cd6c8cb5c764e21d7b7e5f40d8c6700beadb3c3e4  # [cross_target_platform == "linux-aarch64"]
 
   - folder: binary-glibc-devel
-    url: {{ rpm_url }}/g/glibc-devel-2.28-236.el8_9.13.{{ centos_machine }}.rpm
-    sha256: f12426894a073245c0e159747edd2e43c062b1402bc6871dc8bdf6efbb564b4c  # [cross_target_platform == "linux-64"]
-    sha256: 8b38670e1c370541e4a63373b45e429f3970d9289094332b1854d899c9472570  # [cross_target_platform == "linux-aarch64"]
+    url: {{ appstream_rpm_url }}/g/glibc-devel-2.34-125.el9_5.8.{{ centos_machine }}.rpm
+    sha256: 71b669dae2d01ab784068454f2a7f196fc6a39c038f92aab025ce70909080a79  # [cross_target_platform == "linux-64"]
+    sha256: 020e899c6312b0f94d225972b2b018cd47e3c645454ac11902e63a99d985dc68  # [cross_target_platform == "linux-aarch64"]
 
   - folder: binary-glibc-gconv-extra
-    url: {{ rpm_url }}/g/glibc-gconv-extra-2.28-236.el8_9.13.{{ centos_machine }}.rpm
-    sha256: 4c71893e437e55c14020d6843a91cd33c0691c330fe9c7ce8991b839fd7b4137  # [cross_target_platform == "linux-64"]
-    sha256: 59f9a7ff7eb3abea83d38efa40a38927bc40a1c6538ec41d57eedbeb2ff7d79d  # [cross_target_platform == "linux-aarch64"]
+    url: {{ rpm_url }}/g/glibc-gconv-extra-2.34-125.el9_5.8.{{ centos_machine }}.rpm
+    sha256: 57d45448e415f7447d20320596031e01a609f102d341c3a8a2cafadacc31ac1d  # [cross_target_platform == "linux-64"]
+    sha256: 431e843b276b489f1872969fb53c17059ec576917b9ea08b9c7d849f86bfc1fa  # [cross_target_platform == "linux-aarch64"]
 
-  - folder: binary-glibc-headers
-    url: {{ rpm_url }}/g/glibc-headers-2.28-236.el8_9.13.{{ centos_machine }}.rpm
-    sha256: 8169525314b2c212da60c3f10a7515debd883fef7e056070fbc6cc4ff63eaefc  # [cross_target_platform == "linux-64"]
-    sha256: a55155dee5e2319b1bdf19d268cede6007c35e7c7a0c20b5e29b5aa0969b9132  # [cross_target_platform == "linux-aarch64"]
+  # https://forums.almalinux.org/t/glibc-headers-missing-on-aarch64-ppc64le-in-alma-9/4943
+  - folder: binary-glibc-headers                                              # [cross_target_platform == "linux-64"]
+    url: {{ appstream_rpm_url }}/g/glibc-headers-2.34-125.el9_5.8.{{ centos_machine }}.rpm  # [cross_target_platform == "linux-64"]
+    sha256: 1581f170a3e272715013f4e3d93aec13f97a79c3f720731e02369f8c59c4b169  # [cross_target_platform == "linux-64"]
 
   - folder: binary-glibc-static
-    url: {{ powertools_rpm_url }}/g/glibc-static-2.28-236.el8_9.13.{{ centos_machine }}.rpm
-    sha256: 02eac28a7fda9f3541b880ae896582765f875a8293165ca351b7b24b6d385e9e  # [cross_target_platform == "linux-64"]
-    sha256: ccab4baf384a61c857120bcf29247dfb23a4bcee97392a341b5536c556a57d67  # [cross_target_platform == "linux-aarch64"]
+    url: {{ devel_rpm_url }}/g/glibc-static-2.34-125.el9_5.8.{{ centos_machine }}.rpm
+    sha256: 999cb492a62b0fc81ef0f5535f696ff4b38be5bad6d29ace1d2779a7f35043ae  # [cross_target_platform == "linux-64"]
+    sha256: 4b6e1f3c71ad9c9aef57642f59fd8852f59fc4c58d1cef5d32c3bedcbe354744  # [cross_target_platform == "linux-aarch64"]
 
   - folder: binary-kernel-headers
-    url: {{ rpm_url }}/k/kernel-headers-4.18.0-513.24.1.el8_9.{{ centos_machine }}.rpm
-    sha256: 9e6b11688073157daa2b14868002d890f4adc3d6afe11e95cf3ee22d128c611a  # [cross_target_platform == "linux-64"]
-    sha256: 342d3ce38ce5fc9efca741a556d7f87d15c202730af80777e2c9a611001636c3  # [cross_target_platform == "linux-aarch64"]
+    url: {{ appstream_rpm_url }}/k/kernel-headers-5.14.0-503.40.1.el9_5.{{ centos_machine }}.rpm
+    sha256: c1ce3fba00143e7f225b2200b18356da5e6361ea956c9d962d12eb20d25ea301  # [cross_target_platform == "linux-64"]
+    sha256: d7b7126ba2bc1a76dcbcca857db03262910e300c6503ecaa626590a1fa9b8125  # [cross_target_platform == "linux-aarch64"]
   # END source
 
 build:
   number: {{ build_number }}
   noarch: generic
   # This package builds cross targets so only need to run once.
-  skip: True  # [not (linux and x86_64)]
+  #skip: True  # [not (linux and x86_64)]
 
 outputs:
   - name: kernel-headers_{{ cross_target_platform }}
@@ -85,6 +85,9 @@ outputs:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
+      track_features:
+        # this is one version advanced from the default, so one feature
+        - sysroot_{{ cross_target_platform }}_{{ glibc_version }}
       run_exports:
         strong:
           - __glibc >={{ glibc_version }},<3.0.a0
@@ -100,9 +103,9 @@ outputs:
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib/libc.so.6
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/sbin/ldconfig
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
-        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/limits.h
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/limits.h        # [cross_target_platform == "linux-64"]
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h  # [cross_target_platform == "linux-64"]
-        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h  # [cross_target_platform != "linux-64"]
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h     # [cross_target_platform != "linux-64"]
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
         - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
