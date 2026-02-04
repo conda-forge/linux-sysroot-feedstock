@@ -9,7 +9,8 @@ import hashlib
 import logging
 import requests
 import os
-from ruamel_yaml import BaseLoader, load
+import re
+from ruamel.yaml import YAML
 from packaging.version import Version
 
 parser = argparse.ArgumentParser()
@@ -25,11 +26,13 @@ if not os.path.exists(cbc):
 with open(cbc, "r", encoding="utf-8") as f:
     cbc_content = "".join(f.readlines())
 
-config = load(cbc_content, Loader=BaseLoader)
+yaml = YAML(typ='rt')
+
+config = yaml.load(cbc_content)
 rpm_arches = config["centos_machine"]
 conda_arches = config["cross_target_platform"]
 
-rocky_version = "8.9"
+rocky_version = "9.5"
 
 url_template = (
     f"https://download.rockylinux.org/vault/rocky/{rocky_version}"
@@ -39,7 +42,31 @@ url_template = (
 
 el_ver = "el" + rocky_version.replace(".", "_")
 
-# determine version of glibc & kernel-headers
+# determine version of glibc & kernel-headers; in different subfolders as of rocky 9
+
+baseos_frontpage = url_template.format(subfolder="BaseOS", arch="x86_64", letter="g")
+logging.info(f"Fetching content of {baseos_frontpage}")
+baseos_pkgs_html = requests.get(baseos_frontpage).content.decode("utf-8")
+
+appstream_frontpage = url_template.format(subfolder="AppStream", arch="x86_64", letter="k")
+logging.info(f"Fetching content of {appstream_frontpage}")
+appstream_pkgs_html = requests.get(appstream_frontpage).content.decode("utf-8")
+
+pkg_pages = [
+    # most glibc
+    url_template.format(subfolder="BaseOS", arch="x86_64", letter="g"),
+    # glibc-headers
+    url_template.format(subfolder="AppStream", arch="x86_64", letter="g"),
+    # glibc-static
+    url_template.format(subfolder="devel", arch="x86_64", letter="g"),
+    # kernel headers
+    url_template.format(subfolder="AppStream", arch="x86_64", letter="k"),
+]
+
+page_html = ""
+for page in pkg_pages:
+    logging.info(f"Fetching content of {page}")
+    page_html += requests.get(page).content.decode("utf-8")
 
 # glibc artefacts have two build numbers plus the rocky version, e.g.
 #   2.28-236.el8_9.13.x86_64.rpm
@@ -58,43 +85,39 @@ kernel_headers_version = 0
 # <html>
 # <head><title>Index of /vault/8.9/BaseOS/x86_64/os/Packages/</title></head>
 # <body>
-# <h1>Index of /vault/8.9/BaseOS/x86_64/os/Packages/</h1><hr><pre><a href="../">../</a>
-# <a href="{pkg}-{string}.x86_64.rpm">{pkg}-{string}.x86_64.rpm</a> {date} {size}
-# <a href="{pkg}-{string}.x86_64.rpm">{pkg}-{string}.x86_64.rpm</a> {date} {size}
+# <h1>Index of /vault/8.9/BaseOS/x86_64/os/Packages/</h1>
+# <table ...>
+# <tr><td ...><a href="{pkg}-{string}.x86_64.rpm" title="...">{pkg}-{string}.x86_64.rpm</a></td>... {size} {date}</tr>
 # ...
-# </pre><hr></body>
-# </html>
+# </table>
+# ...
 # ```
-for letter in ["g", "k"]:
-    baseos_frontpage = url_template.format(subfolder="BaseOS", arch="x86_64", letter=letter)
-    logging.info(f"Fetching content of {baseos_frontpage}")
-    baseos_pkgs_html = requests.get(baseos_frontpage).content.decode("utf-8")
+for line in page_html.splitlines():
+    line = line.strip()
+    mo = re.match(r".*<a href=\"([^\"]+)\" title=.*", line)
+    if not mo:
+        continue
+    url = mo.group(1)
 
-    for line in baseos_pkgs_html.splitlines():
-        if not line.startswith("<a href=\""):
-            continue
-        line = line[len("<a href=\""):]
-        url = line[:line.index("\">")]
+    if el_ver not in url:
+        continue
 
-        if el_ver not in url:
-            continue
+    if not url.endswith("x86_64.rpm"):
+        continue
 
-        if not url.endswith("x86_64.rpm"):
-            continue
+    name, version, build = url.rsplit("-", 2)
 
-        name, version, build = url.rsplit("-", 2)
+    # glibc-2.28-236.el8.7.x86_64.rpm
+    if name == "glibc":
+        glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
+        glibc_build2 = max(glibc_build2, int(build.split(".")[2]))
+        glibc_version = version
 
-        # glibc-2.28-236.el8.7.x86_64.rpm
-        if name == "glibc":
-            glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
-            glibc_build2 = max(glibc_build2, int(build.split(".")[2]))
-            glibc_version = version
-
-        # kernel-headers-4.18.0-513.24.1.el8_9.x86_64.rpm
-        # kernel-headers-4.18.0-513.11.1.el8_9.0.1.x86_64.rpm
-        if name == "kernel-headers":
-            kernel_headers_build = max(kernel_headers_build, Version(build.rsplit(".", build.count(".") - 2)[0]))
-            kernel_headers_version = version
+    # kernel-headers-4.18.0-513.24.1.el8_9.x86_64.rpm
+    # kernel-headers-4.18.0-513.11.1.el8_9.0.1.x86_64.rpm
+    if name == "kernel-headers":
+        kernel_headers_build = max(kernel_headers_build, Version(build.rsplit(".", build.count(".") - 2)[0]))
+        kernel_headers_version = version
 
 if glibc_version == 0:
     raise ValueError("could not determine glibc version!")
@@ -125,7 +148,7 @@ def get_subfolder(pkg, string):
     # find in which subfolder the rpm lives on the rocky vault;
     # we assume that the layout for x86_64 works for all arches
     pkg_template = url_template + f"/{pkg}-{string}.x86_64.rpm"
-    for sf in ["BaseOS", "PowerTools", "AppStream"]:
+    for sf in ["BaseOS", "AppStream", "devel"]:
         url = pkg_template.format(arch="x86_64", subfolder=sf, letter=pkg[0])
         logging.info(f"Testing if {url} exists")
         if requests.get(url).status_code == 200:
@@ -151,7 +174,7 @@ for pkg, string in name2string.items():
         logging.info(f"Downloading {rpm_url}")
         r = requests.get(rpm_url)
         if r.status_code != 200:
-            logging.warning(f"Could not download rpm for {pkg} from {rpm_url}!")
+            logging.warning(f"{r.status_code}: Could not download rpm for {pkg} from {rpm_url}!")
             continue
         sha = hashlib.sha256(r.content).hexdigest();
         out_lines.append(f'    sha256: {sha}  # [cross_target_platform == "{conda_arch}"]')
