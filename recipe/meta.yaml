@@ -105,7 +105,7 @@ outputs:
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib/crt1.o
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/limits.h        # [cross_target_platform == "linux-64"]
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs-64.h  # [cross_target_platform == "linux-64"]
-        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h     # [cross_target_platform != "linux-64"]
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/bin/ldd
         - test -f $PREFIX/{{ target_machine }}-{{ ctng_vendor }}-linux-gnu/sysroot/lib/libc.so.6
