@@ -32,7 +32,7 @@ config = yaml.load(cbc_content)
 rpm_arches = config["centos_machine"]
 conda_arches = config["cross_target_platform"]
 
-rocky_version = "9.5"
+rocky_version = "10.0"
 
 url_template = (
     f"https://download.rockylinux.org/vault/rocky/{rocky_version}"
@@ -107,10 +107,13 @@ for line in page_html.splitlines():
 
     name, version, build = url.rsplit("-", 2)
 
-    # glibc-2.28-236.el8.7.x86_64.rpm
+    # glibc-2.28-236.el8_9.7.x86_64.rpm
     if name == "glibc":
-        glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
-        glibc_build2 = max(glibc_build2, int(build.split(".")[2]))
+        # build2 is not a given
+        bs = build.split('.')
+        glibc_build1 = max(glibc_build1, int(bs[0]))
+        if len(bs) > 4:
+            glibc_build2 = max(glibc_build2, int(bs[2]))
         glibc_version = version
 
     # kernel-headers-4.18.0-513.24.1.el8_9.x86_64.rpm
@@ -139,7 +142,6 @@ name2string = {
     "glibc-common": glibc_string,
     "glibc-devel": glibc_string,
     "glibc-gconv-extra": glibc_string,
-    "glibc-headers": glibc_string,
     "glibc-static": glibc_string,
     "kernel-headers": kernel_headers_string,
 }
