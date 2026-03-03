@@ -3,7 +3,7 @@ About linux-sysroot-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/linux-sysroot-feedstock/blob/main/LICENSE.txt)
 
-Home: https://repo.almalinux.org/vault/10.0
+Home: https://dl.rockylinux.org/pub/rocky/10.1
 
 Package license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
 

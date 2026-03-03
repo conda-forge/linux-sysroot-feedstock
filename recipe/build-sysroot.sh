@@ -45,6 +45,13 @@ ln -s $PWD/lib64 $PWD/usr/lib64
 ln -s $PWD/usr/sbin $PWD/sbin
 ln -s $PWD/usr/bin $PWD/bin
 
+# RISC-V ABI expects libraries (and sometimes other artifacts) to be installed into
+# /lib64/lp64d or /usr/lib64/lp64d. Make these be symlinks back to the parent libdir.
+# See https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/DRHT5YTPK4WWVGL3GIN5BF2IKX2ODHZ3/
+if [[ "${target_machine}" == "riscv64" ]]; then
+    (cd lib64 && ln -sf . lp64d)
+fi
+
 ## Linking or building against libsnsl produces binaries that don't run on recent Linux distributions.
 ## Libraries and headers removed here to prevent this. See
 ## https://github.com/conda-forge/rasterio-feedstock/issues/220
