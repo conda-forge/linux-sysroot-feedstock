@@ -1,8 +1,8 @@
 conda_forge_output_validation: true
 github:
-  branch_name: main
+  branch_name: v2.35
   tooling_branch_name: main
 conda_build:
   pkg_format: '2'
-azure:
+workflow_settings:
   store_build_artifacts: true

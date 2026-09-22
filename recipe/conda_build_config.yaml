@@ -1,34 +1,14 @@
 target_machine:
   - x86_64
   - aarch64
-  - powerpc64le
-  - riscv64
-  - s390x
-centos_machine:
-  - x86_64
-  - aarch64
-  - ppc64le
-  - riscv64
-  - s390x
 cross_target_platform:
   - linux-64
   - linux-aarch64
-  - linux-ppc64le
-  - linux-riscv64
-  - linux-s390x
-
 ctng_vendor:
   - conda
-
-# until it's the default in the pinning
-docker_image:
-  - quay.io/condaforge/linux-anvil-x86_64:alma10
-
 zip_keys:
   - - target_machine
     - cross_target_platform
-    - centos_machine
-
 with_features:
   - true
   - false

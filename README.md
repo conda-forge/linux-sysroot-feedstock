@@ -1,11 +1,15 @@
 About linux-sysroot-feedstock
 =============================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/linux-sysroot-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/linux-sysroot-feedstock/blob/v2.35/LICENSE.txt)
 
-Home: https://dl.rockylinux.org/pub/rocky/10.1
 
-Package license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
+About linux-sysroot
+-------------------
+
+Home: https://launchpad.net/ubuntu/jammy/+source/glibc
+
+Package license: LGPL-2.1-or-later AND GPL-2.0-or-later
 
 Summary: (CDT) The GNU libc libraries and header files for the Linux kernel for use by glibc
 
@@ -22,14 +26,51 @@ define structures and constants that are needed for building most standard
 programs and are also needed for rebuilding the glibc package.
 
 
+About kernel-headers_linux-64
+-----------------------------
+
+Home: https://www.kernel.org/
+
+Package license: GPL-2.0-only WITH Linux-syscall-note
+
+Summary: Linux UAPI headers from Ubuntu Jammy for the Conda compiler sysroot
+
+About kernel-headers_linux-aarch64
+----------------------------------
+
+Home: https://www.kernel.org/
+
+Package license: GPL-2.0-only WITH Linux-syscall-note
+
+Summary: Linux UAPI headers from Ubuntu Jammy for the Conda compiler sysroot
+
+About sysroot_linux-64
+----------------------
+
+Home: https://launchpad.net/ubuntu/jammy/+source/glibc
+
+Package license: LGPL-2.1-or-later AND GPL-2.0-or-later
+
+Summary: Ubuntu Jammy glibc 2.35 libraries and headers for the Conda compiler sysroot
+
+About sysroot_linux-aarch64
+---------------------------
+
+Home: https://launchpad.net/ubuntu/jammy/+source/glibc
+
+Package license: LGPL-2.1-or-later AND GPL-2.0-or-later
+
+Summary: Ubuntu Jammy glibc 2.35 libraries and headers for the Conda compiler sysroot
+
 Current build status
 ====================
 
 
-<table><tr><td>All platforms:</td>
+<table><tr>
+    <td>All platforms:</td>
     <td>
-      <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8889&branchName=main">
-        <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/linux-sysroot-feedstock?branchName=main">
+      <a href="https://github.com/conda-forge/linux-sysroot-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/linux-sysroot-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=v2.35">
       </a>
     </td>
   </tr>
@@ -42,14 +83,8 @@ Current release info
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-kernel--headers__linux--64-green.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/kernel-headers_linux-64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/kernel-headers_linux-64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/kernel-headers_linux-64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-64) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-kernel--headers__linux--aarch64-green.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-aarch64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/kernel-headers_linux-aarch64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-aarch64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/kernel-headers_linux-aarch64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-aarch64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/kernel-headers_linux-aarch64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-aarch64) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-kernel--headers__linux--ppc64le-green.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-ppc64le) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/kernel-headers_linux-ppc64le.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-ppc64le) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/kernel-headers_linux-ppc64le.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-ppc64le) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/kernel-headers_linux-ppc64le.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-ppc64le) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-kernel--headers__linux--riscv64-green.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-riscv64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/kernel-headers_linux-riscv64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-riscv64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/kernel-headers_linux-riscv64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-riscv64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/kernel-headers_linux-riscv64.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-riscv64) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-kernel--headers__linux--s390x-green.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-s390x) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/kernel-headers_linux-s390x.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-s390x) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/kernel-headers_linux-s390x.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-s390x) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/kernel-headers_linux-s390x.svg)](https://anaconda.org/conda-forge/kernel-headers_linux-s390x) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot__linux--64-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-64.svg)](https://anaconda.org/conda-forge/sysroot_linux-64) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot__linux--aarch64-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-aarch64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-aarch64.svg)](https://anaconda.org/conda-forge/sysroot_linux-aarch64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-aarch64.svg)](https://anaconda.org/conda-forge/sysroot_linux-aarch64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-aarch64.svg)](https://anaconda.org/conda-forge/sysroot_linux-aarch64) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot__linux--ppc64le-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-ppc64le) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-ppc64le.svg)](https://anaconda.org/conda-forge/sysroot_linux-ppc64le) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-ppc64le.svg)](https://anaconda.org/conda-forge/sysroot_linux-ppc64le) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-ppc64le.svg)](https://anaconda.org/conda-forge/sysroot_linux-ppc64le) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot__linux--riscv64-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-riscv64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-riscv64.svg)](https://anaconda.org/conda-forge/sysroot_linux-riscv64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-riscv64.svg)](https://anaconda.org/conda-forge/sysroot_linux-riscv64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-riscv64.svg)](https://anaconda.org/conda-forge/sysroot_linux-riscv64) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-sysroot__linux--s390x-green.svg)](https://anaconda.org/conda-forge/sysroot_linux-s390x) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/sysroot_linux-s390x.svg)](https://anaconda.org/conda-forge/sysroot_linux-s390x) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/sysroot_linux-s390x.svg)](https://anaconda.org/conda-forge/sysroot_linux-s390x) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/sysroot_linux-s390x.svg)](https://anaconda.org/conda-forge/sysroot_linux-s390x) |
 
 Installing linux-sysroot
 ========================
@@ -61,31 +96,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `kernel-headers_linux-64, kernel-headers_linux-aarch64, kernel-headers_linux-ppc64le, kernel-headers_linux-riscv64, kernel-headers_linux-s390x, sysroot_linux-64, sysroot_linux-aarch64, sysroot_linux-ppc64le, sysroot_linux-riscv64, sysroot_linux-s390x` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
-conda install kernel-headers_linux-64 kernel-headers_linux-aarch64 kernel-headers_linux-ppc64le kernel-headers_linux-riscv64 kernel-headers_linux-s390x sysroot_linux-64 sysroot_linux-aarch64 sysroot_linux-ppc64le sysroot_linux-riscv64 sysroot_linux-s390x
+conda install kernel-headers_linux-64 kernel-headers_linux-aarch64 sysroot_linux-64 sysroot_linux-aarch64
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
-mamba install kernel-headers_linux-64 kernel-headers_linux-aarch64 kernel-headers_linux-ppc64le kernel-headers_linux-riscv64 kernel-headers_linux-s390x sysroot_linux-64 sysroot_linux-aarch64 sysroot_linux-ppc64le sysroot_linux-riscv64 sysroot_linux-s390x
+mamba install kernel-headers_linux-64 kernel-headers_linux-aarch64 sysroot_linux-64 sysroot_linux-aarch64
 ```
 
-It is possible to list all of the versions of `kernel-headers_linux-64` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add kernel-headers_linux-64 kernel-headers_linux-aarch64 sysroot_linux-64 sysroot_linux-aarch64
+# for installing globally
+pixi global install kernel-headers_linux-64 kernel-headers_linux-aarch64 sysroot_linux-64 sysroot_linux-aarch64
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `kernel-headers_linux-64` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search kernel-headers_linux-64 --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search kernel-headers_linux-64 --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search kernel-headers_linux-64 --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -97,6 +174,8 @@ mamba repoquery whoneeds kernel-headers_linux-64 --channel conda-forge
 # List dependencies of `kernel-headers_linux-64`:
 mamba repoquery depends kernel-headers_linux-64 --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge

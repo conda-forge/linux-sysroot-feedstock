@@ -1,211 +1,60 @@
-"""
-run this in recipe/ folder like
-python update.py
-or
-python update.py -log=INFO
-"""
+"""Refresh Jammy package URLs/checksums: run from recipe/ with Python 3."""
 import argparse
 import gzip
-import hashlib
-import logging
-import pathlib
+from pathlib import Path
 import re
-import requests
-import os
-import xml.etree.ElementTree as ET
-from ruamel_yaml import BaseLoader, load
-from packaging.version import Version
+import urllib.request
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-log', '--loglevel', default='info')
-
-args = parser.parse_args()
-logging.basicConfig(level=args.loglevel.upper())
-
-cbc = os.path.join(".", "conda_build_config.yaml")
-if not os.path.exists(cbc):
-    raise ValueError("cannot load conda_build_config.yaml; execute script in recipe folder!")
-
-with open(cbc, "r", encoding="utf-8") as f:
-    cbc_content = "".join(f.readlines())
-
-config = load(cbc_content, Loader=BaseLoader)
-rpm_arches = config["centos_machine"]
-conda_arches = config["cross_target_platform"]
-
-distro_version = "10.1"
-rocky_base_url = f"https://dl.rockylinux.org/pub/rocky/{distro_version}"
-
-# second part intententionally not filled yet
-url_template = rocky_base_url + "/{subfolder}/{arch}/os/Packages"
-
-def get_repodata(subfolder):
-    # since the rockylinux repodata is >20MB, we cache the result, so that iterative runs
-    # during development don't always need to redownload the whole thing; we know from above
-    # that we're running in recipe folder, where we can add an appropriate .gitignore without
-    # the bot touching it (as opposed to the .gitignore in the feedstock root)
-    cache_dir = pathlib.Path("./.cache")
-    cache_dir.mkdir(exist_ok=True)
-    cache_file = cache_dir / f"rocky_repodata_{distro_version}_{subfolder}.cache"
-    if cache_file.exists():
-        logging.info(f"Loading cached {cache_file}")
-        rocky_repodata_raw = cache_file.read_bytes()
-    else:
-        logging.info("getting rockylinux channel metadata")
-        r = requests.get(rocky_base_url + f"/{subfolder}/x86_64/os/repodata/repomd.xml")
-        r.raise_for_status()
-        rocky_meta_repodata = ET.fromstring(r.content)
-        meta_ns = {"repo": "http://linux.duke.edu/metadata/repo"}
-        # Find the <data type="primary"> element
-        rocky_repodata_xml = rocky_meta_repodata.find("repo:data[@type='primary']", meta_ns)
-        # Extract its <location> child
-        rocky_repodata_rel_url = rocky_repodata_xml.find("repo:location", meta_ns).get("href")
-        rocky_repodata_url = rocky_base_url + f"/{subfolder}/x86_64/os/" + rocky_repodata_rel_url
-
-        logging.info(f"getting rockylinux repodata for subfolder {subfolder}")
-        r = requests.get(rocky_repodata_url)
-        r.raise_for_status()
-        rocky_repodata_raw = r.content
-        cache_file.write_bytes(rocky_repodata_raw)
-
-    return ET.fromstring(gzip.decompress(rocky_repodata_raw))
-
-rocky_repodata = {}
-rocky_repodata["BaseOS"] = get_repodata("BaseOS")
-rocky_repodata["AppStream"] = get_repodata("AppStream")
-
-def rpm_urls():
-    repo_ns = {"common": "http://linux.duke.edu/metadata/common"}
-    for loc in rocky_repodata["BaseOS"].findall(".//common:location", repo_ns):
-        href = loc.get("href")
-        if href:
-            yield href
-    # same for AppStream
-    for loc in rocky_repodata["AppStream"].findall(".//common:location", repo_ns):
-        href = loc.get("href")
-        if href:
-            yield href
-
-el_ver = "el" + distro_version.replace(".", "_")
-
-# glibc artefacts have two build numbers plus the distro version, e.g.
-#   2.39-58.el10_1.2.x86_64.rpm
-#   ↑    ↑     ↑   ↑
-#   └glibc_ver └distro_version
-#        └build1   └build2
-glibc_build1 = 0
-glibc_build2 = 0
-glibc_build3 = 0
-glibc_version = 0
-kernel_headers_build = Version("0.0.0")
-kernel_headers_version = 0
-
-for url in rpm_urls():
-    if el_ver not in url:
-        continue
-
-    if not url.endswith("x86_64.rpm"):
-        continue
-
-    artefact = re.sub(r"Packages\/[a-z]\/(.*)", r"\1", url)
-    name, version, build = artefact.rsplit("-", 2)
-    # glibc-2.39-58.el10_1.2.x86_64.rpm
-    if name == "glibc":
-        glibc_build1 = max(glibc_build1, int(build.split(".")[0]))
-        glibc_build2 = max(glibc_build2, int(build.split(".")[2]))
-        glibc_version = version
-
-    # kernel-headers-6.12.0-55.41.1.el10_0.x86_64.rpm
-    if name == "kernel-headers":
-        kernel_headers_build = max(kernel_headers_build, Version(build.rsplit(".", 3)[0]))
-        kernel_headers_version = version
-
-if glibc_version == 0:
-    raise ValueError("could not determine glibc version!")
-if kernel_headers_version == 0:
-    raise ValueError("could not determine kernel-headers version!")
-
-glibc_string = f"{glibc_version}-{glibc_build1}.{el_ver}.{glibc_build2}"
-kernel_headers_string = f"{kernel_headers_version}-{kernel_headers_build}.{el_ver}"
-
-logging.info(f"Determined {glibc_string=}")
-logging.info(f"Determined {kernel_headers_string=}")
-
-out_lines = []
-
-name2string = {
-    # package name to build string
-    "glibc": glibc_string,
-    "glibc-all-langpacks": glibc_string,
-    "glibc-common": glibc_string,
-    "glibc-devel": glibc_string,
-    "glibc-gconv-extra": glibc_string,
-    "glibc-static": glibc_string,
-    "kernel-headers": kernel_headers_string,
+ARCHES = {
+    "amd64": ("linux-64", "https://archive.ubuntu.com/ubuntu"),
+    "arm64": ("linux-aarch64", "https://ports.ubuntu.com/ubuntu-ports"),
 }
+PACKAGES = ("libc6", "libc6-dev", "libc-bin", "locales", "linux-libc-dev")
 
-def get_subfolder(pkg, string):
-    # find in which subfolder the rpm lives in the repository;
-    # this could be done in a more structured way for rocky (due to repodata.xml),
-    # but this code also works for alma with minimal modifications, so leave it;
-    # we assume that the layout for x86_64 works for all arches
-    pkg_template = url_template + f"/{pkg[0]}/{pkg}-{string}.x86_64.rpm"
-    for sf in ["BaseOS", "CRB", "AppStream"]:
-        url = pkg_template.format(arch="x86_64", subfolder=sf)
-        logging.info(f"Testing if {url} exists")
-        if requests.get(url).status_code == 200:
-            return sf
-    raise ValueError(f"could not find valid artefact for {pkg}-{string}!")
 
-for pkg, string in name2string.items():
-    out_lines.append(f"  - folder: binary-{pkg}")
-    subfolder = get_subfolder(pkg, string)
-    url_jinja = (
-        "{{ rpm_url }}" if subfolder == "BaseOS" else
-        "{{ crb_rpm_url }}" if subfolder == "CRB" else
-        "{{ appstream_rpm_url }}"
-    )
-    # quadruple curly braces to keep {{ }} jinja templates
-    out_lines.append(f"    url: {url_jinja}/{pkg[0]}/{pkg}-{string}.{{{{ centos_machine }}}}.rpm")
-
-    for rpm_arch, conda_arch in zip(rpm_arches, conda_arches):
-        rpm_url = (
-            url_template.format(arch=rpm_arch, subfolder=subfolder)
-            + f"/{pkg[0]}/{pkg}-{string}.{rpm_arch}.rpm"
+def package_index(base, arch):
+    url = f"{base}/dists/jammy-updates/main/binary-{arch}/Packages.gz"
+    with urllib.request.urlopen(url, timeout=60) as response:
+        data = gzip.decompress(response.read()).decode()
+    packages = {}
+    for paragraph in data.split("\n\n"):
+        fields = dict(
+            line.split(": ", 1)
+            for line in paragraph.splitlines()
+            if ": " in line and not line.startswith(" ")
         )
-        logging.info(f"Downloading {rpm_url}")
-        r = requests.get(rpm_url)
-        if r.status_code != 200:
-            logging.warning(f"Could not download rpm for {pkg} from {rpm_url}!")
-            continue
-        sha = hashlib.sha256(r.content).hexdigest();
-        out_lines.append(f'    sha256: {sha}  # [cross_target_platform == "{conda_arch}"]')
-    out_lines.append("")
+        if fields.get("Package") in PACKAGES:
+            packages[fields["Package"]] = fields
+    return packages
 
-new_meta = []
 
-with open("meta.yaml") as f:
-    old_meta = f.readlines()
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--glibc-version", default="2.35-0ubuntu3.15")
+    parser.add_argument("--kernel-version", default="5.15.0-191.201")
+    args = parser.parse_args()
+    if not args.glibc_version.startswith("2.35-"):
+        parser.error("this branch packages glibc 2.35")
+    indices = {arch: package_index(base, arch) for arch, (_, base) in ARCHES.items()}
+    lines = []
+    for package in PACKAGES:
+        lines.extend([f"  - folder: binary-{package}", f"    fn: {package}.deb"])
+        expected = args.kernel_version if package == "linux-libc-dev" else args.glibc_version
+        for arch, (platform, base) in ARCHES.items():
+            record = indices[arch][package]
+            if record["Version"] != expected:
+                raise ValueError(f"{arch}/{package}: expected {expected}, found {record['Version']}")
+            selector = f'  # [cross_target_platform == "{platform}"]'
+            lines.append(f"    url: {base}/{record['Filename']}{selector}")
+            lines.append(f"    sha256: {record['SHA256']}{selector}")
+        lines.append("")
+    recipe = Path("meta.yaml")
+    text = recipe.read_text()
+    text = re.sub(r"  # START source\n.*?  # END source", "  # START source\n" + "\n".join(lines) + "  # END source", text, flags=re.S)
+    text = re.sub(r'{% set kernel_headers_version = ".*?" %}', '{% set kernel_headers_version = "' + args.kernel_version.split('-')[0] + '" %}', text)
+    recipe.write_text(text)
+    print("Updated source pins. Bump build_number before publishing changed artifacts.")
 
-skip = False
-for line in old_meta:
-    if line.startswith("{% set distro_version"):
-        line = f'{{% set distro_version = "{distro_version}" %}}'
-    elif line.startswith("{% set glibc_version"):
-        line = f'{{% set glibc_version = "{glibc_version}" %}}'
-    elif line.startswith("{% set kernel_headers_version"):
-        line = f'{{% set kernel_headers_version = "{kernel_headers_version}" %}}'
-    elif line.startswith("  # END source"):
-        skip = False
-        # skip empty line at the end
-        new_meta.extend(out_lines[:-1])
 
-    if not skip:
-        new_meta.append(line.rstrip())
-        if line.startswith("  # START source"):
-            skip = True
-
-new_meta.append("")
-
-with open("meta.yaml", "w") as f:
-    f.write("\n".join(new_meta))
+if __name__ == "__main__":
+    main()

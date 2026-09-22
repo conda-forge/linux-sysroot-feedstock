@@ -1,79 +1,61 @@
 #!/bin/bash
-set -ex
+set -euxo pipefail
+source "${RECIPE_DIR}/extract-deb.sh"
+sysroot="${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot"
+mkdir -p "${sysroot}"
+for package in libc6 libc6-dev libc-bin locales; do
+    extract_deb "$package"
+    cp -a --remove-destination "${SRC_DIR}/binary-${package}/root/." "${sysroot}/"
+done
+cd "${sysroot}"
 
-mkdir -p ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot
-pushd ${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot > /dev/null 2>&1
-cp -Rf "${SRC_DIR}"/binary-glibc/* .
-mkdir -p usr/include
-cp -Rf "${SRC_DIR}"/binary-glibc-devel/* usr/
-cp -Rf "${SRC_DIR}"/binary-glibc-static/* usr/
-cp -Rf "${SRC_DIR}"/binary-glibc-common/* usr/
-cp -Rf "${SRC_DIR}"/binary-glibc-gconv-extra/* usr/
-cp -Rf "${SRC_DIR}"/binary-glibc-all-langpacks/* usr/
-
-# In alma10 /lib64 is a symlink to /usr/lib64
-# conda-build prefix detection expects /lib64 to not be a symlink
-# so we reverse the symlink so that /usr/lib64 is a symlink to /lib64
-# see https://github.com/conda/conda-build/issues/5853
-# Once that is fixed, we can revert this change
+# Ubuntu uses multiarch subdirectories; Conda compilers expect lib64 and
+# usr/include. Keep lib64 as a directory for conda-build sysroot detection.
 mkdir -p lib64
-mkdir -p usr
+# Discard Ubuntu's loader aliases before merging the real loader into lib64.
+find lib lib64 -maxdepth 1 -type l -name 'ld-linux-*.so.*' -delete
+cp -a --remove-destination "lib/${target_machine}-linux-gnu/." lib64/
+cp -a --remove-destination "usr/lib/${target_machine}-linux-gnu/." lib64/
+rm -r "lib/${target_machine}-linux-gnu" "usr/lib/${target_machine}-linux-gnu"
+cp -a --remove-destination "usr/include/${target_machine}-linux-gnu/." usr/include/
+rm -r "usr/include/${target_machine}-linux-gnu"
+# Preserve architecture-independent data (gconv/locale data, ld.so, etc.).
+cp -a --remove-destination lib/. lib64/
+cp -a --remove-destination usr/lib/. lib64/
+rm -r lib usr/lib
+ln -s lib64 lib
+ln -s ../lib64 usr/lib
+ln -s ../lib64 usr/lib64
 
-if [[ -d "usr/lib" ]]; then
-    mv usr/lib/* lib64/
-    rm -rf usr/lib
+# Rewrite multiarch paths in GNU ld scripts; ld resolves these within --sysroot.
+for script in lib64/libc.so lib64/libm.so; do
+    # libm.so is a linker script on x86-64 and a symlink on aarch64.
+    if [[ ! -L "$script" ]]; then
+        sed -i "s@/usr/lib/${target_machine}-linux-gnu/@/usr/lib64/@g; s@/lib/${target_machine}-linux-gnu/@/lib64/@g" "$script"
+    fi
+done
+# The dynamic-loader symlinks in the Ubuntu packages use absolute paths.
+for path in lib64/*; do
+    if [[ -L "$path" && "$(readlink "$path")" = /* ]]; then
+        ln -sf "$(basename "$(readlink "$path")")" "$path"
+    fi
+done
+mkdir -p usr/bin usr/sbin
+if [[ -d sbin ]]; then
+    cp -a --remove-destination sbin/. usr/sbin/
+    rm -r sbin
 fi
-if [[ -d "usr/lib64" ]]; then
-    mv usr/lib64/* lib64/
-    rm -rf usr/lib64
-fi
-if [ -d "lib" ]; then
-    mv lib/* lib64/
-    rm -rf lib
-fi
-if [ -d "sbin" ]; then
-    mv sbin/* usr/sbin/
-    rm -rf sbin
-fi
-if [ -d "bin" ]; then
-    mv bin/* usr/bin/
-    rm -rf bin
-fi
-ln -s $PWD/lib64 $PWD/lib
-ln -s $PWD/lib64 $PWD/usr/lib
-ln -s $PWD/lib64 $PWD/usr/lib64
-ln -s $PWD/usr/sbin $PWD/sbin
-ln -s $PWD/usr/bin $PWD/bin
+ln -s usr/sbin sbin
+ln -s usr/bin bin
+ln -s "../../lib64/$(basename "$(find lib64 -maxdepth 1 -name 'ld-linux-*.so.*' | head -n 1)")" usr/bin/ld.so
 
-# RISC-V ABI expects libraries (and sometimes other artifacts) to be installed into
-# /lib64/lp64d or /usr/lib64/lp64d. Make these be symlinks back to the parent libdir.
-# See https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/DRHT5YTPK4WWVGL3GIN5BF2IKX2ODHZ3/
-if [[ "${target_machine}" == "riscv64" ]]; then
-    (cd lib64 && ln -sf . lp64d)
-fi
-
-## Linking or building against libsnsl produces binaries that don't run on recent Linux distributions.
-## Libraries and headers removed here to prevent this. See
-## https://github.com/conda-forge/rasterio-feedstock/issues/220
-rm -f lib64/libnsl*.so*
-rm -f usr/lib64/libnsl.{a,so}
-rm -f usr/include/rpcsvc/ypclnt.h
-rm -f usr/include/rpcsvc/yp.h
-rm -f usr/include/rpcsvc/yppasswd.h
-rm -f usr/include/rpcsvc/yppasswd.x
-rm -f usr/include/rpcsvc/yp_prot.h
-rm -f usr/include/rpcsvc/ypupd.h
-rm -f usr/include/rpcsvc/yp.x
-
+# Match the existing sysroot policy: external packages provide libnsl/libcrypt.
+rm -f lib64/libnsl* lib64/libcrypt* usr/include/crypt.h usr/include/rpcsvc/yp*
 mkdir -p usr/share
-ln -sf ${PREFIX}/share/zoneinfo usr/share/zoneinfo
-
-# we don't need these
-rm -rf usr/share/man
-rm -rf usr/lib/systemd
-rm -rf usr/share/doc
-
-popd
-
-mkdir -p ${PREFIX}/bin
-echo "--sysroot=${PREFIX}/${target_machine}-${ctng_vendor}-linux-gnu/sysroot" >> ${PREFIX}/bin/${target_machine}-${ctng_vendor}-linux-gnu.cfg
+# Ubuntu's absolute alias points outside the sysroot and may be absent on the
+# build host. Keep locale tools/data self-contained after prefix relocation.
+ln -sfn ../../../etc/locale.alias usr/share/locale/locale.alias
+ln -sf "${PREFIX}/share/zoneinfo" usr/share/zoneinfo
+rm -rf usr/share/man usr/share/doc usr/lib/systemd
+mkdir -p "${PREFIX}/bin"
+echo "--sysroot=${sysroot}" >> "${PREFIX}/bin/${target_machine}-${ctng_vendor}-linux-gnu.cfg"

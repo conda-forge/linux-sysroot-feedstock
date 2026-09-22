@@ -1,75 +1,48 @@
-{% set distro_version = "10.1" %}
-{% set glibc_version = "2.39" %}
-{% set kernel_headers_version = "6.12.0" %}
-{% set build_number = "6" %}
-
-{% set rpm_url = "https://dl.rockylinux.org/pub/rocky/" ~ distro_version ~ "/BaseOS/" ~ centos_machine ~ "/os/Packages" %}
-{% set appstream_rpm_url = "https://dl.rockylinux.org/pub/rocky/" ~ distro_version ~ "/AppStream/" ~ centos_machine ~ "/os/Packages" %}
-{% set crb_rpm_url = "https://dl.rockylinux.org/pub/rocky/" ~ distro_version ~ "/CRB/" ~ centos_machine ~ "/os/Packages" %}
+{% set glibc_version = "2.35" %}
+{% set kernel_headers_version = "5.15.0" %}
+{% set build_number = 0 %}
 
 package:
   name: linux-sysroot
-  version: {{ glibc_version }}
+  version: "{{ glibc_version }}"
 
 source:
-  # for calculating the hashes below, you can run `python update.py`
-  # in the recipe folder (only `distro_version` needs to be set therein)
+  # Refresh with `python update.py` from recipe/; see its version arguments.
   # START source
-  - folder: binary-glibc
-    url: {{ rpm_url }}/g/glibc-2.39-58.el10_1.2.{{ centos_machine }}.rpm
-    sha256: e217e8d37cb3e11618ad1a96ddbc9316362d6f532228336ae0adfdd169dc3bac  # [cross_target_platform == "linux-64"]
-    sha256: f60b97cf2a89804d6b9fe0bfd74e19aa8c8cbf52baf0c35fe1c6f8b76a3798c9  # [cross_target_platform == "linux-aarch64"]
-    sha256: 045ee6390d3f3b26a704a0b2b8f4696aeb2c0a2af31fac77b9e69e7bfffd7376  # [cross_target_platform == "linux-ppc64le"]
-    sha256: f515f512c2d02febb4f2e0590fe47e71e54e7d6ac81346f45b14020c4cf4e306  # [cross_target_platform == "linux-riscv64"]
-    sha256: 625665c8a3f87b44e1cf52ee22b84934f61ccb0052675b3413e379f622474dbe  # [cross_target_platform == "linux-s390x"]
+  - folder: binary-libc6
+    fn: libc6.deb
+    url: https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6_2.35-0ubuntu3.15_amd64.deb  # [cross_target_platform == "linux-64"]
+    sha256: 79e35256227e16a607c154cdeb8d76ff12d20e31de286ea7fd9ad3b96fe0452d  # [cross_target_platform == "linux-64"]
+    url: https://ports.ubuntu.com/ubuntu-ports/pool/main/g/glibc/libc6_2.35-0ubuntu3.15_arm64.deb  # [cross_target_platform == "linux-aarch64"]
+    sha256: dd88cc85dcfbac19c0c9b606676b7b1b87f851d75afa5c830fc5ba1293a30833  # [cross_target_platform == "linux-aarch64"]
 
-  - folder: binary-glibc-all-langpacks
-    url: {{ rpm_url }}/g/glibc-all-langpacks-2.39-58.el10_1.2.{{ centos_machine }}.rpm
-    sha256: 2bd905d813ee7513cee106bbe06f4166eb52021a36980db5d9a639ad48c1d989  # [cross_target_platform == "linux-64"]
-    sha256: 7cd0a36b22fb54759cf33384c2904a8f119f0137f4a18849a31533bf11771314  # [cross_target_platform == "linux-aarch64"]
-    sha256: 73e1b4b182fc79e3b6a370f3c85e8f347fd442d58a6c265774cd6eea1fa70563  # [cross_target_platform == "linux-ppc64le"]
-    sha256: c446b176e257a0b9ff217ea93052b5e664e051fb6fcde24deafa191b850a3a8b  # [cross_target_platform == "linux-riscv64"]
-    sha256: f8eda85ba4e928ea060dda485a7f6a287c0a8ab50bcd0d39fbdb2ca99d24c97a  # [cross_target_platform == "linux-s390x"]
+  - folder: binary-libc6-dev
+    fn: libc6-dev.deb
+    url: https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6-dev_2.35-0ubuntu3.15_amd64.deb  # [cross_target_platform == "linux-64"]
+    sha256: ce51ae233a9f800a040de2d0cd5983ef86f558c623b342c80942301d7f453f48  # [cross_target_platform == "linux-64"]
+    url: https://ports.ubuntu.com/ubuntu-ports/pool/main/g/glibc/libc6-dev_2.35-0ubuntu3.15_arm64.deb  # [cross_target_platform == "linux-aarch64"]
+    sha256: e1da77e87451ca8f41b2757fe274bca357fd5f7498afe47c05360681d0727bae  # [cross_target_platform == "linux-aarch64"]
 
-  - folder: binary-glibc-common
-    url: {{ rpm_url }}/g/glibc-common-2.39-58.el10_1.2.{{ centos_machine }}.rpm
-    sha256: 28079411fea51526ef5bb53b71e2205e4d4ffe06d5851e7728140d333b4643ad  # [cross_target_platform == "linux-64"]
-    sha256: 498bd12db163bb865bac3a040299701286ae6afd736a506397c7ba4d43f7a217  # [cross_target_platform == "linux-aarch64"]
-    sha256: e402cdae00304a660b3cb0e0d1e9e846d29a74bd42df86a6c5aad3ae1ffd6276  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 90f42e270953849ac06824ec318a0ac08a69d37ff7e77fb27190aed189a68c9d  # [cross_target_platform == "linux-riscv64"]
-    sha256: e4f0c72f60d880b564845fa1a0b36ba9f705d143427b9b167f4c7d5161d8dc82  # [cross_target_platform == "linux-s390x"]
+  - folder: binary-libc-bin
+    fn: libc-bin.deb
+    url: https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc-bin_2.35-0ubuntu3.15_amd64.deb  # [cross_target_platform == "linux-64"]
+    sha256: 3dd58c112ada83860b00b8f0fdb5ff8923f64f4f14b932648cc19e31b0981fca  # [cross_target_platform == "linux-64"]
+    url: https://ports.ubuntu.com/ubuntu-ports/pool/main/g/glibc/libc-bin_2.35-0ubuntu3.15_arm64.deb  # [cross_target_platform == "linux-aarch64"]
+    sha256: e222d3db00057f6c8c7ce1e9c1668d687d34f54d551938af4a4a4ecc24c84bc3  # [cross_target_platform == "linux-aarch64"]
 
-  - folder: binary-glibc-devel
-    url: {{ appstream_rpm_url }}/g/glibc-devel-2.39-58.el10_1.2.{{ centos_machine }}.rpm
-    sha256: 3db7dcc7611f881f895d8d99cef11455878e7cb4babb5a814dfa52d0c4134ff8  # [cross_target_platform == "linux-64"]
-    sha256: 5eddb48c95743b136a1b25618bb26ab704aaf0886d9e87e685939ade712eacd2  # [cross_target_platform == "linux-aarch64"]
-    sha256: 5799a891044ae7608ab45ae45c1505fef8c92a6b02023c330f62c4b2545c2667  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 92af5315ca9940e7ea37841d85b6cc29355a1fa49096ead241e25efa71b7ae32  # [cross_target_platform == "linux-riscv64"]
-    sha256: e93739fb78af97dee1556b3b4dadec98d5f39072b0029cc7f7d9e35474c908eb  # [cross_target_platform == "linux-s390x"]
+  - folder: binary-locales
+    fn: locales.deb
+    url: https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/locales_2.35-0ubuntu3.15_all.deb  # [cross_target_platform == "linux-64"]
+    sha256: 9094f7e6c619a385b05995e0d71d12122368fd3d2f0526a5298a9bd392a94b64  # [cross_target_platform == "linux-64"]
+    url: https://ports.ubuntu.com/ubuntu-ports/pool/main/g/glibc/locales_2.35-0ubuntu3.15_all.deb  # [cross_target_platform == "linux-aarch64"]
+    sha256: 9094f7e6c619a385b05995e0d71d12122368fd3d2f0526a5298a9bd392a94b64  # [cross_target_platform == "linux-aarch64"]
 
-  - folder: binary-glibc-gconv-extra
-    url: {{ rpm_url }}/g/glibc-gconv-extra-2.39-58.el10_1.2.{{ centos_machine }}.rpm
-    sha256: a760bf99f7b9ac736acf831cd07a1d6b0c772d6dc21df2f3f601715c1c001856  # [cross_target_platform == "linux-64"]
-    sha256: 1fd35586a6d71acae305495479d58629a37bcff4b8ba930dc6333664c62dd8fc  # [cross_target_platform == "linux-aarch64"]
-    sha256: de6ef337780c3b43316e00c6575221ecb64a1b166e4734dd4812959ca492bc8b  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 5a218ec7690e9a5cdbf84b12d52eef3565514955c08f7552f9c5d1bfe1df71cf  # [cross_target_platform == "linux-riscv64"]
-    sha256: e911cdf6f2f658ed5aecf08caec5a9405a6c62a73d1286e2b7a975d58fca459d  # [cross_target_platform == "linux-s390x"]
-
-  - folder: binary-glibc-static
-    url: {{ crb_rpm_url }}/g/glibc-static-2.39-58.el10_1.2.{{ centos_machine }}.rpm
-    sha256: f454e365d87c1ade5002c56ade984265fb301bc4ffd25d3a8a5eb39a7b993388  # [cross_target_platform == "linux-64"]
-    sha256: 0b3b473423e46325a64f7c1f7d14865961ad52446f2acb868b176537d3e33d3a  # [cross_target_platform == "linux-aarch64"]
-    sha256: 0eb9292c0bc51be7b332d10bcf939e0b8ef12a8cc14e8935faf16acdfa6e17f3  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 76d0780b87c9151dfe7eea5b2bec20bac5b9f81dc461fa3c6cf0f508b806ef19  # [cross_target_platform == "linux-riscv64"]
-    sha256: 493eb53f8775e78259357dce8c94a1ff353bc850c575d9c2931aed62ec071079  # [cross_target_platform == "linux-s390x"]
-
-  - folder: binary-kernel-headers
-    url: {{ appstream_rpm_url }}/k/kernel-headers-6.12.0-124.8.1.el10_1.{{ centos_machine }}.rpm
-    sha256: 95b1540b4ca96193cbcbb2524d4e2aa944a207f802387b415157ec733f85f85f  # [cross_target_platform == "linux-64"]
-    sha256: 2d72d903385a4ccb8882491da229d3442d6c370c0b446161e858fe3ed0acbcf5  # [cross_target_platform == "linux-aarch64"]
-    sha256: 2c2779863c4c7929fa2fb772b5409149907f76922665f9a1fa499a6d1426090e  # [cross_target_platform == "linux-ppc64le"]
-    sha256: 1a63bef972091842a90bb20727511788289a28d1d7717a8148deb89c1d70367e  # [cross_target_platform == "linux-riscv64"]
-    sha256: f85f84222d2a84795e60ffca66d0592eede8d7ba0037e58e469790ef7109ff42  # [cross_target_platform == "linux-s390x"]
+  - folder: binary-linux-libc-dev
+    fn: linux-libc-dev.deb
+    url: https://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-libc-dev_5.15.0-191.201_amd64.deb  # [cross_target_platform == "linux-64"]
+    sha256: 716aff7595cee9b427f23228e40829df437a415055e3e9867a76c2d59f3f1b75  # [cross_target_platform == "linux-64"]
+    url: https://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-libc-dev_5.15.0-191.201_arm64.deb  # [cross_target_platform == "linux-aarch64"]
+    sha256: 83417011bd0932781e281057669ad424e45944e2cdc9d5e2fab2c8e6ee29cd16  # [cross_target_platform == "linux-aarch64"]
   # END source
 
 build:
@@ -77,15 +50,25 @@ build:
 
 outputs:
   - name: kernel-headers_{{ cross_target_platform }}
-    version: {{ kernel_headers_version }}
+    version: "{{ kernel_headers_version }}"
     script: build-kernel-headers.sh
     build:
       noarch: generic
       binary_relocation: False
       detect_binary_files_with_prefix: False
     requirements:
+      build:
+        - libarchive
       run_constrained:
         - sysroot_{{ cross_target_platform }} =={{ glibc_version }}
+    about:
+      home: https://www.kernel.org/
+      summary: Linux UAPI headers from Ubuntu Jammy for the Conda compiler sysroot
+      license: GPL-2.0-only WITH Linux-syscall-note
+      license_file:
+        - binary-linux-libc-dev/root/usr/share/doc/linux-libc-dev/copyright
+        - licenses/GPL-2.0.txt
+        - licenses/Linux-syscall-note.txt
     test:
       commands:
         # the files below are just a sample of the full content
@@ -113,20 +96,36 @@ outputs:
         strong:
           - __glibc >={{ glibc_version }},<3.0.a0
     requirements:
+      build:
+        - libarchive
       host:
         - tzdata
       run:
         - __glibc >={{ glibc_version }}     # [not with_features]
         - {{ pin_subpackage('kernel-headers_' ~ cross_target_platform, exact=True) }}
         - tzdata
+    about:
+      home: https://launchpad.net/ubuntu/jammy/+source/glibc
+      summary: Ubuntu Jammy glibc 2.35 libraries and headers for the Conda compiler sysroot
+      license: LGPL-2.1-or-later AND GPL-2.0-or-later
+      license_family: GPL
+      license_file:
+        - binary-libc6/root/usr/share/doc/libc6/copyright
+        - licenses/GPL-2.0.txt
+        - licenses/LGPL-2.1.txt
     test:
+      requires:
+        - gcc_linux-64 11.4.0  # [cross_target_platform == "linux-64"]
+        - gxx_linux-64 11.4.0  # [cross_target_platform == "linux-64"]
+      files:
+        - test-sysroot.sh
+        - test-sysroot.c
+        - test-sysroot.cpp
       commands:
+        - bash test-sysroot.sh  # [cross_target_platform == "linux-64"]
         # for conda-build sysroot detection
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib64
         - test ! -L $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib64
-        # RISC-V ABI uses /{,usr/}lib64/lp64d; we provide it as a symlink to the libdir
-        - test -L $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/lib64/lp64d      # [cross_target_platform == "linux-riscv64"]
-        - test -L $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/lib64/lp64d  # [cross_target_platform == "linux-riscv64"]
         # the files below are just a sample of the full content
         {% for path_fragment in ["lib", "lib64", "usr/lib", "usr/lib64"] %}
         # libraries & special objects
@@ -153,16 +152,22 @@ outputs:
         - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/include/gnu/stubs.h      # [cross_target_platform != "linux-64"]
         # locale metadata
         - test -d $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale
+        - test -f $PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale/locale.alias
+        - test "$(readlink "$PREFIX/{{ target_machine }}-conda-linux-gnu/sysroot/usr/share/locale/locale.alias")" = ../../../etc/locale.alias
         # absence of removed libraries
         - find "${PREFIX}" \( -name 'libnsl*' -o -path '*/rpcsvc/yp*' \) | { ! grep . ; }
         - find "${PREFIX}" \( -name 'libcrypt*' -o -name 'crypt.*' \) | { ! grep . ; }
 
 about:
-  home: https://dl.rockylinux.org/pub/rocky/{{ distro_version }}
-  license: LGPL-2.0-or-later AND LGPL-2.0-or-later WITH exceptions AND GPL-2.0-or-later
+  home: https://launchpad.net/ubuntu/jammy/+source/glibc
+  license: LGPL-2.1-or-later AND GPL-2.0-or-later
   license_family: GPL
-  license_file: LICENSE
-  # license files are packaged with source
+  license_file:
+    - binary-libc6/root/usr/share/doc/libc6/copyright
+    - binary-linux-libc-dev/root/usr/share/doc/linux-libc-dev/copyright
+    - licenses/GPL-2.0.txt
+    - licenses/LGPL-2.1.txt
+    - licenses/Linux-syscall-note.txt
   summary: "(CDT) The GNU libc libraries and header files for the Linux kernel for use by glibc"
   description: |
         The glibc package contains standard libraries which are used by multiple
