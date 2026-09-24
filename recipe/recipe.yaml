@@ -15,7 +15,6 @@ outputs:
   - package:
       name: sysroot_${{ target_platform }}
     build:
-      number: 0
       script:
         - set -ex
         - mkdir -p ${PREFIX}/bin
@@ -49,8 +48,6 @@ outputs:
 
   - package:
       name: system-linux-sysroot
-    build:
-      number: 0
     requirements:
       run:
         - ${{ pin_subpackage("sysroot_" ~ target_platform, exact=True) }}
